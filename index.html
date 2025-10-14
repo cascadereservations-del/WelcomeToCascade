@@ -8,6 +8,10 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="no-referrer">
     <meta name="format-detection" content="telephone=yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -46,6 +50,7 @@
             position: relative;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            letter-spacing: 0.01em;
         }
         
         body::before {
@@ -136,7 +141,7 @@
         
         .nav-inactive {
             color: var(--charcoal);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             background: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(10px);
         }
@@ -183,7 +188,7 @@
         
         .content-section {
             display: none;
-            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .content-section.active {
@@ -193,7 +198,7 @@
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px);
             }
             to {
                 opacity: 1;
@@ -230,7 +235,7 @@
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(212, 175, 55, 0.15);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         @media (min-width: 768px) {
@@ -280,7 +285,7 @@
             background: linear-gradient(135deg, var(--bronze) 0%, var(--dark-bronze) 100%);
             color: white;
             box-shadow: 0 4px 12px rgba(157, 124, 79, 0.3);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -312,7 +317,6 @@
             }
         }
         
-        /* Custom Modal Styles */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -323,7 +327,7 @@
             background: rgba(44, 40, 37, 0.7);
             backdrop-filter: blur(8px);
             z-index: 9999;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.2s ease;
         }
         
         .modal-overlay.active {
@@ -343,13 +347,13 @@
             width: 100%;
             padding: 2rem;
             position: relative;
-            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(40px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -373,7 +377,7 @@
             border-radius: 0.75rem;
             font-weight: 600;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             cursor: pointer;
             border: none;
             display: inline-flex;
@@ -402,6 +406,18 @@
         .modal-btn-secondary:hover {
             background: rgba(157, 124, 79, 0.2);
             border-color: var(--bronze);
+        }
+
+        .premium-highlight {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(157, 124, 79, 0.12) 100%);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 24px rgba(157, 124, 79, 0.12);
+        }
+
+        .experience-card {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(157, 124, 79, 0.15) 100%);
+            border: 3px solid var(--accent-gold);
+            box-shadow: 0 16px 48px rgba(157, 124, 79, 0.2);
         }
         
         .copyright-footer {
@@ -542,41 +558,48 @@
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
         }
+
+        .transport-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--bronze);
+            font-weight: 600;
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 0.5rem;
+            border: 1.5px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .transport-link:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: var(--bronze);
+            transform: translateX(2px);
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Proprietary Notice -->
     <div style="display: none;">
         <!-- 
         ═══════════════════════════════════════════════════════════════
         PROPRIETARY AND CONFIDENTIAL
         © 2025 Cascade Hideaway. All Rights Reserved.
         
-        This document contains proprietary information belonging to
-        Cascade Hideaway. Unauthorized use, reproduction, or distribution
-        of this material is strictly prohibited and may be unlawful.
-        
-        For authorized use by Cascade Hideaway guests only.
-        Document ID: CH-GUEST-GUIDE-2025-v11.1
-        Enhanced Version with Updated Dining Guide & Improved UX
-        
-        Updates in v11.1:
-        - Improved amenity descriptions (climate control, entertainment, storage)
-        - Added Oona Café & Co. as featured cafe option
-        - Highlighted Coffee Project as closest cafe (2.6 km, 5 mins)
-        - Enhanced airport transportation options (added buses & tricycles)
-        - Replaced generic CTA with valuable planning guide in Explore section
-        - Added shoe rack and complimentary slippers information
-        - Enhanced emergency contacts with descriptions
-        - Added Airbnb review link and direct contact information in Departure tab
-        - Improved cafe section layout with better hierarchy
-        - Minor typography and spacing refinements
+        Document ID: CH-GUEST-GUIDE-2025-v17.2
+        Updates in v17.2:
+        - Reordered amenities: Premium Bedding + Entertainment first, WiFi second
+        - Fixed transport link to scroll to Seamless Arrival section
+        - Changed Tiongson Arcade icon to BBQ flame emoji
+        - Added 3 new restaurants: Caffe Summit, Tambilawan, Mint Cafe
         ═══════════════════════════════════════════════════════════════
         -->
     </div>
 
-    <!-- Custom Departure Confirmation Modal -->
     <div id="departureModal" class="modal-overlay">
         <div class="modal-content">
             <div class="text-center mb-6">
@@ -634,28 +657,28 @@
             
             <section id="welcome" class="content-section active">
                 <div class="content-card p-6 sm:p-8 md:p-12">
-                    <div class="text-center mb-6">
-                        <p class="text-4xl md:text-5xl mb-4">🌿</p>
-                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-light serif-font mb-3" style="color: var(--dark-bronze);">Welcome to Cascade Hideaway</h2>
-                        <p class="text-base md:text-lg italic tracking-wide" style="color: var(--bronze);">Hotel Comfort, Home Warmth</p>
+                    <div class="text-center mb-8">
+                        <p class="text-4xl md:text-5xl mb-5">🌿</p>
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-light serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Welcome to Cascade Hideaway</h2>
+                        <p class="text-base md:text-lg italic tracking-wider" style="color: var(--bronze);">Hotel Comfort, Home Warmth</p>
                     </div>
                     
                     <div class="luxury-divider"></div>
                     
-                    <div class="space-y-5 text-gray-700 leading-relaxed text-center max-w-3xl mx-auto">
-                        <p class="text-xl sm:text-2xl serif-font font-light" style="color: var(--dark-bronze);">Welcome home. ✨</p>
+                    <div class="space-y-6 text-gray-700 leading-relaxed text-center max-w-3xl mx-auto">
+                        <p class="text-2xl sm:text-3xl serif-font font-light" style="color: var(--dark-bronze);">Welcome home. ✨</p>
                         
                         <p class="text-base md:text-lg leading-loose">At Cascade Hideaway, we believe true comfort lies in the balance of hotel-level ease and the heart of a Filipino home. Here, every detail is thoughtfully prepared — soft light, calm spaces, and touches of warmth that invite you to slow down and breathe.</p>
                         
                         <p class="text-base md:text-lg leading-loose">May your time here bring the stillness you need — whether for work, rest, or a well-deserved pause. This home is yours to enjoy.</p>
                     </div>
                     
-                    <div class="mt-10 pt-8 border-t border-bronze/20">
+                    <div class="mt-12 pt-8 border-t border-bronze/20">
                         <div class="text-center">
-                            <p class="text-xs md:text-sm tracking-wider uppercase mb-3" style="color: var(--bronze);">With Warm Regards</p>
-                            <p class="text-xl md:text-2xl serif-font" style="color: var(--dark-bronze);">Marifel & The Cascade Team</p>
-                            <p class="text-3xl mt-4">🌿</p>
-                            <p class="text-xs md:text-sm italic mt-4" style="color: var(--bronze);">Hotel Comfort, Home Warmth — in every stay.</p>
+                            <p class="text-xs md:text-sm tracking-widest uppercase mb-4" style="color: var(--bronze);">With Warm Regards</p>
+                            <p class="text-2xl md:text-3xl serif-font font-light tracking-tight" style="color: var(--dark-bronze);">Marifel & The Cascade Team</p>
+                            <p class="text-4xl mt-5 mb-4">🌿</p>
+                            <p class="text-xs md:text-sm italic tracking-wide" style="color: var(--bronze);">Hotel Comfort, Home Warmth — in every stay.</p>
                         </div>
                     </div>
                 </div>
@@ -663,8 +686,8 @@
             
             <section id="pre-arrival" class="content-section">
                 <div class="content-card p-6 sm:p-8 md:p-12">
-                    <h2 class="text-3xl md:text-4xl font-light serif-font mb-3" style="color: var(--dark-bronze);">Preparing for Your Arrival</h2>
-                    <p class="text-gray-600 mb-6 text-base md:text-lg">To ensure a seamless check-in experience, we kindly request your assistance with the following preparations. Your access code will be provided on the morning of your arrival.</p>
+                    <h2 class="text-3xl md:text-4xl font-light serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Preparing for Your Arrival</h2>
+                    <p class="text-gray-600 mb-8 text-base md:text-lg leading-relaxed">To ensure a seamless check-in experience, we kindly request your assistance with the following preparations. Your access code will be provided on the morning of your arrival.</p>
                     
                     <div class="space-y-4">
                         <div class="feature-card p-5 md:p-6 rounded-xl">
@@ -698,8 +721,8 @@
                                             <div class="flex items-start mb-3">
                                                 <span class="text-2xl mr-3">🏡</span>
                                                 <div>
-                                                    <h4 class="font-semibold text-base mb-2" style="color: var(--dark-bronze);">For Direct Bookings (Outside Airbnb)</h4>
-                                                    <p class="text-sm text-gray-700 leading-relaxed">A refundable security deposit of <strong>₱1,000</strong> is required to secure your direct reservation. This amount will be returned in full following a satisfactory check-out inspection.</p>
+                                                    <h4 class="font-semibold text-base mb-2" style="color: var(--dark-bronze);">For Booking Outside Airbnb (Direct, Booking.com etc)</h4>
+                                                    <p class="text-sm text-gray-700 leading-relaxed">A refundable security deposit of <strong>₱1,000</strong> is required to secure your reservation. This amount will be returned in full following a satisfactory check-out inspection.</p>
                                                 </div>
                                             </div>
                                             
@@ -715,7 +738,7 @@
                                                             </div>
                                                             <div>
                                                                 <p class="text-xs text-gray-600">Number</p>
-                                                                <code class="text-sm">09560115744</code>
+                                                                <code class="text-sm">09918538269</code>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -736,10 +759,13 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="bg-gradient-to-r from-amber-50 to-amber-50/30 border border-amber-300/50 p-4 rounded-xl">
-                                            <div class="flex items-start">
-                                                <span class="text-xl mr-2 mt-0.5">⚠️</span>
-                                                <p class="text-xs md:text-sm text-amber-900 leading-relaxed"><strong>Important:</strong> We never request cash security deposits for Airbnb bookings. All payments for Airbnb reservations are processed exclusively through the Airbnb platform for your protection.</p>
+                                        <div class="bg-gradient-to-r from-blue-50 to-blue-50/30 border border-blue-300/50 p-4 rounded-xl">
+                                            <div class="text-center">
+                                                <p class="text-sm font-semibold mb-3" style="color: var(--dark-bronze);">📧 Ready to Send Your Requirements?</p>
+                                                <p class="text-xs text-gray-700 mb-4">Submit your guest IDs and security deposit confirmation directly to our reservations team.</p>
+                                                <a href="mailto:cascadereservations@gmail.com?subject=Guest%20Registration%20-%20Cascade%20Hideaway&body=Dear%20Cascade%20Team%2C%0D%0A%0D%0AI%20am%20submitting%20my%20guest%20registration%20requirements%20for%20my%20upcoming%20stay.%0D%0A%0D%0ABooking%20Details%3A%0D%0ACheck-in%20Date%3A%20%0D%0ANumber%20of%20Guests%3A%20%0D%0A%0D%0AAttached%3A%0D%0A-%20Valid%20IDs%20for%20all%20guests%0D%0A-%20Security%20deposit%20confirmation%20(if%20applicable)%0D%0A%0D%0AThank%20you!" class="btn-primary px-5 py-2.5 rounded-lg text-sm font-medium inline-flex items-center">
+                                                    <span class="mr-2">✉️</span> Send Requirements via Email
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -752,7 +778,15 @@
                                 <div class="flex-shrink-0 h-10 w-10 rounded-full step-number flex items-center justify-center font-semibold text-lg">3</div>
                                 <div class="ml-5 flex-1">
                                     <h3 class="font-semibold text-lg md:text-xl mb-2" style="color: var(--dark-bronze);">Final Confirmation</h3>
-                                    <p class="text-sm md:text-base text-gray-700">Upon completion of the above requirements, you will receive a confirmation message along with your access credentials on your scheduled arrival day.</p>
+                                    <p class="text-sm md:text-base text-gray-700 mb-3">Upon completion of the above requirements, you will receive a confirmation message along with your access credentials on your scheduled arrival day.</p>
+                                    <div class="mt-4 pt-4 border-t border-bronze/20">
+                                        <p class="text-xs text-gray-600 mb-2">✈️ <strong>Coming from the airport?</strong></p>
+                                        <button class="transport-link" data-scroll-to="seamless-arrival">
+                                            <span>🚗</span>
+                                            <span>View Transportation Options</span>
+                                            <span>→</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -777,8 +811,8 @@
 
             <section id="check-in" class="content-section">
                 <div class="content-card p-6 sm:p-8 md:p-12">
-                    <h2 class="text-3xl md:text-4xl font-light serif-font mb-3" style="color: var(--dark-bronze);">Your Arrival Experience</h2>
-                    <p class="text-gray-600 mb-6 text-base md:text-lg">Located at Bria Homes, Conel Road, Brgy. San Isidro, your sanctuary awaits. Please follow these simple steps for seamless access.</p>
+                    <h2 class="text-3xl md:text-4xl font-light serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Your Arrival Experience</h2>
+                    <p class="text-gray-600 mb-8 text-base md:text-lg leading-relaxed">Located at Bria Homes, Conel Road, Brgy. San Isidro, your sanctuary awaits. Please follow these simple steps for seamless access.</p>
                     
                     <div class="space-y-6">
                         <div class="flex items-start">
@@ -825,6 +859,10 @@
                                             </li>
                                             <li class="flex items-start">
                                                 <span class="font-semibold mr-3" style="color: var(--bronze);">•</span>
+                                                <span>Wait for the screen/numbers to light up to ensure the keypad is activated</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <span class="font-semibold mr-3" style="color: var(--bronze);">•</span>
                                                 <span>Enter your unique access code [PIN] followed by the <code>#</code> key</span>
                                             </li>
                                             <li class="flex items-start">
@@ -854,8 +892,7 @@
                             </div>
                             <div class="ml-6 md:ml-8 flex-1">
                                 <h3 class="text-xl md:text-2xl font-semibold mb-3" style="color: var(--dark-bronze);">Welcome Home</h3>
-                                <p class="text-sm md:text-base text-gray-700 leading-relaxed md:text-lg">Step inside and allow yourself to truly arrive. Your retreat begins now.</p>
-                                <p class="text-3xl md:text-4xl mt-4">🌴</p>
+                                <p class="text-sm md:text-base text-gray-700 leading-relaxed md:text-lg">Step inside and allow yourself to truly arrive. Your retreat begins now. 🌴</p>
                             </div>
                         </div>
                     </div>
@@ -864,30 +901,32 @@
             
             <section id="hideaway" class="content-section">
                 <div class="content-card p-6 sm:p-8 md:p-12">
-                    <h2 class="text-3xl md:text-4xl font-light serif-font mb-3" style="color: var(--dark-bronze);">Curated for Your Comfort</h2>
-                    <p class="text-gray-600 mb-8 text-base md:text-lg">Every amenity has been thoughtfully selected to ensure your complete relaxation and convenience.</p>
+                    <h2 class="text-3xl md:text-4xl font-light serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Curated for Your Comfort</h2>
+                    <p class="text-gray-600 mb-8 text-base md:text-lg leading-relaxed">Every amenity has been thoughtfully selected to ensure your complete relaxation and convenience.</p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
-                        <div class="feature-card p-5 md:p-6 rounded-xl">
+                        <!-- First Row: Premium Bedding + Entertainment -->
+                        <div class="feature-card premium-highlight p-6 md:p-7 rounded-xl">
                             <div class="flex items-start">
-                                <span class="text-2xl md:text-3xl mr-3 md:mr-4">🛏️</span>
+                                <span class="text-3xl md:text-4xl mr-4">🛏️</span>
                                 <div>
-                                    <h3 class="font-semibold text-base md:text-lg mb-2" style="color: var(--dark-bronze);">Premium Bedding</h3>
-                                    <p class="text-sm md:text-base text-gray-700">Queen-sized bed with hotel-grade linens and plush pillows for restorative sleep.</p>
+                                    <h3 class="font-bold text-lg md:text-xl mb-2" style="color: var(--dark-bronze);">Premium Bedding</h3>
+                                    <p class="text-sm md:text-base text-gray-700 leading-relaxed">Queen-sized bed with hotel-grade linens and plush pillows for restorative sleep.</p>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="feature-card p-5 md:p-6 rounded-xl">
+
+                        <div class="feature-card premium-highlight p-6 md:p-7 rounded-xl">
                             <div class="flex items-start">
-                                <span class="text-2xl md:text-3xl mr-3 md:mr-4">❄️</span>
+                                <span class="text-3xl md:text-4xl mr-4">📺</span>
                                 <div>
-                                    <h3 class="font-semibold text-base md:text-lg mb-2" style="color: var(--dark-bronze);">Climate Control</h3>
-                                    <p class="text-sm md:text-base text-gray-700">2.5 HP split-type air conditioning system providing cool, consistent comfort in General Santos City's warm tropical climate.</p>
+                                    <h3 class="font-bold text-lg md:text-xl mb-2" style="color: var(--dark-bronze);">Entertainment</h3>
+                                    <p class="text-sm md:text-base text-gray-700 leading-relaxed">55" Samsung Smart TV with complimentary Netflix streaming, YouTube Premium access, and live TV through Samsung TV Plus App.</p>
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <!-- Second Row: High-Speed Connectivity (Full Width) -->
                         <div class="feature-card p-5 md:p-6 rounded-xl md:col-span-2 protected">
                             <div class="flex items-start">
                                 <span class="text-2xl md:text-3xl mr-3 md:mr-4">📶</span>
@@ -907,12 +946,13 @@
                             </div>
                         </div>
                         
+                        <!-- Remaining Amenities -->
                         <div class="feature-card p-5 md:p-6 rounded-xl">
                             <div class="flex items-start">
-                                <span class="text-2xl md:text-3xl mr-3 md:mr-4">📺</span>
+                                <span class="text-2xl md:text-3xl mr-3 md:mr-4">❄️</span>
                                 <div>
-                                    <h3 class="font-semibold text-base md:text-lg mb-2" style="color: var(--dark-bronze);">Entertainment</h3>
-                                    <p class="text-sm md:text-base text-gray-700">55" Samsung Smart TV with complimentary Netflix streaming, YouTube Premium access, and live TV through Samsung TV Plus App.</p>
+                                    <h3 class="font-semibold text-base md:text-lg mb-2" style="color: var(--dark-bronze);">Climate Control</h3>
+                                    <p class="text-sm md:text-base text-gray-700">2.5 HP split-type air conditioning system providing cool, consistent comfort in General Santos City's warm tropical climate.</p>
                                 </div>
                             </div>
                         </div>
@@ -984,41 +1024,54 @@
                     </div>
                     
                     <!-- Hero Section: Getting Here -->
-                    <div class="feature-card p-6 md:p-8 rounded-2xl mb-6 bg-gradient-to-br from-white to-warm-cream">
-                        <div class="flex items-center mb-4">
-                            <span class="text-4xl mr-4">✈️</span>
+                    <div id="seamless-arrival" class="feature-card p-6 md:p-8 rounded-2xl mb-8 bg-gradient-to-br from-white to-warm-cream">
+                        <div class="flex items-center mb-6">
+                            <span class="text-5xl mr-4">✈️</span>
                             <div>
                                 <h3 class="text-2xl md:text-3xl font-light serif-font" style="color: var(--dark-bronze);">Seamless Arrival</h3>
                                 <p class="text-sm text-gray-600">General Santos International Airport to Your Sanctuary</p>
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <p class="text-sm md:text-base text-gray-700 leading-relaxed mb-4">The journey from General Santos Airport (GES) typically takes 25-35 minutes. For the most seamless transfer experience, we highly recommend pre-booking your ride through trusted transportation platforms before landing or while at the airport.</p>
-                                <div class="accent-box p-4 rounded-xl">
-                                    <p class="text-xs uppercase tracking-wide mb-2" style="color: var(--bronze);">Travel Insider Tip</p>
-                                    <p class="text-sm text-gray-700">You can book your Grab ride ahead of time using the "Reserve" feature in the app, or arrange your transfer immediately upon arrival at the terminal. Grab typically offers transparent pricing and real-time tracking. For nearby destinations, buses and tricycles are also available as budget-friendly alternatives.</p>
-                                </div>
+                        
+                        <p class="text-sm md:text-base text-gray-700 leading-relaxed mb-6">The journey from General Santos Airport (GES) typically takes 25-35 minutes. For the most seamless transfer experience, we highly recommend pre-booking your ride through trusted transportation platforms before landing or while at the airport.</p>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                            <div class="accent-box p-5 rounded-xl">
+                                <p class="text-xs uppercase tracking-wide mb-3 font-semibold" style="color: var(--bronze);">🚗 Need Transport Assistance?</p>
+                                <p class="text-sm text-gray-700 leading-relaxed mb-4">If you need airport transportation or car rental arrangements, please let us know in advance. We're happy to help coordinate reliable options for your arrival.</p>
+                                <a href="tel:09918538269" class="text-sm font-semibold hover:underline inline-flex items-center gap-2" style="color: var(--bronze);">
+                                    <span>📱</span>
+                                    <span>Contact us: 0991 853 8269</span>
+                                </a>
                             </div>
-                            <div class="space-y-3">
-                                <div class="bg-white/80 p-4 rounded-xl border border-bronze/10">
-                                    <h4 class="font-semibold mb-2 text-base" style="color: var(--dark-bronze);">Recommended: Grab</h4>
-                                    <p class="text-xs text-gray-600 mb-2">Most reliable for airport transfers and city navigation</p>
-                                    <div class="flex items-center gap-2 mt-3">
+                            
+                            <div class="accent-box p-5 rounded-xl">
+                                <p class="text-xs uppercase tracking-wide mb-3 font-semibold" style="color: var(--bronze);">Travel Insider Tip</p>
+                                <p class="text-sm text-gray-700 leading-relaxed">You can book your Grab ride ahead of time using the "Reserve" feature in the app, or arrange your transfer immediately upon arrival at the terminal. Grab typically offers transparent pricing and real-time tracking. For nearby destinations, buses and tricycles are also available as budget-friendly alternatives.</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <p class="text-sm font-semibold mb-4" style="color: var(--dark-bronze);">Recommended Transportation Options</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div class="bg-white/80 p-5 rounded-xl border border-bronze/10">
+                                    <h4 class="font-semibold mb-2 text-base" style="color: var(--dark-bronze);">Grab</h4>
+                                    <p class="text-xs text-gray-600 mb-3">Most reliable for airport transfers and city navigation</p>
+                                    <div class="flex items-center gap-2">
                                         <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none">
                                             <rect width="24" height="24" rx="4" fill="#00B14F"/>
                                             <path d="M18 8.5C18 6.6 16.4 5 14.5 5H9.5C7.6 5 6 6.6 6 8.5V15.5C6 17.4 7.6 19 9.5 19H14.5C16.4 19 18 17.4 18 15.5V8.5Z" fill="white"/>
                                             <circle cx="12" cy="12" r="2.5" fill="#00B14F"/>
                                         </svg>
-                                        <span class="text-sm font-medium" style="color: var(--dark-bronze);">Grab App</span>
+                                        <span class="text-xs font-medium" style="color: var(--dark-bronze);">Recommended</span>
                                     </div>
                                 </div>
-                                <div class="bg-white/60 p-3 rounded-xl">
-                                    <h4 class="font-semibold text-sm mb-1" style="color: var(--dark-bronze);">Airport Taxi</h4>
+                                <div class="bg-white/70 p-5 rounded-xl">
+                                    <h4 class="font-semibold text-sm mb-2" style="color: var(--dark-bronze);">Airport Taxi</h4>
                                     <p class="text-xs text-gray-600">Available at terminal, metered service</p>
                                 </div>
-                                <div class="bg-white/60 p-3 rounded-xl">
-                                    <h4 class="font-semibold text-sm mb-1" style="color: var(--dark-bronze);">Local Options</h4>
+                                <div class="bg-white/70 p-5 rounded-xl">
+                                    <h4 class="font-semibold text-sm mb-2" style="color: var(--dark-bronze);">Local Options</h4>
                                     <p class="text-xs text-gray-600">Buses & tricycles for nearby areas (budget-friendly)</p>
                                 </div>
                             </div>
@@ -1029,10 +1082,9 @@
                     <div class="mb-8">
                         <div class="flex items-center mb-5">
                             <span class="text-3xl mr-3">📱</span>
-                            <h3 class="text-2xl md:text-3xl font-light serif-font" style="color: var(--dark-bronze);">Your Digital Concierge</h3>
+                            <h3 class="text-xl md:text-2xl font-light serif-font" style="color: var(--dark-bronze);">Your Digital Concierge</h3>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <!-- Grab Card -->
                             <div class="feature-card p-6 rounded-2xl hover:shadow-xl transition-all">
                                 <div class="flex items-start justify-between mb-4">
                                     <div class="flex items-center">
@@ -1048,7 +1100,7 @@
                                     </div>
                                 </div>
                                 <p class="text-sm text-gray-700 mb-4 leading-relaxed">The city's most trusted platform for transportation and dining. From airport transfers to late-night cravings, Grab delivers comfort and convenience to your doorstep.</p>
-                                <div class="flex gap-3 text-xs">
+                                <div class="flex gap-3 text-xs flex-wrap">
                                     <a href="https://play.google.com/store/apps/details?id=com.grabtaxi.passenger" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
                                         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
                                         Google Play
@@ -1060,7 +1112,6 @@
                                 </div>
                             </div>
 
-                            <!-- Foodpanda Card -->
                             <div class="feature-card p-6 rounded-2xl hover:shadow-xl transition-all">
                                 <div class="flex items-start justify-between mb-4">
                                     <div class="flex items-center">
@@ -1078,7 +1129,7 @@
                                     </div>
                                 </div>
                                 <p class="text-sm text-gray-700 mb-4 leading-relaxed">Extensive restaurant selection delivering the city's culinary diversity to your hideaway. From local favorites to international cuisine, explore GenSan's dining scene from the comfort of your sanctuary.</p>
-                                <div class="flex gap-3 text-xs">
+                                <div class="flex gap-3 text-xs flex-wrap">
                                     <a href="https://play.google.com/store/apps/details?id=com.global.foodpanda.android" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
                                         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
                                         Google Play
@@ -1098,11 +1149,11 @@
                     <div class="mb-8">
                         <div class="flex items-center mb-5">
                             <span class="text-3xl mr-3">🏛️</span>
-                            <h3 class="text-2xl md:text-3xl font-light serif-font" style="color: var(--dark-bronze);">Unmissable City Experiences</h3>
+                            <h3 class="text-xl md:text-2xl font-light serif-font" style="color: var(--dark-bronze);">Unmissable City Experiences</h3>
                         </div>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
-                            <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-blue-50/40 to-cyan-50/30">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                            <div class="feature-card p-6 md:p-7 rounded-2xl bg-gradient-to-br from-blue-50/40 to-cyan-50/30">
                                 <div class="flex items-start mb-4">
                                     <span class="text-4xl mr-3">🐟</span>
                                     <div>
@@ -1121,7 +1172,7 @@
                                 </a>
                             </div>
 
-                            <div class="feature-card p-6 rounded-2xl">
+                            <div class="feature-card p-5 md:p-6 rounded-xl">
                                 <div class="flex items-start mb-4">
                                     <span class="text-3xl mr-3">🌅</span>
                                     <div>
@@ -1135,7 +1186,7 @@
                                 </a>
                             </div>
 
-                            <div class="feature-card p-5 rounded-2xl">
+                            <div class="feature-card p-5 rounded-xl">
                                 <div class="flex items-start mb-3">
                                     <span class="text-2xl mr-3">🏛️</span>
                                     <div>
@@ -1147,7 +1198,7 @@
                                 <a href="https://www.google.com/maps?q=Plaza+Heneral+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 View Location →</a>
                             </div>
 
-                            <div class="feature-card p-5 rounded-2xl">
+                            <div class="feature-card p-5 rounded-xl">
                                 <div class="flex items-start mb-3">
                                     <span class="text-2xl mr-3">🏠</span>
                                     <div>
@@ -1160,7 +1211,7 @@
                             </div>
                         </div>
 
-                        <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-green-50/40 to-emerald-50/30">
+                        <div class="feature-card p-6 md:p-7 rounded-2xl bg-gradient-to-br from-green-50/40 to-emerald-50/30">
                             <div class="flex items-start mb-4">
                                 <span class="text-4xl mr-3">⛰️</span>
                                 <div>
@@ -1185,11 +1236,11 @@
                     <div class="mb-8">
                         <div class="flex items-center mb-5">
                             <span class="text-3xl mr-3">🌿</span>
-                            <h3 class="text-2xl md:text-3xl font-light serif-font" style="color: var(--dark-bronze);">Natural Escapes & Hidden Gems</h3>
+                            <h3 class="text-xl md:text-2xl font-light serif-font" style="color: var(--dark-bronze);">Natural Escapes & Hidden Gems</h3>
                         </div>
 
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-                            <div class="lg:col-span-2 feature-card p-6 rounded-2xl bg-gradient-to-br from-amber-50/50 to-yellow-50/30">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="lg:col-span-2 feature-card p-6 md:p-7 rounded-2xl bg-gradient-to-br from-amber-50/50 to-yellow-50/30">
                                 <div class="flex items-start mb-4">
                                     <span class="text-5xl mr-4">🏞️</span>
                                     <div>
@@ -1218,7 +1269,7 @@
                             </div>
 
                             <div class="space-y-5">
-                                <div class="feature-card p-5 rounded-2xl">
+                                <div class="feature-card p-5 rounded-xl">
                                     <div class="flex items-start mb-3">
                                         <span class="text-3xl mr-3">⛰️</span>
                                         <div>
@@ -1227,22 +1278,22 @@
                                         </div>
                                     </div>
                                     <p class="text-xs text-gray-700 mb-3 leading-relaxed">Known as the "New Zealand of the South" for its stunning rolling green hills. Light hiking trail with rewarding ridge views.</p>
-                                    <a href="https://maps.app.goo.gl/7dCBBxJnSi6eDHcS9" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 Directions →</a>
+                                    <a href="https://maps.app.goo.gl/v2fMPhLJkKueamGV7" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 Directions →</a>
                                 </div>
 
-                                <div class="feature-card p-5 rounded-2xl">
+                                <div class="feature-card p-5 rounded-xl bg-gradient-to-br from-pink-50/40 to-rose-50/30">
                                     <div class="flex items-start mb-3">
-                                        <span class="text-3xl mr-3">🏔️</span>
+                                        <span class="text-3xl mr-3">🎢</span>
                                         <div>
-                                            <h4 class="font-bold text-base mb-1" style="color: var(--dark-bronze);">Hill VI</h4>
-                                            <p class="text-xs text-gray-500">Accessible Viewpoint</p>
+                                            <h4 class="font-bold text-base mb-1" style="color: var(--dark-bronze);">Euphoria Flower Farm & Adventure Park</h4>
+                                            <p class="text-xs text-gray-500">Tupi, South Cotabato</p>
                                         </div>
                                     </div>
-                                    <p class="text-xs text-gray-700 mb-3">Easily accessible viewpoint with incredible panoramic city views—perfect for a date or camping.</p>
-                                    <a href="https://www.google.com/maps?q=Hill+VI+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 View Location →</a>
+                                    <p class="text-xs text-gray-700 mb-3 leading-relaxed">Perfect blend of serene natural beauty and thrilling adventure. Capture stunning photos amidst colorful flower fields, then experience adrenaline-pumping activities like giant swings and zip lines—ideal for families, couples, and thrill-seekers alike.</p>
+                                    <a href="https://maps.app.goo.gl/c9Uh286x5tdsZ3rQ7" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 View Location →</a>
                                 </div>
 
-                                <div class="feature-card p-5 rounded-2xl bg-gradient-to-br from-teal-50/30 to-blue-50/20">
+                                <div class="feature-card p-5 rounded-xl bg-gradient-to-br from-teal-50/30 to-blue-50/20">
                                     <h4 class="font-semibold text-base mb-3" style="color: var(--dark-bronze);">More Adventures</h4>
                                     <ul class="space-y-2 text-xs text-gray-700">
                                         <li class="flex items-start">
@@ -1258,8 +1309,8 @@
                                             <span><a href="https://www.google.com/maps?q=Kalaja+Karst+Eco-Tourism+Park" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--bronze);">Kalaja Karst Eco-Park</a></span>
                                         </li>
                                         <li class="flex items-start">
-                                            <span class="mr-2">🏘️</span>
-                                            <span><a href="https://www.google.com/maps?q=Blaan+Village+General+Santos" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--bronze);">Blaan Village</a></span>
+                                            <span class="mr-2">🌿</span>
+                                            <span><a href="https://maps.app.goo.gl/jJpgh3nksvPUBVDKA" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--bronze);">D Garden Calatao</a></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -1276,7 +1327,7 @@
                             <div class="feature-card p-6 md:p-8 rounded-2xl h-full bg-gradient-to-br from-white to-warm-cream">
                                 <div class="flex items-center mb-4">
                                     <span class="text-4xl mr-3">🛍️</span>
-                                    <h3 class="text-2xl md:text-3xl font-light serif-font" style="color: var(--dark-bronze);">Retail & Dining Destinations</h3>
+                                    <h3 class="text-xl md:text-2xl font-light serif-font" style="color: var(--dark-bronze);">Retail & Dining Destinations</h3>
                                 </div>
                                 <p class="text-sm text-gray-600 mb-5 italic">From upscale shopping to diverse culinary experiences</p>
                                 <div class="space-y-4">
@@ -1285,8 +1336,17 @@
                                             <h4 class="font-semibold text-lg" style="color: var(--dark-bronze);">SM City General Santos</h4>
                                             <span class="text-xs px-2 py-1 rounded-full bg-amber-600/20 text-amber-900 font-medium">Premium</span>
                                         </div>
-                                        <p class="text-sm text-gray-700 mb-3">The city's premier upscale destination with international brands, diverse dining from casual to fine, buffets, cinemas, and lifestyle options.</p>
-                                        <p class="text-xs text-gray-600">⏱️ 15 minutes drive • 🍴 Multiple restaurants • 🎬 Cinema</p>
+                                        <p class="text-sm text-gray-700 mb-3">The city's premier upscale destination with international brands, diverse dining from casual to fine, buffets, cinemas, Anytime Fitness gym for your health and fitness goals, and lifestyle options.</p>
+                                        <div class="flex items-center gap-4 flex-wrap">
+                                            <p class="text-xs text-gray-600">⏱️ 15 minutes drive</p>
+                                            <p class="text-xs text-gray-600">🍴 Multiple restaurants</p>
+                                            <p class="text-xs text-gray-600">🎬 Cinema</p>
+                                            <p class="text-xs text-gray-600">💪 Anytime Fitness</p>
+                                        </div>
+                                        <a href="https://maps.app.goo.gl/RWZtnfU33k1A3Mzn7" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 mt-3 text-sm font-medium hover:underline" style="color: var(--bronze);">
+                                            <span>📍</span>
+                                            <span>View on Google Maps</span>
+                                        </a>
                                     </div>
                                     
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1296,7 +1356,11 @@
                                                 <span class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-900 font-medium">Closest</span>
                                             </div>
                                             <p class="text-xs text-gray-600 mb-2">Convenient location housing satellite government offices alongside retail and dining.</p>
-                                            <p class="text-xs text-gray-500">⏱️ 10 minutes drive</p>
+                                            <p class="text-xs text-gray-500 mb-2">⏱️ 10 minutes drive</p>
+                                            <a href="https://maps.app.goo.gl/69WJMLfXPZRawXQn8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-medium hover:underline" style="color: var(--bronze);">
+                                                <span>📍</span>
+                                                <span>Get Directions</span>
+                                            </a>
                                         </div>
 
                                         <div class="bg-white/70 p-4 rounded-xl border border-bronze/20">
@@ -1305,7 +1369,11 @@
                                                 <span class="text-xs px-2 py-1 rounded-full bg-bronze/15 font-medium" style="color: var(--bronze);">Upscale</span>
                                             </div>
                                             <p class="text-xs text-gray-600 mb-2">Modern lifestyle hub with quality dining options and retail selections.</p>
-                                            <p class="text-xs text-gray-500">⏱️ 12 minutes drive</p>
+                                            <p class="text-xs text-gray-500 mb-2">⏱️ 12 minutes drive</p>
+                                            <a href="https://maps.app.goo.gl/kdQKAya8AauE6vya8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-medium hover:underline" style="color: var(--bronze);">
+                                                <span>📍</span>
+                                                <span>Get Directions</span>
+                                            </a>
                                         </div>
                                         
                                         <div class="bg-white/60 p-4 rounded-xl sm:col-span-2">
@@ -1314,7 +1382,11 @@
                                                 <span class="text-xs px-2 py-1 rounded-full bg-green-100 text-green-900 font-medium">Value-Friendly</span>
                                             </div>
                                             <p class="text-xs text-gray-600 mb-2">Budget-conscious shopping with good variety of local and national brands. Connected to Veranza area.</p>
-                                            <p class="text-xs text-gray-500">⏱️ 12 minutes drive</p>
+                                            <p class="text-xs text-gray-500 mb-2">⏱️ 12 minutes drive</p>
+                                            <a href="https://maps.app.goo.gl/tSmZeZd34kR6GrMz5" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-medium hover:underline" style="color: var(--bronze);">
+                                                <span>📍</span>
+                                                <span>Get Directions</span>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -1352,6 +1424,8 @@
                         </div>
                     </div>
 
+                    <div class="luxury-divider"></div>
+
                     <!-- Bottom Banner -->
                     <div class="accent-box p-6 md:p-8 rounded-2xl">
                         <div class="max-w-3xl mx-auto">
@@ -1373,7 +1447,7 @@
                             </div>
                             <div class="mt-6 pt-6 border-t border-bronze/20 text-center">
                                 <p class="text-sm text-gray-700 mb-3">Need personalized itineraries or special arrangements?</p>
-                                <p class="text-sm" style="color: var(--bronze);">📱 We're here to help: <a href="tel:09560115744" class="font-semibold hover:underline">0956 011 5744</a></p>
+                                <p class="text-sm" style="color: var(--bronze);">📱 We're here to help: <a href="tel:09918538269" class="font-semibold hover:underline">0991 853 8269</a></p>
                             </div>
                         </div>
                     </div>
@@ -1395,7 +1469,6 @@
                         </div>
 
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                            <!-- Oona Café - Featured -->
                             <div class="feature-card p-6 rounded-2xl hover:shadow-xl transition-all bg-gradient-to-br from-purple-50/30 to-indigo-50/20">
                                 <div class="flex items-start mb-4">
                                     <span class="text-4xl mr-3">🌙</span>
@@ -1413,7 +1486,6 @@
                                 </a>
                             </div>
 
-                            <!-- Coffee Project -->
                             <div class="feature-card p-6 rounded-2xl hover:shadow-xl transition-all bg-gradient-to-br from-pink-50/30 to-rose-50/20">
                                 <div class="flex items-start mb-4">
                                     <span class="text-4xl mr-3">🌸</span>
@@ -1430,112 +1502,78 @@
                                     📍 Navigate Here →
                                 </a>
                             </div>
+                        </div>
 
-                            <!-- Blackthorn Coffee -->
-                            <div class="feature-card p-6 rounded-2xl hover:shadow-xl transition-all">
-                                <div class="flex items-start mb-3">
-                                    <span class="text-3xl mr-3">☕</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="feature-card p-4 rounded-xl">
+                                <div class="flex items-start mb-2">
+                                    <span class="text-2xl mr-2">☕</span>
                                     <div>
-                                        <h4 class="font-bold text-lg mb-1" style="color: var(--dark-bronze);">Blackthorn Coffee</h4>
-                                        <p class="text-xs text-gray-500 mb-2">Specialty Coffee</p>
+                                        <h4 class="font-semibold text-sm mb-1" style="color: var(--dark-bronze);">Blackthorn Coffee</h4>
+                                        <p class="text-xs text-gray-500">Specialty Coffee</p>
                                     </div>
                                 </div>
-                                <p class="text-sm text-gray-700 mb-3 leading-relaxed">For specialty coffee lovers who appreciate a high-quality brew and expertly crafted beverages.</p>
-                                <a href="https://www.google.com/maps?q=Blackthorn+Coffee+General+Santos" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline flex items-center gap-2" style="color: var(--bronze);">
-                                    📍 Locate →
-                                </a>
+                                <p class="text-xs text-gray-700 mb-2">For specialty coffee lovers who appreciate expertly crafted beverages.</p>
+                                <a href="https://www.google.com/maps?q=Blackthorn+Coffee+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 Locate →</a>
                             </div>
 
-                            <!-- Butter & Spoon -->
-                            <div class="feature-card p-6 rounded-2xl hover:shadow-xl transition-all">
-                                <div class="flex items-start mb-3">
-                                    <span class="text-3xl mr-3">🧈</span>
+                            <div class="feature-card p-4 rounded-xl">
+                                <div class="flex items-start mb-2">
+                                    <span class="text-2xl mr-2">🧈</span>
                                     <div>
-                                        <h4 class="font-bold text-lg mb-1" style="color: var(--dark-bronze);">Butter and Spoon</h4>
-                                        <p class="text-xs text-gray-500 mb-2">Cakes & Comfort Food</p>
+                                        <h4 class="font-semibold text-sm mb-1" style="color: var(--dark-bronze);">Butter and Spoon</h4>
+                                        <p class="text-xs text-gray-500">Cakes & Comfort Food</p>
                                     </div>
                                 </div>
-                                <p class="text-sm text-gray-700 mb-3 leading-relaxed">Top spot for cakes, pastries, and delicious comfort food like truffle pasta. Multiple branches throughout the city.</p>
-                                <a href="https://www.google.com/maps?q=Butter+and+Spoon+General+Santos" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline flex items-center gap-2" style="color: var(--bronze);">
-                                    📍 View Location →
-                                </a>
+                                <p class="text-xs text-gray-700 mb-2">Top spot for cakes, pastries, and delicious comfort food like truffle pasta.</p>
+                                <a href="https://www.google.com/maps?q=Butter+and+Spoon+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 View →</a>
                             </div>
 
-                            <!-- 8th Block Café -->
-                            <div class="feature-card p-5 rounded-2xl">
+                            <div class="feature-card p-4 rounded-xl">
                                 <div class="flex items-start mb-2">
                                     <span class="text-2xl mr-2">🏚️</span>
                                     <div>
-                                        <h4 class="font-semibold text-base mb-1" style="color: var(--dark-bronze);">8th Block Café</h4>
+                                        <h4 class="font-semibold text-sm mb-1" style="color: var(--dark-bronze);">8th Block Café</h4>
                                         <p class="text-xs text-gray-500">Rustic-Industrial</p>
                                     </div>
                                 </div>
-                                <p class="text-xs text-gray-700 mb-2">Homegrown cafe with charming rustic-industrial aesthetic for cozy coffee moments.</p>
+                                <p class="text-xs text-gray-700 mb-2">Homegrown cafe with charming rustic-industrial aesthetic.</p>
                                 <a href="https://www.google.com/maps?q=8th+Block+Cafe+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 Directions →</a>
                             </div>
 
-                            <!-- Nikko's Brew -->
-                            <div class="feature-card p-5 rounded-2xl">
+                            <div class="feature-card p-4 rounded-xl">
                                 <div class="flex items-start mb-2">
                                     <span class="text-2xl mr-2">🍔</span>
                                     <div>
-                                        <h4 class="font-semibold text-base mb-1" style="color: var(--dark-bronze);">Nikko's Brew</h4>
+                                        <h4 class="font-semibold text-sm mb-1" style="color: var(--dark-bronze);">Nikko's Brew</h4>
                                         <p class="text-xs text-gray-500">American-Style</p>
                                     </div>
                                 </div>
-                                <p class="text-xs text-gray-700 mb-2">Hearty, affordable American-style meals in a relaxed cafe setting.</p>
+                                <p class="text-xs text-gray-700 mb-2">Hearty, affordable American-style meals in a relaxed setting.</p>
                                 <a href="https://www.google.com/maps?q=Nikkos+Brew+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 Find →</a>
                             </div>
 
-                            <!-- Café Santi -->
-                            <div class="feature-card p-5 rounded-2xl">
+                            <div class="feature-card p-4 rounded-xl">
                                 <div class="flex items-start mb-2">
                                     <span class="text-2xl mr-2">🏨</span>
                                     <div>
-                                        <h4 class="font-semibold text-base mb-1" style="color: var(--dark-bronze);">Café Santi</h4>
+                                        <h4 class="font-semibold text-sm mb-1" style="color: var(--dark-bronze);">Café Santi</h4>
                                         <p class="text-xs text-gray-500">Hotel Cafe</p>
                                     </div>
                                 </div>
-                                <p class="text-xs text-gray-700 mb-2">Modern hotel cafe serving locally sourced coffee in a sleek setting.</p>
+                                <p class="text-xs text-gray-700 mb-2">Modern hotel cafe serving locally sourced coffee.</p>
                                 <a href="https://www.google.com/maps?q=Cafe+Santi+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 Navigate →</a>
                             </div>
 
-                            <!-- Aikon Café -->
-                            <div class="feature-card p-5 rounded-2xl">
-                                <div class="flex items-start mb-2">
-                                    <span class="text-2xl mr-2">🍜</span>
-                                    <div>
-                                        <h4 class="font-semibold text-base mb-1" style="color: var(--dark-bronze);">Aikon Café</h4>
-                                        <p class="text-xs text-gray-500">Japanese Fusion</p>
-                                    </div>
-                                </div>
-                                <p class="text-xs text-gray-700 mb-2">Unique cafe specializing in Japanese cuisine like ramen and donburi.</p>
-                                <a href="https://www.google.com/maps?q=Aikon+Cafe+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 View →</a>
-                            </div>
-
-                            <!-- Cafe San Marco -->
-                            <div class="feature-card p-5 rounded-2xl">
-                                <div class="flex items-start mb-2">
-                                    <span class="text-2xl mr-2">🍝</span>
-                                    <div>
-                                        <h4 class="font-semibold text-base mb-1" style="color: var(--dark-bronze);">Cafe San Marco</h4>
-                                        <p class="text-xs text-gray-500">Italian-Inspired</p>
-                                    </div>
-                                </div>
-                                <p class="text-xs text-gray-700 mb-2">Affordable Italian-inspired cafe popular with students and young professionals.</p>
-                                <a href="https://www.google.com/maps?q=Cafe+San+Marco+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 Locate →</a>
-                            </div>
-
-                            <!-- Bo's Coffee -->
-                            <div class="feature-card p-5 rounded-2xl">
+                            <div class="feature-card p-4 rounded-xl">
                                 <div class="flex items-start mb-2">
                                     <span class="text-2xl mr-2">💼</span>
                                     <div>
-                                        <h4 class="font-semibold text-base mb-1" style="color: var(--dark-bronze);">Bo's Coffee</h4>
+                                        <h4 class="font-semibold text-sm mb-1" style="color: var(--dark-bronze);">Bo's Coffee</h4>
                                         <p class="text-xs text-gray-500">Work-Friendly</p>
                                     </div>
                                 </div>
-                                <p class="text-xs text-gray-700 mb-2">Reliable coffee chain, great for getting work done with consistent quality.</p>
+                                <p class="text-xs text-gray-700 mb-2">Reliable coffee chain, great for getting work done.</p>
                                 <a href="https://www.google.com/maps?q=Bos+Coffee+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 Directions →</a>
                             </div>
                         </div>
@@ -1550,9 +1588,8 @@
                             <h3 class="text-2xl md:text-3xl font-light serif-font" style="color: var(--dark-bronze);">Special Occasion & Fine Dining</h3>
                         </div>
 
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            <!-- Sarangani Highlands - Featured -->
-                            <div class="lg:col-span-2 feature-card p-8 rounded-2xl bg-gradient-to-br from-purple-50/40 to-pink-50/30">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                            <div class="lg:col-span-2 feature-card p-7 md:p-8 rounded-2xl bg-gradient-to-br from-purple-50/40 to-pink-50/30">
                                 <div class="flex items-start mb-5">
                                     <span class="text-5xl mr-4">🌅</span>
                                     <div>
@@ -1565,22 +1602,17 @@
                                     </div>
                                 </div>
                                 <p class="text-base text-gray-700 mb-5 leading-relaxed">The premier choice for scenic dining, offering breathtaking sunset views over the city and Sarangani Bay. The Kalachuchi Restaurant serves gourmet cuisine in an unforgettable hilltop setting.</p>
-                                <div class="bg-white/60 p-4 rounded-xl mb-5">
-                                    <p class="text-xs font-semibold mb-2" style="color: var(--bronze);">💡 Insider Tip</p>
-                                    <p class="text-sm text-gray-700">Book a sunset dinner reservation for the most magical experience. Pair dining with garden strolls.</p>
-                                </div>
                                 <a href="https://maps.app.goo.gl/osMB4rYtVozhLYm99" target="_blank" rel="noopener noreferrer" class="btn-primary px-6 py-3 rounded-lg font-medium inline-flex items-center">
                                     📍 Reserve & Navigate
                                 </a>
                             </div>
 
-                            <div class="space-y-6">
-                                <!-- Alfonso's -->
-                                <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-amber-50/40 to-orange-50/30">
+                            <div class="space-y-5">
+                                <div class="feature-card p-5 rounded-xl bg-gradient-to-br from-amber-50/40 to-orange-50/30">
                                     <div class="flex items-start mb-3">
                                         <span class="text-3xl mr-3">🍷</span>
                                         <div>
-                                            <h4 class="font-bold text-lg mb-1" style="color: var(--dark-bronze);">Alfonso's</h4>
+                                            <h4 class="font-bold text-base mb-1" style="color: var(--dark-bronze);">Alfonso's</h4>
                                             <p class="text-xs text-gray-500 mb-2">Gourmet International</p>
                                         </div>
                                     </div>
@@ -1588,12 +1620,11 @@
                                     <a href="https://www.google.com/maps?q=Alfonsos+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 View Location →</a>
                                 </div>
 
-                                <!-- Red Fern Pavilions -->
-                                <div class="feature-card p-6 rounded-2xl">
+                                <div class="feature-card p-5 rounded-xl">
                                     <div class="flex items-start mb-3">
                                         <span class="text-3xl mr-3">🥩</span>
                                         <div>
-                                            <h4 class="font-bold text-lg mb-1" style="color: var(--dark-bronze);">Red Fern Pavilions</h4>
+                                            <h4 class="font-bold text-base mb-1" style="color: var(--dark-bronze);">Red Fern Pavilions</h4>
                                             <p class="text-xs text-gray-500 mb-2">Garden Restaurant</p>
                                         </div>
                                     </div>
@@ -1601,72 +1632,86 @@
                                     <a href="https://www.google.com/maps?q=Red+Fern+Pavilions+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 Directions →</a>
                                 </div>
                             </div>
+                        </div>
 
-                            <!-- Grab A Crab -->
-                            <div class="feature-card p-6 rounded-2xl">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                            <div class="feature-card p-5 rounded-xl">
                                 <div class="flex items-start mb-3">
                                     <span class="text-3xl mr-3">🦀</span>
                                     <div>
-                                        <h4 class="font-bold text-lg mb-1" style="color: var(--dark-bronze);">Grab A Crab Restaurant</h4>
+                                        <h4 class="font-bold text-base mb-1" style="color: var(--dark-bronze);">Grab A Crab</h4>
                                         <p class="text-xs text-gray-500 mb-2">Seafood Specialist</p>
                                     </div>
                                 </div>
                                 <p class="text-sm text-gray-700 mb-3 leading-relaxed">Long-time favorite for seafood lovers, famous for its variety of crab dishes and fresh catches.</p>
-                                <a href="https://www.google.com/maps?q=Grab+A+Crab+Restaurant+General+Santos" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline flex items-center gap-2" style="color: var(--bronze);">
-                                    📍 Navigate Here →
-                                </a>
+                                <a href="https://www.google.com/maps?q=Grab+A+Crab+Restaurant+General+Santos" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline" style="color: var(--bronze);">📍 Navigate →</a>
                             </div>
 
-                            <!-- Big Ben's -->
-                            <div class="feature-card p-6 rounded-2xl">
+                            <div class="feature-card p-5 rounded-xl">
                                 <div class="flex items-start mb-3">
-                                    <span class="text-3xl mr-3">🍖</span>
+                                    <span class="text-3xl mr-3">🥖</span>
                                     <div>
-                                        <h4 class="font-bold text-lg mb-1" style="color: var(--dark-bronze);">Big Ben's Steaks & Grill</h4>
+                                        <h4 class="font-bold text-base mb-1" style="color: var(--dark-bronze);">Big Ben's Steaks & Grill</h4>
                                         <p class="text-xs text-gray-500 mb-2">Steakhouse</p>
                                     </div>
                                 </div>
                                 <p class="text-sm text-gray-700 mb-3 leading-relaxed">The go-to destination for meat lovers, known for great steaks and generous family platters.</p>
-                                <a href="https://www.google.com/maps?q=Big+Bens+Steaks+and+Grill+General+Santos" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline flex items-center gap-2" style="color: var(--bronze);">
-                                    📍 Get Directions →
-                                </a>
+                                <a href="https://www.google.com/maps?q=Big+Bens+Steaks+and+Grill+General+Santos" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline" style="color: var(--bronze);">📍 Directions →</a>
                             </div>
 
-                            <!-- Ranchero Nuevo -->
-                            <div class="feature-card p-6 rounded-2xl">
+                            <div class="feature-card p-5 rounded-xl">
                                 <div class="flex items-start mb-3">
                                     <span class="text-3xl mr-3">🏡</span>
                                     <div>
-                                        <h4 class="font-bold text-lg mb-1" style="color: var(--dark-bronze);">Ranchero Nuevo</h4>
+                                        <h4 class="font-bold text-base mb-1" style="color: var(--dark-bronze);">Ranchero Nuevo</h4>
                                         <p class="text-xs text-gray-500 mb-2">Filipino Comfort</p>
                                     </div>
                                 </div>
                                 <p class="text-sm text-gray-700 mb-3 leading-relaxed">A beloved spot for Filipino comfort food in a homey, spacious setting perfect for families.</p>
-                                <a href="https://www.google.com/maps?q=Ranchero+Nuevo+General+Santos" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline flex items-center gap-2" style="color: var(--bronze);">
-                                    📍 View Location →
-                                </a>
+                                <a href="https://www.google.com/maps?q=Ranchero+Nuevo+General+Santos" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline" style="color: var(--bronze);">📍 View →</a>
                             </div>
-                            
-                            <!-- Café Paprika -->
-                            <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-rose-50/40 to-pink-50/30">
+
+                            <div class="feature-card p-5 rounded-xl bg-gradient-to-br from-rose-50/40 to-pink-50/30">
                                 <div class="flex items-start mb-3">
                                     <span class="text-3xl mr-3">🍷</span>
                                     <div>
-                                        <h4 class="font-bold text-lg mb-1" style="color: var(--dark-bronze);">Café Paprika</h4>
-                                        <p class="text-xs text-gray-500 mb-2">Mediterranean-Asian Fusion</p>
+                                        <h4 class="font-bold text-base mb-1" style="color: var(--dark-bronze);">Café Paprika</h4>
+                                        <p class="text-xs text-gray-500 mb-2">Mediterranean-Asian</p>
                                     </div>
                                 </div>
-                                <p class="text-sm text-gray-700 mb-3 leading-relaxed">Features a private wine cellar room for intimate gatherings (up to 8 guests). Perfect for date nights.</p>
-                                <a href="https://maps.app.goo.gl/e19ujrML1Tt7VH919" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline flex items-center gap-2" style="color: var(--bronze);">
-                                    📍 Reserve Now →
-                                </a>
+                                <p class="text-sm text-gray-700 mb-3 leading-relaxed">Features a private wine cellar room for intimate gatherings. Perfect for date nights.</p>
+                                <a href="https://maps.app.goo.gl/e19ujrML1Tt7VH919" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline" style="color: var(--bronze);">📍 Reserve →</a>
+                            </div>
+
+                            <div class="feature-card p-5 rounded-xl bg-gradient-to-br from-blue-50/40 to-cyan-50/30">
+                                <div class="flex items-start mb-3">
+                                    <span class="text-3xl mr-3">🏨</span>
+                                    <div>
+                                        <h4 class="font-bold text-base mb-1" style="color: var(--dark-bronze);">Caffe Summit</h4>
+                                        <p class="text-xs text-gray-500 mb-2">Grand Summit Hotel</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-700 mb-3 leading-relaxed">Upscale restaurant. <strong>Signature:</strong> Fresh Tuna Sashimi and Tuna Sisig.</p>
+                                <a href="https://maps.google.com/?cid=12189300974736002791" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline" style="color: var(--bronze);">📍 Navigate →</a>
+                            </div>
+
+                            <div class="feature-card p-5 rounded-xl bg-gradient-to-br from-green-50/40 to-emerald-50/30">
+                                <div class="flex items-start mb-3">
+                                    <span class="text-3xl mr-3">🍳</span>
+                                    <div>
+                                        <h4 class="font-bold text-base mb-1" style="color: var(--dark-bronze);">Mint Cafe</h4>
+                                        <p class="text-xs text-gray-500 mb-2">Greenleaf Hotel</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-700 mb-3 leading-relaxed">Western-Filipino fusion. <strong>Signature:</strong> Extensive Breakfast Buffet.</p>
+                                <a href="https://maps.google.com/?cid=7555356928496699060" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline" style="color: var(--bronze);">📍 View →</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="luxury-divider"></div>
 
-                    <!-- Casual Eateries & Local Legends -->
+                    <!-- Casual Eateries -->
                     <div class="mb-8">
                         <div class="flex items-center mb-6">
                             <span class="text-4xl mr-3">🍖</span>
@@ -1674,17 +1719,15 @@
                         </div>
 
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            <!-- Tiongson Arcade - Featured -->
-                            <div class="lg:col-span-2 feature-card p-8 rounded-2xl bg-gradient-to-br from-amber-50/50 to-yellow-50/40">
+                            <div class="lg:col-span-2 feature-card p-7 md:p-8 rounded-2xl bg-gradient-to-br from-amber-50/50 to-yellow-50/40">
                                 <div class="flex items-start mb-5">
-                                    <span class="text-5xl mr-4">🍢</span>
+                                    <span class="text-5xl mr-4">🔥</span>
                                     <div>
                                         <h4 class="font-bold text-2xl mb-2" style="color: var(--dark-bronze);">Tiongson Arcade</h4>
                                         <p class="text-sm text-gray-600 mb-3">Lagao District</p>
                                         <div class="flex gap-2 flex-wrap">
                                             <span class="text-xs px-3 py-1 rounded-full bg-amber-100 text-amber-900 font-medium">Local Favorite</span>
                                             <span class="text-xs px-3 py-1 rounded-full bg-yellow-100 text-yellow-900">Budget-Friendly</span>
-                                            <span class="text-xs px-3 py-1 rounded-full bg-orange-100 text-orange-900">Food Crawl</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1704,34 +1747,75 @@
                                 </a>
                             </div>
 
-                            <!-- Chicken Hauz -->
-                            <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-orange-50/30 to-red-50/20">
-                                <div class="flex items-start mb-4">
-                                    <span class="text-4xl mr-3">🍗</span>
-                                    <div>
-                                        <h4 class="font-bold text-xl mb-2" style="color: var(--dark-bronze);">Chicken Hauz</h4>
-                                        <p class="text-xs text-gray-500 mb-2">Local Institution</p>
+                            <div class="space-y-5">
+                                <div class="feature-card p-6 rounded-xl bg-gradient-to-br from-orange-50/30 to-red-50/20">
+                                    <div class="flex items-start mb-4">
+                                        <span class="text-4xl mr-3">🍗</span>
+                                        <div>
+                                            <h4 class="font-bold text-xl mb-2" style="color: var(--dark-bronze);">Chicken Hauz</h4>
+                                            <p class="text-xs text-gray-500 mb-2">Local Institution</p>
+                                        </div>
                                     </div>
+                                    <p class="text-sm text-gray-700 mb-4 leading-relaxed">A GenSan institution for simple, delicious, and affordable grilled chicken barbecue. Locals swear by it.</p>
+                                    <a href="https://www.google.com/maps?q=Chicken+Hauz+General+Santos" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline flex items-center gap-2" style="color: var(--bronze);">
+                                        📍 Find Location →
+                                    </a>
                                 </div>
-                                <p class="text-sm text-gray-700 mb-4 leading-relaxed">A GenSan institution for simple, delicious, and affordable grilled chicken barbecue. Locals swear by it.</p>
-                                <div class="bg-white/50 p-3 rounded-lg mb-4">
-                                    <p class="text-xs font-semibold mb-1" style="color: var(--bronze);">Signature</p>
-                                    <p class="text-sm">Grilled Chicken Barbecue</p>
+
+                                <div class="feature-card p-5 rounded-xl">
+                                    <div class="flex items-start mb-3">
+                                        <span class="text-3xl mr-3">🍢</span>
+                                        <div>
+                                            <h4 class="font-bold text-base mb-1" style="color: var(--dark-bronze);">Tambilawan</h4>
+                                            <p class="text-xs text-gray-500 mb-2">Halal • Filipino</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-gray-700 mb-3 leading-relaxed">Casual halal restaurant. <strong>Signature:</strong> Juicy, flavorful Chicken Inasal.</p>
+                                    <a href="https://maps.google.com/?cid=7302666169777950826" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 Directions →</a>
                                 </div>
-                                <a href="https://www.google.com/maps?q=Chicken+Hauz+General+Santos" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline flex items-center gap-2" style="color: var(--bronze);">
-                                    📍 Find Location →
-                                </a>
                             </div>
                         </div>
                     </div>
 
                     <!-- Bottom CTA -->
-                    <div class="accent-box p-6 md:p-8 rounded-2xl text-center">
-                        <div class="max-w-2xl mx-auto">
-                            <div class="text-4xl mb-3">🍴</div>
-                            <h3 class="text-xl md:text-2xl serif-font mb-3" style="color: var(--dark-bronze);">Craving Something Specific?</h3>
-                            <p class="text-sm md:text-base text-gray-700 leading-relaxed mb-4">Whether you're seeking romantic ambiance, local authenticity, or dietary accommodations, we're happy to provide tailored recommendations.</p>
-                            <p class="text-sm" style="color: var(--bronze);">📱 Message us anytime: <a href="tel:09560115744" class="font-semibold hover:underline">0956 011 5744</a></p>
+                    <div class="accent-box p-6 md:p-8 rounded-2xl">
+                        <div class="max-w-3xl mx-auto">
+                            <div class="text-center mb-6">
+                                <div class="text-4xl mb-3">🌿</div>
+                                <h3 class="text-xl md:text-2xl serif-font mb-3" style="color: var(--dark-bronze);">Local Tip: For Your Quick Cravings</h3>
+                                <p class="text-sm text-gray-600 italic mb-6">Discover neighborhood favorites just steps from your door</p>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-white/70 p-5 rounded-xl border-l-4 border-green-500">
+                                    <div class="flex items-start mb-3">
+                                        <span class="text-3xl mr-3">🛒</span>
+                                        <div>
+                                            <h4 class="font-bold text-base mb-2" style="color: var(--dark-bronze);">Sari-Sari Store</h4>
+                                            <p class="text-xs px-2 py-1 rounded-full bg-green-100 text-green-900 inline-block mb-3">Just around the corner!</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-gray-700 mb-3 leading-relaxed">Need something fast? Step outside, turn left, walk to the end of the street. You'll find a small local store with snacks, drinks, and daily essentials.</p>
+                                    <p class="text-xs text-gray-600 italic">⏱️ Perfect for quick runs • Open most hours</p>
+                                </div>
+                                
+                                <div class="bg-white/70 p-5 rounded-xl border-l-4 border-orange-500">
+                                    <div class="flex items-start mb-3">
+                                        <span class="text-3xl mr-3">🔥</span>
+                                        <div>
+                                            <h4 class="font-bold text-base mb-2" style="color: var(--dark-bronze);">Ate Kris's BBQ</h4>
+                                            <p class="text-xs px-2 py-1 rounded-full bg-orange-100 text-orange-900 inline-block mb-3">A neighborhood favorite!</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-gray-700 mb-3 leading-relaxed">In the late afternoon, just two houses to the left, you'll catch the aroma of freshly grilled Filipino BBQ. A delicious local treat.</p>
+                                    <p class="text-xs text-gray-600 italic">⏱️ Late afternoon onwards • Authentic Filipino flavors</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 pt-6 border-t border-bronze/20 text-center">
+                                <p class="text-sm text-gray-700 mb-2">Need more dining recommendations?</p>
+                                <p class="text-sm" style="color: var(--bronze);">📱 Message us: <a href="tel:09918538269" class="font-semibold hover:underline">0991 853 8269</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1739,8 +1823,8 @@
 
             <section id="info" class="content-section">
                 <div class="content-card p-6 sm:p-8 md:p-12">
-                    <h2 class="text-3xl md:text-4xl font-light serif-font mb-3" style="color: var(--dark-bronze);">House Guidelines & Information</h2>
-                    <p class="text-gray-600 mb-6 text-base md:text-lg">To preserve the tranquility of your sanctuary and respect our community, we kindly request your observance of these essential courtesies.</p>
+                    <h2 class="text-3xl md:text-4xl font-light serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">House Guidelines & Information</h2>
+                    <p class="text-gray-600 mb-8 text-base md:text-lg leading-relaxed">To preserve the tranquility of your sanctuary and respect our community, we kindly request your observance of these essential courtesies.</p>
                     
                     <div>
                         <h3 class="font-bold text-xl md:text-2xl mb-5" style="color: var(--dark-bronze);">House Courtesies</h3>
@@ -1760,8 +1844,8 @@
                                     <span class="text-xl md:text-2xl mr-3" style="color: var(--bronze);">✨</span>
                                     <div>
                                         <h4 class="font-semibold text-base md:text-lg mb-2" style="color: var(--dark-bronze);">Pristine Environment</h4>
-                                        <p class="text-xs md:text-sm text-gray-700 mb-2">To maintain the cleanliness of your sanctuary, we kindly request that footwear be removed upon entry.</p>
-                                        <p class="text-xs text-gray-600 italic">A shoe rack is conveniently located at the entrance near the door, with complimentary slippers available for your comfort.</p>
+                                        <p class="text-xs md:text-sm text-gray-700 mb-2">To maintain cleanliness, we kindly request that footwear be removed upon entry.</p>
+                                        <p class="text-xs text-gray-600 italic">A shoe rack with complimentary slippers is at the entrance.</p>
                                     </div>
                                 </div>
                             </div>
@@ -1771,7 +1855,7 @@
                                     <span class="text-xl md:text-2xl mr-3" style="color: var(--bronze);">🚭</span>
                                     <div>
                                         <h4 class="font-semibold text-base md:text-lg mb-2" style="color: var(--dark-bronze);">Non-Smoking Policy</h4>
-                                        <p class="text-xs md:text-sm text-gray-700">Cascade Hideaway maintains a strict non-smoking environment indoors. A designated outdoor area is available for your convenience.</p>
+                                        <p class="text-xs md:text-sm text-gray-700">Cascade Hideaway maintains a strict non-smoking environment indoors. A designated outdoor area is available.</p>
                                     </div>
                                 </div>
                             </div>
@@ -1801,7 +1885,7 @@
                                     <span class="text-xl md:text-2xl mr-3" style="color: var(--bronze);">💬</span>
                                     <div>
                                         <h4 class="font-semibold text-base md:text-lg mb-2" style="color: var(--dark-bronze);">Concierge Support</h4>
-                                        <p class="text-xs md:text-sm text-gray-700">Your comfort remains our highest priority. Please don't hesitate to contact us should you require any assistance whatsoever.</p>
+                                        <p class="text-xs md:text-sm text-gray-700">Your comfort remains our highest priority. Please don't hesitate to contact us for any assistance.</p>
                                     </div>
                                 </div>
                             </div>
@@ -1832,7 +1916,7 @@
                             </div>
                             <div class="text-center p-4 bg-white/50 rounded-lg">
                                 <p class="text-xs text-gray-600 mb-1">Host Support 24/7</p>
-                                <a href="tel:09560115744" class="text-lg md:text-xl font-semibold hover:underline block mb-2" style="color: var(--bronze);">0956-011-5744</a>
+                                <a href="tel:09918538269" class="text-lg md:text-xl font-semibold hover:underline block mb-2" style="color: var(--bronze);">0991-853-8269</a>
                                 <p class="text-xs text-gray-600 italic">For property assistance</p>
                             </div>
                         </div>
@@ -1847,46 +1931,46 @@
                 <div class="content-card p-6 sm:p-8 md:p-12">
                     <div class="text-center mb-8">
                         <div class="text-5xl mb-4">🌅</div>
-                        <h2 class="text-3xl md:text-4xl font-light serif-font mb-3" style="color: var(--dark-bronze);">Departure Day</h2>
-                        <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">As your retreat draws to a close, we kindly request your assistance with these final details.</p>
+                        <h2 class="text-3xl md:text-4xl font-light serif-font mb-3 tracking-tight" style="color: var(--dark-bronze);">Departure Day</h2>
+                        <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">As your retreat draws to a close, we kindly request your assistance with these final details.</p>
                     </div>
                     
                     <div class="luxury-divider"></div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                        <div class="feature-card p-6 rounded-xl">
-                            <h3 class="font-semibold text-lg mb-4 flex items-center" style="color: var(--dark-bronze);">
-                                <span class="text-2xl mr-3">📋</span> Before You Leave
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                        <div class="feature-card p-5 rounded-xl">
+                            <h3 class="font-semibold text-lg mb-3 flex items-center" style="color: var(--dark-bronze);">
+                                <span class="text-2xl mr-2">📋</span> Before You Leave
                             </h3>
-                            <ul class="space-y-3 text-sm text-gray-700">
+                            <ul class="space-y-2 text-sm text-gray-700">
                                 <li class="flex items-start">
-                                    <span class="mr-3 mt-1" style="color: var(--bronze);">•</span>
+                                    <span class="mr-2 mt-0.5" style="color: var(--bronze);">•</span>
                                     <span>Please dispose of all refuse in the designated containers</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="mr-3 mt-1" style="color: var(--bronze);">•</span>
+                                    <span class="mr-2 mt-0.5" style="color: var(--bronze);">•</span>
                                     <span>Kindly check all areas for personal belongings</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="mr-3 mt-1" style="color: var(--bronze);">•</span>
+                                    <span class="mr-2 mt-0.5" style="color: var(--bronze);">•</span>
                                     <span>Ensure all appliances, lights, and air-conditioning are switched off</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="mr-3 mt-1" style="color: var(--bronze);">•</span>
+                                    <span class="mr-2 mt-0.5" style="color: var(--bronze);">•</span>
                                     <span>Simply close the door firmly—the smart lock will secure automatically</span>
                                 </li>
                             </ul>
                         </div>
                         
-                        <div class="accent-box p-6 rounded-xl">
-                            <h3 class="font-semibold text-lg mb-4 flex items-center" style="color: var(--dark-bronze);">
-                                <span class="text-2xl mr-3">⏰</span> Check-Out Time
+                        <div class="accent-box p-5 rounded-xl">
+                            <h3 class="font-semibold text-lg mb-3 flex items-center" style="color: var(--dark-bronze);">
+                                <span class="text-2xl mr-2">⏰</span> Check-Out Time
                             </h3>
-                            <div class="text-center mb-4">
-                                <p class="text-4xl serif-font font-semibold text-red-700 mb-2">12:00 NN</p>
+                            <div class="text-center mb-3">
+                                <p class="text-4xl serif-font font-semibold text-red-700 mb-1">12:00 NN</p>
                                 <p class="text-sm text-gray-700">Strictly Observed</p>
                             </div>
-                            <div class="bg-white/50 p-4 rounded-lg">
+                            <div class="bg-white/50 p-3 rounded-lg">
                                 <p class="text-xs text-gray-600"><strong class="text-gray-800">Late Check-Out:</strong> If you require additional time, please contact us in advance. Subject to availability and additional charges may apply.</p>
                             </div>
                         </div>
@@ -1894,44 +1978,51 @@
                     
                     <div class="luxury-divider"></div>
                     
-                    <div class="text-center space-y-6">
-                        <div class="text-4xl md:text-5xl">🙏</div>
-                        <h3 class="text-2xl md:text-3xl serif-font" style="color: var(--dark-bronze);">Our Sincere Gratitude</h3>
-                        <p class="text-sm md:text-base text-gray-700 leading-relaxed max-w-2xl mx-auto">
-                            It has been our genuine pleasure to serve as your hosts at Cascade Hideaway. We hope your time with us provided the rest, comfort, and peace you sought.
-                        </p>
+                    <div class="text-center space-y-8">
+                        <div class="max-w-3xl mx-auto">
+                            <div class="text-5xl mb-5">🙏</div>
+                            <h3 class="text-3xl md:text-4xl serif-font mb-4 font-light" style="color: var(--dark-bronze);">Our Sincere Gratitude</h3>
+                            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                                It has been our genuine pleasure to serve as your hosts at Cascade Hideaway. We hope your time with us provided the rest, comfort, and peace you sought.
+                            </p>
+                        </div>
                         
-                        <div class="accent-box p-6 md:p-8 rounded-xl max-w-2xl mx-auto">
+                        <div class="luxury-divider"></div>
+                        
+                        <div class="experience-card p-7 md:p-9 rounded-2xl max-w-3xl mx-auto">
                             <div class="mb-6">
-                                <p class="text-lg md:text-xl serif-font mb-4" style="color: var(--dark-bronze);">Share Your Experience</p>
-                                <p class="text-sm text-gray-700 mb-4">If you found value in your experience, we would be deeply grateful if you would consider sharing your reflections. Your feedback helps us continually refine our service.</p>
-                                <a href="https://www.airbnb.com/users/reviews" target="_blank" rel="noopener noreferrer" class="btn-primary px-6 py-3 rounded-lg font-medium inline-flex items-center">
-                                    ⭐ Leave a 5-Star Review on Airbnb
+                                <div class="text-5xl mb-4">⭐</div>
+                                <p class="text-2xl md:text-3xl serif-font mb-4 font-light" style="color: var(--dark-bronze);">Share Your Experience</p>
+                                <p class="text-sm md:text-base text-gray-700 mb-6 leading-relaxed">If you found value in your experience, we would be deeply grateful if you would consider sharing your reflections. Your feedback helps us continually refine our service.</p>
+                                <a href="https://www.airbnb.com/users/reviews" target="_blank" rel="noopener noreferrer" class="btn-primary px-7 md:px-9 py-3 md:py-4 rounded-lg font-semibold inline-flex items-center text-sm md:text-base shadow-lg">
+                                    <span class="mr-2 text-lg">⭐</span> 
+                                    <span>Leave a 5-Star Review on Airbnb</span>
                                 </a>
                             </div>
                             
-                            <div class="luxury-divider"></div>
-                            
-                            <div class="mt-6">
-                                <p class="text-base serif-font mb-3" style="color: var(--dark-bronze);">We Value Your Feedback</p>
-                                <p class="text-sm text-gray-700 mb-4">Have suggestions or additional comments? We'd love to hear from you directly.</p>
-                                <div class="space-y-2 text-sm">
-                                    <p class="flex items-center justify-center gap-2">
-                                        <span>📧</span>
-                                        <a href="mailto:cascadehideaway@gmail.com" class="font-semibold hover:underline" style="color: var(--bronze);">cascadehideaway@gmail.com</a>
-                                    </p>
-                                    <p class="flex items-center justify-center gap-2">
-                                        <span>📱</span>
-                                        <a href="tel:09560115744" class="font-semibold hover:underline" style="color: var(--bronze);">0956 011 5744</a>
-                                    </p>
+                            <div class="border-t-2 border-bronze/30 pt-6">
+                                <p class="text-lg md:text-xl serif-font mb-3 font-medium" style="color: var(--dark-bronze);">We Value Your Feedback</p>
+                                <p class="text-sm md:text-base text-gray-700 mb-5 leading-relaxed">Have suggestions or additional comments? We'd love to hear from you directly.</p>
+                                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center text-sm md:text-base">
+                                    <a href="mailto:cascadereservations@gmail.com" class="flex items-center gap-2 hover:opacity-80 transition-opacity font-medium">
+                                        <span class="text-xl">📧</span>
+                                        <span style="color: var(--bronze);">cascadereservations@gmail.com</span>
+                                    </a>
+                                    <span class="hidden sm:inline text-gray-400">•</span>
+                                    <a href="tel:09918538269" class="flex items-center gap-2 hover:opacity-80 transition-opacity font-medium">
+                                        <span class="text-xl">📱</span>
+                                        <span style="color: var(--bronze);">0991 853 8269</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="accent-box p-6 md:p-8 rounded-xl mt-8 max-w-2xl mx-auto">
-                            <p class="text-xl md:text-2xl serif-font mb-3" style="color: var(--dark-bronze);">Until We Meet Again</p>
-                            <p class="text-sm md:text-base text-gray-700">We wish you safe travels and hope to have the honor of welcoming you back to your sanctuary in the future.</p>
-                            <p class="text-3xl md:text-4xl mt-4">🌿</p>
+                        <div class="luxury-divider"></div>
+                        
+                        <div class="max-w-3xl mx-auto">
+                            <p class="text-2xl md:text-3xl serif-font mb-4 font-light" style="color: var(--dark-bronze);">Until We Meet Again</p>
+                            <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-5">We wish you safe travels and hope to have the honor of welcoming you back to your sanctuary in the future.</p>
+                            <p class="text-5xl">🌿</p>
                         </div>
                     </div>
                 </div>
@@ -1947,44 +2038,10 @@
     </footer>
 
     <script>
-        // Copyright Protection & Enhanced UX
+        // Navigation and interaction script
         (function() {
             'use strict';
             
-            // Disable right-click on protected elements
-            document.addEventListener('contextmenu', function(e) {
-                if (e.target.closest('.protected')) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            
-            // Disable text selection on protected elements
-            document.addEventListener('selectstart', function(e) {
-                if (e.target.closest('.protected')) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            
-            // Prevent keyboard shortcuts for copying on protected content
-            document.addEventListener('keydown', function(e) {
-                if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C' || e.key === 'p' || e.key === 'P' || e.key === 's' || e.key === 'S')) {
-                    if (e.target.closest('.protected')) {
-                        e.preventDefault();
-                        return false;
-                    }
-                }
-            });
-            
-            // Prevent iOS callout menu on protected content
-            document.addEventListener('touchstart', function(e) {
-                if (e.target.closest('.protected')) {
-                    e.target.style.webkitUserSelect = 'none';
-                }
-            });
-            
-            // Navigation functionality with mobile optimization
             const navLinks = document.querySelectorAll('.nav-link');
             const contentSections = document.querySelectorAll('.content-section');
             const departureModal = document.getElementById('departureModal');
@@ -1993,31 +2050,21 @@
 
             const switchTab = (targetId) => {
                 contentSections.forEach(section => {
-                    if (section.id === targetId) {
-                        section.classList.add('active');
-                    } else {
-                        section.classList.remove('active');
-                    }
+                    section.classList.toggle('active', section.id === targetId);
                 });
 
                 navLinks.forEach(link => {
-                    if (link.dataset.target === targetId) {
-                        link.classList.add('nav-active');
-                        link.classList.remove('nav-inactive');
-                        
-                        // Scroll active nav item into view on mobile
-                        if (window.innerWidth < 768) {
-                            link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                        }
-                    } else {
-                        link.classList.remove('nav-active');
-                        link.classList.add('nav-inactive');
+                    const isActive = link.dataset.target === targetId;
+                    link.classList.toggle('nav-active', isActive);
+                    link.classList.toggle('nav-inactive', !isActive);
+                    
+                    if (isActive && window.innerWidth < 768) {
+                        link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                     }
                 });
 
-                // Smooth scroll to top on mobile
                 if (window.innerWidth < 768) {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    window.scrollTo({ top: 0, behavior: 'instant' });
                 }
             };
 
@@ -2038,25 +2085,15 @@
                 switchTab('check-out');
             });
 
-            modalCancel.addEventListener('click', () => {
-                hideModal();
-            });
-
-            // Close modal on overlay click
+            modalCancel.addEventListener('click', hideModal);
             departureModal.addEventListener('click', (e) => {
-                if (e.target === departureModal) {
-                    hideModal();
-                }
+                if (e.target === departureModal) hideModal();
             });
 
-            // Keyboard navigation for modal
             document.addEventListener('keydown', (e) => {
                 if (departureModal.classList.contains('active')) {
-                    if (e.key === 'Escape') {
-                        hideModal();
-                    } else if (e.key === 'Enter') {
-                        modalConfirm.click();
-                    }
+                    if (e.key === 'Escape') hideModal();
+                    else if (e.key === 'Enter') modalConfirm.click();
                 }
             });
             
@@ -2065,9 +2102,7 @@
                     e.preventDefault();
                     const targetId = e.currentTarget.dataset.target;
                     
-                    // Special handling for departure tab
                     if (targetId === 'check-out') {
-                        // Check if user has already confirmed today
                         const today = new Date().toDateString();
                         const confirmedDate = sessionStorage.getItem('departureConfirmed');
                         
@@ -2082,22 +2117,27 @@
                 });
             });
             
-            // Make phone numbers clickable on mobile
-            if (window.innerWidth < 768) {
-                const phoneElements = document.querySelectorAll('.emergency-card a[href^="tel:"]');
-                phoneElements.forEach(el => {
-                    el.style.pointerEvents = 'auto';
+            // Transport link scroll to seamless arrival
+            document.querySelectorAll('[data-scroll-to="seamless-arrival"]').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    switchTab('explore');
+                    
+                    setTimeout(() => {
+                        const seamlessArrivalSection = document.getElementById('seamless-arrival');
+                        if (seamlessArrivalSection) {
+                            seamlessArrivalSection.scrollIntoView({ 
+                                behavior: 'smooth', 
+                                block: 'start' 
+                            });
+                        }
+                    }, 350);
                 });
-            }
+            });
             
-            // Console watermark
-            console.log('%c© Cascade Hideaway 2025', 'font-size: 20px; font-weight: bold; color: #9D7C4F;');
-            console.log('%cThis document is proprietary and confidential.', 'font-size: 12px; color: #666;');
-            console.log('%cUnauthorized use is prohibited.', 'font-size: 12px; color: #666;');
-            console.log('%cVersion 11.0 - Enhanced Edition', 'font-size: 10px; color: #999;');
+            console.log('%c© Cascade Hideaway 2025 - v17.2', 'font-size: 20px; font-weight: bold; color: #9D7C4F;');
             
         })();
     </script>
 </body>
 </html>
-                                    
