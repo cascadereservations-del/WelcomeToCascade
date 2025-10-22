@@ -3093,6 +3093,88 @@
             }
         })();
     </script>
+<!-- BEGIN cascade-guest-registration (insert before </body>) -->
+<script>
+/*
+  Cascade: client-side guest registration helper
+  - Adds minimal prompts for guest name/email when ?token=... present
+  - Computes a device fingerprint to make the device "remember" behavior
+  - Posts to the Worker endpoint at https://<WORKER_BASE>/api/guest/register
+  - Stores a small localStorage flag per token to avoid re-prompting
+*/
+
+/* Lightweight fingerprint */
+async function deviceFingerprint() {
+  try {
+    const s = navigator.userAgent + '|' + screen.width + 'x' + screen.height + '|' + (new Date().getTimezoneOffset());
+    const buf = new TextEncoder().encode(s);
+    const h = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2,'0')).join('');
+  } catch (e) {
+    // fallback - non-crypto
+    return 'fp-' + Math.random().toString(36).slice(2,12);
+  }
+}
+
+/* Register guest by calling Worker API */
+async function registerGuest(workerBase, token, email, name) {
+  const fp = await deviceFingerprint();
+  const payload = { token, email, deviceFingerprint: fp, guestName: name };
+  const res = await fetch(workerBase + '/api/guest/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  try {
+    const j = await res.json();
+    return j;
+  } catch (e) {
+    return { ok: false, error: 'invalid-response' };
+  }
+}
+
+/* Show a minimal prompt flow */
+(async function() {
+  // Replace this with your worker URL after deploy
+  const WORKER_BASE = 'https://<WORKER_BASE>'; // <<--- REPLACE THIS when you deploy Worker
+
+  const params = new URL(location.href).searchParams;
+  const token = params.get('token') || params.get('t'); // support both names
+  if (!token) return;
+
+  const storageKey = 'cascade_guest_' + token;
+  // If device already saw/registered this token, do nothing
+  if (localStorage.getItem(storageKey)) return;
+
+  // You can replace prompt() with a nicer modal in future
+  const name = (prompt('Welcome! Please enter your full name (as on the booking):') || '').trim();
+  const email = (prompt('Please enter your email (for a verification link):') || '').trim();
+  if (!email) {
+    // If user cancels, don't keep nagging them; mark attempted
+    localStorage.setItem(storageKey, JSON.stringify({ attempted: true, ts: new Date().toISOString() }));
+    return;
+  }
+
+  // call the worker
+  try {
+    const r = await registerGuest(WORKER_BASE, token, email, name);
+    if (r && r.ok) {
+      localStorage.setItem(storageKey, JSON.stringify({ email, name, savedAt: new Date().toISOString() }));
+      alert('Thanks — check your email for a verification link. This device will be remembered.');
+    } else {
+      const msg = (r && r.error) ? r.error : 'Registration failed';
+      alert('Registration failed: ' + msg);
+      // store a lightweight flag to avoid infinite prompt loops
+      localStorage.setItem(storageKey, JSON.stringify({ attempted: true, savedAt: new Date().toISOString() }));
+    }
+  } catch (err) {
+    console.error('registerGuest error', err);
+    alert('Registration error — please try again later.');
+    localStorage.setItem(storageKey, JSON.stringify({ attempted: true, savedAt: new Date().toISOString() }));
+  }
+})();
+</script>
+<!-- END cascade-guest-registration -->
 </body>
 </html>
 
