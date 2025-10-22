@@ -1298,7 +1298,17 @@
 </style>
   
   
- </head>
+ 
+<!-- CASCADE-SWIPE-CSS:v16 -->
+<style id="cascade-swipe-css">
+  /* Keep vertical scroll responsive while allowing horizontal swipe detection */
+  html, body, #app { touch-action: pan-y; }
+  /* Improve inertia scrolling in iOS */
+  * { -webkit-overflow-scrolling: touch; }
+</style>
+<!-- /CASCADE-SWIPE-CSS:v16 -->
+
+</head>
  <body class="antialiased">
   <!-- Preload fonts to improve performance -->
   <div style="display: none;">
@@ -4695,5 +4705,102 @@ function setupLuxuryFeatures() {
   });
 })();
   </script>
- </body>
+ 
+<!-- CASCADE-SWIPE-JS:v16 -->
+<script id="cascade-swipe-js">
+(function(){
+  if (window.__CASCADE_SWIPE_PATCH__) return; // guard
+  window.__CASCADE_SWIPE_PATCH__ = true;
+
+  // Helper: pick all candidate nav links (existing structure is preserved)
+  var navLinks = Array.prototype.slice.call(
+    document.querySelectorAll('#navigation .nav-link, #navigation a[href^="#"]')
+  );
+  if (!navLinks.length) return; // nothing to do
+
+  function getActiveIndex(){
+    var i = navLinks.findIndex(function(a){
+      return a.classList.contains('nav-active') || a.getAttribute('aria-current') === 'page';
+    });
+    if (i !== -1) return i;
+    // Fallback: nearest section to current scroll
+    try {
+      var sections = navLinks.map(function(a){
+        var h = a.getAttribute('href') || '';
+        return h.startsWith('#') ? document.querySelector(h) : null;
+      });
+      var topOffset =  (parseInt(getComputedStyle(document.documentElement)
+                          .getPropertyValue('--header-offset')) || 88) + 16;
+      var scrollY = window.scrollY || window.pageYOffset || 0;
+      var bestIdx = 0, bestDist = Infinity;
+      sections.forEach(function(sec, idx){
+        if (!sec) return;
+        var y = (sec.getBoundingClientRect().top + scrollY) - topOffset;
+        var d = Math.abs(y - scrollY);
+        if (d < bestDist){ bestDist = d; bestIdx = idx; }
+      });
+      return bestIdx;
+    } catch(e){ return 0; }
+  }
+
+  function activateIndex(newIndex){
+    if (newIndex < 0 || newIndex >= navLinks.length) return;
+    var link = navLinks[newIndex];
+    // Try to use the page's own click logic first
+    try { link.click(); } catch(e){
+      try {
+        link.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true}));
+      } catch(e2){}
+    }
+    // Smooth-scroll fallback for pure anchors
+    var href = link.getAttribute('href');
+    if (href && href.charAt(0) === '#'){
+      var target = document.querySelector(href);
+      if (target && typeof target.scrollIntoView === 'function'){
+        try { target.scrollIntoView({behavior: 'smooth', block: 'start'}); } catch(e){}
+      }
+    }
+    // Keep nav-active in sync if the page didn't update it
+    navLinks.forEach(function(a, idx){ a.classList.toggle('nav-active', idx === newIndex); });
+  }
+
+  // Touch/Pointer swipe detection (passive for performance)
+  var startX = 0, startY = 0, startT = 0, tracking = false;
+  var THRESH_X = 48, THRESH_Y = 40, MAX_TIME = 600;
+
+  function onStart(e){
+    var t = (e.changedTouches && e.changedTouches[0]) || e;
+    startX = t.clientX; startY = t.clientY; startT = Date.now(); tracking = true;
+  }
+  function onEnd(e){
+    if (!tracking) return; tracking = false;
+    var t = (e.changedTouches && e.changedTouches[0]) || e;
+    var dx = t.clientX - startX; var dy = Math.abs(t.clientY - startY);
+    var elapsed = Date.now() - startT;
+    if (elapsed <= MAX_TIME && Math.abs(dx) >= THRESH_X && dy <= THRESH_Y){
+      var cur = getActiveIndex();
+      var next = dx < 0 ? cur + 1 : cur - 1; // left swipe -> next
+      activateIndex(next);
+    }
+  }
+
+  var surface = document.querySelector('#app') || document.body;
+  surface.addEventListener('touchstart', onStart, {passive: true});
+  surface.addEventListener('touchend',   onEnd,   {passive: true});
+  surface.addEventListener('pointerdown', function(e){ if (e.pointerType === 'touch') onStart(e); }, {passive: true});
+  surface.addEventListener('pointerup',   function(e){ if (e.pointerType === 'touch') onEnd(e);   }, {passive: true});
+
+  // Bonus: keyboard support on desktop
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
+      e.preventDefault();
+      var cur = getActiveIndex();
+      activateIndex(e.key === 'ArrowRight' ? cur + 1 : cur - 1);
+    }
+  }, {passive: false});
+})();
+</script>
+<!-- /CASCADE-SWIPE-JS:v16 -->
+
+</body>
 </html>
