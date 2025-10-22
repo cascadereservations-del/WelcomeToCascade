@@ -1225,33 +1225,79 @@
              from { opacity: 1; transform: translateY(0); }
              to { opacity: 0; transform: translateY(-10px); }
         }
-  </style>
-  <style>
-   /* --- Injected Styles for Luxury Effects & Animations --- */
-.content-section {
-    animation: luxuriousFadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
-@keyframes luxuriousFadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.concierge-fab {
-    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
-    opacity: 0; transform: translateY(20px); pointer-events: none;
-}
-.concierge-fab.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-.fab-button { animation: gentlePulse 3s infinite; }
-@keyframes gentlePulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(74, 63, 53, 0.3); }
-    50% { transform: scale(1.03); box-shadow: 0 8px 28px rgba(74, 63, 53, 0.4); }
-}
-  </style>
-  <style id="ch_smooth_scroll_css">
-   :root { --header-offset: 88px; }
-@media (min-width: 768px){ :root { --header-offset: 96px; } }
-html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
-.content-section{ scroll-margin-top: calc(var(--header-offset) + 8px); }
-  </style>
+  
+        /* --- Injected: Fluid Typography & Spacing --- */
+        h2, .text-3xl.serif-font, .text-4xl.serif-font { font-size: clamp(2rem, 1.5rem + 2.5vw, 2.5rem) !important; }
+        h3, .text-2xl.serif-font { font-size: clamp(1.5rem, 1.2rem + 1.875vw, 1.875rem) !important; }
+        p, li, .text-base { font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem); }
+        .content-card { padding: clamp(1.5rem, 0.5rem + 5vw, 3rem) !important; }
+        
+        /* --- Injected v11: Responsive text for larger screens --- */
+        @media (min-width: 1024px) {
+            .content-section .text-sm, .content-section .text-xs, .contact-option p, .feature-card p {
+                font-size: clamp(0.875rem, 0.82rem + 0.2vw, 1rem);
+            }
+        }
+
+        /* --- Injected: Styles for new "Copy" button --- */
+        .copy-button { display: inline-flex; align-items: center; justify-content: center; padding: 0.3rem 0.5rem; margin-left: 0.5rem; font-size: 0.8rem; border: 1px solid var(--soft-taupe); background: rgba(255,255,255,0.6); color: var(--dark-bronze); border-radius: 0.375rem; cursor: pointer; transition: all 0.2s ease; vertical-align: middle; min-width: 40px; min-height: 36px; }
+        .copy-button:hover { background: rgba(166, 124, 82, 0.1); border-color: var(--bronze); }
+        .copy-button.copied { background: var(--bronze); color: white; border-color: var(--bronze); }
+        
+        /* --- Injected v11: Elegant Gradient Guest Name Styling --- */
+        #guestName { 
+            font-weight: 600 !important; /* Keep it slightly bolder */
+            font-size: 1.1em; 
+            background: linear-gradient(135deg, var(--bronze) 20%, var(--dark-bronze) 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: inherit; /* Use the parent H2's font */
+            margin: 0 0.1em; 
+            display: inline-block; 
+            vertical-align: baseline;
+            filter: brightness(1.1); /* Slightly brighten the gradient */
+        }
+
+        /* --- Injected v11: Dynamic Greeting Styling --- */
+        #dynamic-sub-greeting-container { color: var(--bronze); min-height: 2em; display: flex; align-items: center; justify-content: center; animation: fadeIn 0.8s 0.2s ease-out both; gap: 0.5rem; margin-bottom: 0.5rem; }
+        #dynamic-greeting-icon { font-size: 1rem; line-height: 1; opacity: 0.8; } /* Smaller, simpler icon */
+        #dynamic-sub-greeting { font-family: 'Cormorant Garamond', serif; font-size: clamp(1rem, 0.9rem + 0.5vw, 1.15rem); font-style: italic; }
+        
+        /* --- Injected v11: Elegant "Welcome home." styling --- */
+        .elegant-welcome-home {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600; 
+            font-style: italic; 
+        }
+
+        /* --- Consolidated: Luxury Effects --- */
+        .content-section { animation: luxuriousFadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes luxuriousFadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .concierge-fab { transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out; opacity: 0; transform: translateY(20px); pointer-events: none; }
+        .concierge-fab.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        
+        /* --- Injected v11: Glassmorphism FAB --- */
+        .fab-button { 
+            animation: gentlePulse 3s infinite; 
+            background: rgba(181, 142, 95, 0.7) !important; /* Semi-transparent bronze */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+        @keyframes gentlePulse { 
+            0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(74, 63, 53, 0.3); } 
+            50% { transform: scale(1.03); box-shadow: 0 8px 28px rgba(74, 63, 53, 0.4); } 
+        }
+        
+        /* --- Consolidated: Smooth Scroll CSS --- */
+        :root { --header-offset: 88px; } @media (min-width: 768px){ :root { --header-offset: 96px; } }
+        html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
+        .content-section{ scroll-margin-top: calc(var(--header-offset) + 8px); }
+    
+</style>
+  
+  
  </head>
  <body class="antialiased">
   <!-- Preload fonts to improve performance -->
@@ -1282,12 +1328,8 @@ html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
      <div class="text-5xl mb-4 floating-icon">
       ✨
      </div>
-     <h3 class="text-2xl serif-font font-light mb-2" id="nameModalTitle" style="color: var(--dark-bronze);">
-      A Personal Welcome
-     </h3>
-     <p class="text-sm text-gray-600">
-      Please share your name to personalize your guide.
-     </p>
+     <h3 class="text-2xl serif-font font-light mb-2" id="nameModalTitle" style="color: var(--dark-bronze);">Make Your Guide Special</h3>
+     <p class="text-sm text-gray-600">To make your Cascade Hideaway guide truly yours, may we know your name?</p>
     </div>
     <form class="space-y-4" id="nameForm">
      <input aria-label="Guest Name" id="nameInput" placeholder="Enter your name..." required="" type="text"/>
@@ -1468,7 +1510,7 @@ html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
      <!-- Weather Widget (Moved from main content) -->
      <div class="weather-widget" id="weatherWidget">
       <span class="weather-icon" id="weatherIcon">
-       ☀️
+      ☀️
       </span>
       <span class="weather-temp" id="weatherTemp">
        ...
@@ -1579,18 +1621,14 @@ html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
    </nav>
    <main class="flex-1 p-4 sm:p-6 md:p-10 lg:p-12" id="content">
     <section class="content-section active" id="welcome" role="tabpanel">
-     <div class="content-card p-6 sm:p-8 md:p-12">
+     <div class="content-card">
       <div class="text-center mb-8">
        <p class="text-4xl md:text-5xl mb-5 floating-icon">
         🌿
        </p>
        <!-- Updated for personalization -->
-       <h2 class="text-3xl sm:text-4xl md:text-5xl serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">
-        Welcome
-        <span id="guestName">
-        </span>
-        to Cascade Hideaway
-       </h2>
+       <h2 class="text-3xl sm:text-4xl md:text-5xl serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);"><span id="dynamic-greeting-text">Welcome</span><span id="guestName">
+        </span> to Cascade Hideaway</h2>
        <p class="text-base md:text-lg italic tracking-wider" style="color: var(--bronze);">
         Hotel Comfort, Home Warmth
        </p>
@@ -1627,7 +1665,7 @@ html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
      </div>
     </section>
     <section class="content-section" id="pre-arrival" role="tabpanel">
-     <div class="content-card p-6 sm:p-8 md:p-12">
+     <div class="content-card">
       <h2 class="text-3xl md:text-4xl serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">
        Preparing for Your Arrival
       </h2>
@@ -1721,7 +1759,11 @@ html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
                  </p>
                  <code class="text-sm copyable">
                   09451103994
-                 </code>
+                 </code> <button class="copy-button" data-copy="
+                  09451103994
+                 " title="Copy 
+                  09451103994
+                 ">📋</button>
                 </div>
                </div>
               </div>
@@ -1744,7 +1786,11 @@ html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
                  </p>
                  <code class="text-sm copyable">
                   1094 2361 1134
-                 </code>
+                 </code> <button class="copy-button" data-copy="
+                  1094 2361 1134
+                 " title="Copy 
+                  1094 2361 1134
+                 ">📋</button>
                 </div>
                </div>
               </div>
@@ -1835,7 +1881,7 @@ html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
      </div>
     </section>
     <section class="content-section" id="check-in" role="tabpanel">
-     <div class="content-card p-6 sm:p-8 md:p-12">
+     <div class="content-card">
       <h2 class="text-3xl md:text-4xl serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">
        Your Arrival Experience
       </h2>
@@ -1994,7 +2040,7 @@ html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
      </div>
     </section>
     <section class="content-section" id="hideaway" role="tabpanel">
-     <div class="content-card p-6 sm:p-8 md:p-12">
+     <div class="content-card">
       <h2 class="text-3xl md:text-4xl serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">
        Curated for Your Comfort
       </h2>
@@ -2046,17 +2092,13 @@ html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
             <p class="text-xs md:text-sm text-gray-600 mb-1">
              Network Name
             </p>
-            <code class="text-sm md:text-base">
-             WelcomeToCascade-5G
-            </code>
+            <code class="text-sm md:text-base copyable">WelcomeToCascade-5G</code> <button class="copy-button" data-copy="WelcomeToCascade-5G" title="Copy WelcomeToCascade-5G">📋</button>
            </div>
            <div class="copyable">
             <p class="text-xs md:text-sm text-gray-600 mb-1">
              Password
             </p>
-            <code class="text-sm md:text-base">
-             EnjoyYourStay@CH
-            </code>
+            <code class="text-sm md:text-base copyable">EnjoyYourStay@CH</code> <button class="copy-button" data-copy="EnjoyYourStay@CH" title="Copy EnjoyYourStay@CH">📋</button>
            </div>
           </div>
          </div>
@@ -2167,7 +2209,7 @@ html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
      </div>
     </section>
     <section class="content-section" id="explore" role="tabpanel">
-     <div class="content-card p-6 sm:p-8 md:p-12">
+     <div class="content-card">
       <div class="text-center mb-8">
        <h2 class="text-3xl md:text-4xl serif-font mb-3" style="color: var(--dark-bronze);">
         Discover General Santos
@@ -2899,7 +2941,7 @@ html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
      </div>
     </section>
     <section class="content-section" id="dining" role="tabpanel">
-     <div class="content-card p-6 sm:p-8 md:p-12">
+     <div class="content-card">
       <div class="text-center mb-8">
        <h2 class="text-3xl md:text-4xl serif-font mb-3" style="color: var(--dark-bronze);">
         Culinary Journey
@@ -3505,7 +3547,7 @@ html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
      </div>
     </section>
     <section class="content-section" id="info" role="tabpanel">
-     <div class="content-card p-6 sm:p-8 md:p-12">
+     <div class="content-card">
       <h2 class="text-3xl md:text-4xl serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">
        House Guidelines &amp; Information
       </h2>
@@ -3699,7 +3741,7 @@ html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
      </div>
     </section>
     <section class="content-section" id="check-out" role="tabpanel">
-     <div class="content-card p-6 sm:p-8 md:p-12">
+     <div class="content-card">
       <div class="text-center mb-8">
        <div class="text-5xl mb-4 floating-icon">
         🌅
@@ -3984,6 +4026,25 @@ function setupLuxuryFeatures() {
                 return map[code] || { icon: '☀️', description: 'Sunny' };
             }
 
+            // --- Injected v11: Dynamic Sub-Greeting ---
+            function setDynamicSubGreeting() {
+                const iconEl = document.getElementById('dynamic-greeting-icon');
+                const textEl = document.getElementById('dynamic-sub-greeting');
+                if (!iconEl || !textEl) { console.log('Sub-greeting elements not found'); return; }
+                try {
+                    // Force Philippines Time Zone
+                    const hour = new Date(new Date().toLocaleString("en-US", {timeZone: "Asia/Manila"})).getHours();
+                    let greeting = ""; let icon = "";
+                    if (hour >= 5 && hour < 12) { greeting = "Good morning"; icon = '☀️'; }
+                    else if (hour >= 12 && hour < 17) { greeting = "Good afternoon"; icon = '🌤️'; }
+                    else if (hour >= 17 && hour < 22) { greeting = "Good evening"; icon = '🌙'; }
+                    else { greeting = "A peaceful evening"; icon = '🌃'; } // Late night
+                    iconEl.textContent = icon;
+                    textEl.textContent = greeting;
+                     console.log('Set sub-greeting:', greeting, icon);
+                } catch (e) { console.error("Failed to set dynamic sub-greeting", e); }
+            }
+
             window.addEventListener('beforeinstallprompt', (e) => {
                 const installPromptEl = document.getElementById('installPrompt');
                 if (!installPromptEl) return;
@@ -4045,6 +4106,7 @@ function setupLuxuryFeatures() {
                     fetchWeather();
                     setInterval(fetchWeather, 1800000);
                     loadChecklistState();
+                    setDynamicSubGreeting();
                     
                     const hash = window.location.hash.substring(1);
                     if (hash && tabTargets.includes(hash)) { switchTab(hash); } 
@@ -4256,7 +4318,7 @@ function setupLuxuryFeatures() {
                     if (hour >= 5 && hour < 12) addBadges('morning-activity', '☀️ Perfect for Morning', { color: 'blue' });
                     else if (hour >= 12 && hour < 17) addBadges('afternoon-activity', '🌤️ Afternoon Idea', { color: 'yellow' });
                     else if (hour >= 17 && hour < 22) addBadges('evening-activity', '🌅 Perfect for Evening', { color: 'orange' });
-                    else { addBadges('night-activity', '🌙 Open Late', { color: 'indigo' }); if (activeSection.id === 'info' || (hour >= 22 || hour < 6)) { showQuietHoursReminder(activeSection); } }
+                    else {  if (activeSection.id === 'info' || (hour >= 22 || hour < 6)) { showQuietHoursReminder(activeSection); } }
                 };
                 
                 function addBadges(tag, text, styleConfig = {}) {
@@ -4497,9 +4559,17 @@ function setupLuxuryFeatures() {
   function personalize(name){
     const span = document.querySelector('#guestName');
     if (!span) return;
-    const pretty = (name && name.toLowerCase() !== ADMIN_NAME) ? ', '+name : (name ? ', Admin' : '');
-    span.textContent = pretty;
-  }
+    const formatName = (n) => {
+        if (!n || typeof n !== 'string') return '';
+        const lower = n.toLowerCase().trim();
+        if (lower === ADMIN_NAME) return 'Admin';
+        // Capitalize first letter only
+        return lower.charAt(0).toUpperCase() + lower.slice(1);
+    };
+    const formattedName = formatName(name);
+    // Use textContent for safety, style via CSS
+    span.textContent = formattedName ? ' ' + formattedName : ''; 
+}
   function showNameModal(){ const m=document.querySelector('#nameModal'); if (m){ m.classList.add('active'); m.style.display='flex'; } }
   function hideNameModal(){ const m=document.querySelector('#nameModal'); if (m){ m.classList.remove('active'); m.style.display='none'; } }
   function showExpired(){ const o=document.querySelector('#expiredOverlay'); if (o){ o.classList.remove('hidden'); o.style.display='flex'; } }
