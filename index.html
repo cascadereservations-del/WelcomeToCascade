@@ -62,7 +62,6 @@
             scroll-behavior: smooth;
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
-            /* IMPROVEMENT: Adds padding to the top when scrolling to an anchor, preventing the sticky nav from covering the title. */
             scroll-padding-top: 5rem; 
         }
 
@@ -73,8 +72,8 @@
             position: relative;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            letter-spacing: 0.02em; /* Slightly wider for luxury feel */
-            padding-bottom: 80px; /* Space for FAB on mobile */
+            letter-spacing: 0.02em;
+            padding-bottom: 80px; 
         }
         
         @media (min-width: 768px) {
@@ -121,7 +120,7 @@
         
         .serif-font {
             font-family: 'Cormorant Garamond', serif;
-            font-weight: 400; /* Adjusted for better readability */
+            font-weight: 400; 
         }
         
         #app {
@@ -962,7 +961,6 @@
         }
 
         .time-badge {
-            /* Most styles are now applied via Tailwind in JS */
             vertical-align: middle;
             animation: fadeIn 0.5s ease-out;
         }
@@ -1093,8 +1091,148 @@
             border: 1px solid rgba(180, 180, 180, 0.3);
             backdrop-filter: blur(5px);
         }
+
+        /* --- New Security & Personalization Styles --- */
+        #expiredOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--dark-bronze);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--warm-cream);
+            padding: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        #nameModal .modal-content {
+            max-width: 400px;
+        }
+
+        #nameInput {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--soft-taupe);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.7);
+            color: var(--charcoal);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        #nameInput:focus {
+            outline: none;
+            border-color: var(--bronze);
+            box-shadow: 0 0 0 3px rgba(166, 124, 82, 0.2);
+        }
+
+        .welcome-animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10002;
+            overflow: hidden;
+        }
+        .sparkle {
+            position: absolute;
+            background-color: var(--accent-gold);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            pointer-events: none;
+            opacity: 0;
+            animation: sparkle-anim 0.8s ease-out;
+        }
+        .sparkle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: inherit;
+            border-radius: inherit;
+            transform: scale(1.5);
+            opacity: 0.5;
+        }
+        @keyframes sparkle-anim {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            80% { transform: scale(1.2) rotate(360deg); opacity: 1; }
+            100% { transform: scale(1) rotate(360deg); opacity: 0; }
+        }
+
+        /* Admin Panel Styles */
+        #adminPanel {
+            position: fixed;
+            bottom: 1rem;
+            left: 1rem;
+            background: linear-gradient(135deg, var(--dark-bronze), #333);
+            color: var(--warm-cream);
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 10000;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideUp 0.3s ease-out;
+        }
+        #adminPanel input {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            width: 100px;
+            font-size: 0.8rem;
+        }
+        #adminPanel button {
+            background: var(--bronze);
+            color: white;
+            border: none;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            min-height: 28px;
+            min-width: auto;
+        }
+        #adminPanel button:hover {
+            opacity: 0.9;
+        }
+        .admin-toast {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent-gold);
+            color: var(--dark-bronze);
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 10005;
+            font-size: 0.9rem;
+            font-weight: 500;
+            animation: fadeIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+            opacity: 0;
+        }
+        @keyframes fadeOut {
+             from { opacity: 1; transform: translateY(0); }
+             to { opacity: 0; transform: translateY(-10px); }
+        }
         
     </style>
+
+<style id="ch_smooth_scroll_css">
+:root { --header-offset: 88px; }
+@media (min-width: 768px){ :root { --header-offset: 96px; } }
+html{ scroll-behavior: auto; scroll-padding-top: var(--header-offset); }
+.content-section{ scroll-margin-top: calc(var(--header-offset) + 8px); }
+</style>
 </head>
 <body class="antialiased">
 
@@ -1103,6 +1241,33 @@
         <span style="font-family: 'Cormorant Garamond', serif;"></span>
         <span style="font-family: 'Raleway', sans-serif;"></span>
     </div>
+
+    <!-- New: Expiration Overlay -->
+    <div id="expiredOverlay" class="hidden">
+        <div>
+            <div class="text-5xl mb-4 floating-icon">📖</div>
+            <h2 class="text-3xl serif-font mb-4">Time to Reconnect?</h2>
+            <p class="text-lg leading-relaxed max-w-md mx-auto">This temporary guide has now expired. We hope you had a wonderful stay! Please contact Cascade Hideaway directly if you need anything or wish to plan your next retreat.</p>
+        </div>
+    </div>
+    
+    <!-- New: Name Input Modal -->
+    <div id="nameModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="nameModalTitle">
+        <div class="modal-content">
+            <div class="text-center mb-6">
+                <div class="text-5xl mb-4 floating-icon">✨</div>
+                <h3 id="nameModalTitle" class="text-2xl serif-font font-light mb-2" style="color: var(--dark-bronze);">A Personal Welcome</h3>
+                <p class="text-sm text-gray-600">Please share your name to personalize your guide.</p>
+            </div>
+            <form id="nameForm" class="space-y-4">
+                <input type="text" id="nameInput" placeholder="Enter your name..." required aria-label="Guest Name">
+                <button type="submit" class="modal-btn modal-btn-primary w-full">Continue to Your Sanctuary</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- New: Welcome Animation Container -->
+    <div id="welcomeAnimation" class="welcome-animation-container"></div>
 
     <div id="departureModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="departureTitle">
         <div class="modal-content">
@@ -1244,7 +1409,8 @@
                 <div class="content-card p-6 sm:p-8 md:p-12">
                     <div class="text-center mb-8">
                         <p class="text-4xl md:text-5xl mb-5 floating-icon">🌿</p>
-                        <h2 class="text-3xl sm:text-4xl md:text-5xl serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Welcome to Cascade Hideaway</h2>
+                        <!-- Updated for personalization -->
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Welcome<span id="guestName"></span> to Cascade Hideaway</h2>
                         <p class="text-base md:text-lg italic tracking-wider" style="color: var(--bronze);">Hotel Comfort, Home Warmth</p>
                     </div>
                     
@@ -1389,7 +1555,7 @@
                         <div class="accent-box p-6 md:p-8 rounded-xl text-center">
                             <p class="text-xs md:text-sm tracking-widest uppercase mb-2" style="color: var(--bronze);">Check-Out</p>
                             <p class="text-3xl serif-font font-semibold text-red-700">12:00 NN</p>
-                            <p class="text-xs md:text-sm text-gray-600 mt-2">Extensions available upon request</p>
+                            <p class="text-xs md:text-sm text-gray-600 mt-2">Extensions available upon request. Subject to availability; additional charges may apply for late check-out.</p>
                         </div>
                     </div>
                 </div>
@@ -2579,7 +2745,7 @@
                             </h3>
                             <div class="text-center mb-3">
                                 <p class="text-4xl serif-font font-semibold text-red-700 mb-1">12:00 NN</p>
-                                <p class="text-sm text-gray-700">Extensions available upon request</p>
+                                <p class="text-sm text-gray-700">Extensions available upon request. Subject to availability; additional charges may apply for late check-out.</p>
                             </div>
                             <div class="bg-white/50 p-3 rounded-lg">
                                 <p class="text-xs text-gray-600">Please contact us in advance for flexible arrangements. Subject to availability and additional charges may apply.</p>
@@ -2648,6 +2814,9 @@
         </div>
     </div>
     
+    <!-- New: Admin Panel -->
+    
+    
     <footer class="copyright-footer protected">
         <p class="text-xs md:text-sm">© 2025 Cascade Hideaway. All Rights Reserved.</p>
         <p class="text-xs">This document is confidential and proprietary. For authorized guest use only.</p>
@@ -2658,15 +2827,18 @@
         (function() {
             'use strict';
             
-            // --- Non-DOM dependent variables ---
-            let deferredInstallPrompt;
+            // --- Configuration ---
             const CHECKLIST_KEY = 'cascadeChecklistState';
+            const GUEST_DATA_KEY = 'cascadeGuestData';
+            const ADMIN_NAME = 'cascade123';
+            let EXPIRATION_DAYS = 21;
 
-            // --- Function Definitions ---
+            // --- State ---
+            let deferredInstallPrompt;
+            let isUserAdmin = false;
             
-            // This function will be populated with all DOM-related functions inside init()
-            // to ensure they have access to the element variables.
-            let switchTab, updateContentByTime, showDepartureModal, hideDepartureModal, showConciergeModal, hideConciergeModal, fetchWeather, updateChecklistProgress, loadChecklistState;
+            // --- Function Placeholders ---
+            let switchTab, updateContentByTime, showDepartureModal, hideDepartureModal, showConciergeModal, hideConciergeModal, fetchWeather, updateChecklistProgress, loadChecklistState, handleSecurity, personalizeWelcome, triggerWelcomeAnimation, showAdminPanel, showToast;
             
             function updateClock() {
                 const clockElement = document.getElementById('localClock');
@@ -2687,54 +2859,27 @@
             }
 
             function getWeatherIconAndDesc(code) {
-                const map = {
-                    0: { icon: '☀️', description: 'Clear sky' },
-                    1: { icon: '🌤️', description: 'Mainly clear' },
-                    2: { icon: '⛅', description: 'Partly cloudy' },
-                    3: { icon: '☁️', description: 'Overcast' },
-                    45: { icon: '🌫️', description: 'Fog' },
-                    48: { icon: '🌫️', description: 'Rime fog' },
-                    51: { icon: '🌦️', description: 'Light drizzle' },
-                    53: { icon: '🌦️', description: 'Drizzle' },
-                    55: { icon: '🌦️', description: 'Dense drizzle' },
-                    61: { icon: '🌧️', description: 'Slight rain' },
-                    63: { icon: '🌧️', description: 'Rain' },
-                    65: { icon: '🌧️', description: 'Heavy rain' },
-                    80: { icon: '🌧️', description: 'Rain showers' },
-                    81: { icon: '🌧️', description: 'Rain showers' },
-                    82: { icon: '🌧️', description: 'Violent showers' },
-                    95: { icon: '⛈️', description: 'Thunderstorm' },
-                    96: { icon: '⛈️', description: 'Thunderstorm' },
-                    99: { icon: '⛈️', description: 'Thunderstorm' },
-                };
+                const map = { 0: { icon: '☀️', description: 'Clear sky' }, 1: { icon: '🌤️', description: 'Mainly clear' }, 2: { icon: '⛅', description: 'Partly cloudy' }, 3: { icon: '☁️', description: 'Overcast' }, 45: { icon: '🌫️', description: 'Fog' }, 48: { icon: '🌫️', description: 'Rime fog' }, 51: { icon: '🌦️', description: 'Light drizzle' }, 53: { icon: '🌦️', description: 'Drizzle' }, 55: { icon: '🌦️', description: 'Dense drizzle' }, 61: { icon: '🌧️', description: 'Slight rain' }, 63: { icon: '🌧️', description: 'Rain' }, 65: { icon: '🌧️', description: 'Heavy rain' }, 80: { icon: '🌧️', description: 'Rain showers' }, 81: { icon: '🌧️', description: 'Rain showers' }, 82: { icon: '🌧️', description: 'Violent showers' }, 95: { icon: '⛈️', description: 'Thunderstorm' }, 96: { icon: '⛈️', description: 'Thunderstorm' }, 99: { icon: '⛈️', description: 'Thunderstorm' } };
                 return map[code] || { icon: '☀️', description: 'Sunny' };
             }
 
-            // --- PWA Install Prompt ---
-             window.addEventListener('beforeinstallprompt', (e) => {
+            window.addEventListener('beforeinstallprompt', (e) => {
                 const installPromptEl = document.getElementById('installPrompt');
                 if (!installPromptEl) return;
                 
                 e.preventDefault();
                 deferredInstallPrompt = e;
                 let isDismissed = false;
-                try {
-                    isDismissed = localStorage.getItem('cascadeInstallDismissed');
-                } catch(e) {
-                    console.warn('localStorage is not available:', e);
-                    isDismissed = true;
-                }
-                if (!isDismissed) {
-                    installPromptEl.style.display = 'flex';
-                }
+                try { isDismissed = localStorage.getItem('cascadeInstallDismissed'); } catch(e) { console.warn('localStorage is not available:', e); isDismissed = true; }
+                if (!isDismissed) { installPromptEl.style.display = 'flex'; }
             });
 
             // --- Initial Load Function ---
             function init() {
                 // --- Element Selectors ---
+                const appContainer = document.getElementById('app');
                 const navLinks = document.querySelectorAll('.nav-link');
                 const contentSections = document.querySelectorAll('.content-section');
-                const mainContent = document.getElementById('content');
                 const departureModal = document.getElementById('departureModal');
                 const modalConfirm = document.getElementById('modalConfirm');
                 const modalCancel = document.getElementById('modalCancel');
@@ -2756,11 +2901,160 @@
                 const installButton = document.getElementById('installButton');
                 const closeInstallButton = document.getElementById('closeInstall');
                 
+                // --- New Security & Admin Elements ---
+                const nameModal = document.getElementById('nameModal');
+                const nameForm = document.getElementById('nameForm');
+                const nameInput = document.getElementById('nameInput');
+                const expiredOverlay = document.getElementById('expiredOverlay');
+                const guestNameSpan = document.getElementById('guestName');
+                const adminPanel = document.getElementById('adminPanel');
+                const expiryDaysInput = document.getElementById('expiryDaysInput');
+                const setExpiryBtn = document.getElementById('setExpiryBtn');
+                const resetGuestBtn = document.getElementById('resetGuestBtn');
+
                 let currentTabIndex = 0;
                 const tabTargets = Array.from(navLinks).map(link => link.dataset.target);
+                let isAppInitialized = false;
+
+                // --- Core Application Setup ---
+                const initializeApp = () => {
+                    if (isAppInitialized) return;
+                    updateClock();
+                    setInterval(updateClock, 30000); 
+                    fetchWeather();
+                    setInterval(fetchWeather, 1800000);
+                    loadChecklistState();
+                    
+                    const hash = window.location.hash.substring(1);
+                    if (hash && tabTargets.includes(hash)) { switchTab(hash); } 
+                    else { updateContentByTime(); }
+                    isAppInitialized = true;
+                };
 
                 // --- Function Definitions that need DOM elements ---
                 
+                handleSecurity = () => {
+                    try {
+                        const guestDataStr = localStorage.getItem(GUEST_DATA_KEY);
+                        if (!guestDataStr) {
+                            if(nameModal) nameModal.classList.add('active');
+                            if(nameInput) nameInput.focus();
+                            return false; 
+                        }
+
+                        const guestData = JSON.parse(guestDataStr);
+                        personalizeWelcome(guestData.name);
+
+                        if (guestData.name && guestData.name.toLowerCase() === ADMIN_NAME) {
+                             isUserAdmin = true;
+                             console.log('Admin access granted. Expiration check bypassed.');
+                             showAdminPanel();
+                             return true; 
+                        }
+
+                        if (guestData.firstVisitTime) {
+                            const firstVisitDate = new Date(guestData.firstVisitTime);
+                            if (isNaN(firstVisitDate.getTime())) {
+                                console.error("Stored access date is invalid. Resetting guest data.");
+                                localStorage.removeItem(GUEST_DATA_KEY);
+                                window.location.reload();
+                                return false;
+                            }
+                            
+                            const firstVisit = firstVisitDate.getTime();
+                            const now = new Date().getTime();
+                            const days = guestData.expiryDays || EXPIRATION_DAYS;
+                            const expirationPeriod = days * 24 * 60 * 60 * 1000;
+
+                            if (now - firstVisit > expirationPeriod) {
+                                if(expiredOverlay) expiredOverlay.classList.remove('hidden');
+                                if(appContainer) appContainer.style.display = 'none';
+                                if(conciergeFab) conciergeFab.style.display = 'none';
+                                return false;
+                            }
+                        }
+                        return true;
+                    } catch (e) {
+                        console.error("Security check failed:", e);
+                        localStorage.removeItem(GUEST_DATA_KEY); // Clear potentially corrupt data
+                        if(nameModal) nameModal.classList.add('active');
+                        return false;
+                    }
+                };
+                
+                showToast = (message) => {
+                    const toast = document.createElement('div');
+                    toast.className = 'admin-toast';
+                    toast.textContent = message;
+                    document.body.appendChild(toast);
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 3000);
+                };
+
+                showAdminPanel = () => {
+                    if (adminPanel) adminPanel.classList.remove('hidden');
+                    if (resetGuestBtn) {
+                        resetGuestBtn.onclick = () => {
+                            if (confirm('Are you sure you want to reset the current guest data? This will force a new login on the next visit.')) {
+                                localStorage.removeItem(GUEST_DATA_KEY);
+                                showToast('Guest data cleared.');
+                                setTimeout(() => window.location.reload(), 1000);
+                            }
+                        };
+                    }
+                    if (setExpiryBtn && expiryDaysInput) {
+                        setExpiryBtn.onclick = () => {
+                            const days = parseInt(expiryDaysInput.value, 10);
+                            if (isNaN(days) || days <= 0) {
+                                showToast('Please enter a valid number of days.');
+                                return;
+                            }
+                            try {
+                                const guestData = JSON.parse(localStorage.getItem(GUEST_DATA_KEY) || '{}');
+                                guestData.expiryDays = days;
+                                guestData.firstVisitTime = new Date().toISOString(); // Reset countdown from now
+                                localStorage.setItem(GUEST_DATA_KEY, JSON.stringify(guestData));
+                                showToast(`Access for ${guestData.name || 'guest'} reset to ${days} days.`);
+                                expiryDaysInput.value = '';
+                            } catch (e) {
+                                showToast('Failed to update expiry.');
+                                console.error(e);
+                            }
+                        };
+                    }
+                };
+
+                personalizeWelcome = (name) => {
+                    if (!guestNameSpan || !name) return;
+                    if (name.toLowerCase() === ADMIN_NAME) {
+                        guestNameSpan.textContent = `, Admin`;
+                        return;
+                    }
+                    // Sanitize name to prevent HTML injection
+                    const sanitizedName = document.createElement('div');
+                    sanitizedName.textContent = name;
+                    guestNameSpan.innerHTML = `, ${sanitizedName.innerHTML}`;
+                };
+                
+                triggerWelcomeAnimation = () => {
+                    const container = document.getElementById('welcomeAnimation');
+                    if (!container) return;
+                    container.innerHTML = '';
+                    for (let i = 0; i < 20; i++) {
+                        const sparkle = document.createElement('div');
+                        sparkle.className = 'sparkle';
+                        const size = Math.random() * 10 + 5;
+                        sparkle.style.width = `${size}px`;
+                        sparkle.style.height = `${size}px`;
+                        sparkle.style.top = `${Math.random() * 100}%`;
+                        sparkle.style.left = `${Math.random() * 100}%`;
+                        sparkle.style.animationDelay = `${Math.random() * 0.5}s`;
+                        container.appendChild(sparkle);
+                    }
+                    setTimeout(() => container.innerHTML = '', 1000);
+                };
+
                 switchTab = (targetId, isSwipe = false) => {
                     let found = false;
                     contentSections.forEach(section => {
@@ -2793,80 +3087,33 @@
                     }
                 };
                 
-                showDepartureModal = () => {
-                    if (departureModal) {
-                        departureModal.classList.add('active');
-                        document.body.style.overflow = 'hidden';
-                    }
-                };
-
-                hideDepartureModal = () => {
-                    if (departureModal) {
-                        departureModal.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
-                };
-                
-                showConciergeModal = () => {
-                    if(conciergeModal) {
-                        conciergeModal.classList.add('active');
-                        document.body.style.overflow = 'hidden';
-                    }
-                };
-                
-                hideConciergeModal = () => {
-                    if (conciergeModal) {
-                        conciergeModal.classList.remove('active');
-                        if (!departureModal || !departureModal.classList.contains('active')) {
-                            document.body.style.overflow = '';
-                        }
-                    }
-                };
+                showDepartureModal = () => { if (departureModal) { departureModal.classList.add('active'); document.body.style.overflow = 'hidden'; } };
+                hideDepartureModal = () => { if (departureModal) { departureModal.classList.remove('active'); document.body.style.overflow = ''; } };
+                showConciergeModal = () => { if(conciergeModal) { conciergeModal.classList.add('active'); document.body.style.overflow = 'hidden'; } };
+                hideConciergeModal = () => { if (conciergeModal) { conciergeModal.classList.remove('active'); if (!departureModal || !departureModal.classList.contains('active')) { document.body.style.overflow = ''; } } };
 
                 fetchWeather = async () => {
                     if (!weatherWidget) return;
-                    
                     try {
                         const cached = sessionStorage.getItem('weather');
                         const cacheTime = sessionStorage.getItem('weatherTime');
-                        if (cached && cacheTime && (Date.now() - cacheTime) < 1800000) {
-                            displayWeather(JSON.parse(cached));
-                            return;
-                        }
+                        if (cached && cacheTime && (Date.now() - cacheTime) < 1800000) { displayWeather(JSON.parse(cached)); return; }
                     } catch (e) { console.warn("Could not read weather cache.", e); }
-
                     const URL = `https://api.open-meteo.com/v1/forecast?latitude=6.1167&longitude=125.1717&current_weather=true`;
-
                     try {
                         const response = await fetch(URL);
                         if (!response.ok) throw new Error(`Weather API Error: ${response.status}`);
                         const data = await response.json();
-                        const weatherData = {
-                            temp: Math.round(data.current_weather.temperature),
-                            code: data.current_weather.weathercode
-                        };
-                        try {
-                            sessionStorage.setItem('weather', JSON.stringify(weatherData));
-                            sessionStorage.setItem('weatherTime', Date.now());
-                        } catch (e) { console.warn('sessionStorage is not available:', e); }
+                        const weatherData = { temp: Math.round(data.current_weather.temperature), code: data.current_weather.weathercode };
+                        try { sessionStorage.setItem('weather', JSON.stringify(weatherData)); sessionStorage.setItem('weatherTime', Date.now()); } catch (e) { console.warn('sessionStorage is not available:', e); }
                         displayWeather(weatherData);
-                    } catch (error) {
-                        console.error("Error fetching weather:", error);
-                        displayWeather(null);
-                    }
+                    } catch (error) { console.error("Error fetching weather:", error); displayWeather(null); }
                 };
                 
                 function displayWeather(data) {
                     if(weatherLoader) weatherLoader.style.display = 'none';
                     if(weatherWidget) weatherWidget.style.display = 'flex';
-
-                    if (!data) {
-                        if(weatherIcon) weatherIcon.textContent = '☀️';
-                        if(weatherTemp) weatherTemp.textContent = '30°C';
-                        if(weatherDesc) weatherDesc.textContent = 'Sunny & Warm';
-                        return;
-                    }
-                    
+                    if (!data) { if(weatherIcon) weatherIcon.textContent = '☀️'; if(weatherTemp) weatherTemp.textContent = '30°C'; if(weatherDesc) weatherDesc.textContent = 'Sunny & Warm'; return; }
                     const { icon, description } = getWeatherIconAndDesc(data.code);
                     if(weatherTemp) weatherTemp.textContent = `${data.temp}°C`;
                     if(weatherDesc) weatherDesc.textContent = description;
@@ -2875,61 +3122,33 @@
 
                 updateContentByTime = () => {
                     const hour = new Date(new Date().toLocaleString("en-US", {timeZone: "Asia/Manila"})).getHours();
-                    
                     document.querySelectorAll('.time-badge').forEach(badge => badge.remove());
                     document.querySelectorAll('.quiet-hours-reminder').forEach(el => el.remove());
-
                     let activeSection = document.querySelector('.content-section.active');
                     if (!activeSection) return;
-
                     if (hour >= 5 && hour < 12) addBadges('morning-activity', '☀️ Perfect for Morning', { color: 'blue' });
                     else if (hour >= 12 && hour < 17) addBadges('afternoon-activity', '🌤️ Afternoon Idea', { color: 'yellow' });
                     else if (hour >= 17 && hour < 22) addBadges('evening-activity', '🌅 Perfect for Evening', { color: 'orange' });
-                    else {
-                        addBadges('night-activity', '🌙 Open Late', { color: 'indigo' });
-                        if (activeSection.id === 'info' || (hour >= 22 || hour < 6)) {
-                            showQuietHoursReminder(activeSection);
-                        }
-                    }
+                    else { addBadges('night-activity', '🌙 Open Late', { color: 'indigo' }); if (activeSection.id === 'info' || (hour >= 22 || hour < 6)) { showQuietHoursReminder(activeSection); } }
                 };
                 
                 function addBadges(tag, text, styleConfig = {}) {
                     const activeSection = document.querySelector('.content-section.active');
                     if (!activeSection) return;
-
-                    const colorClasses = {
-                        blue: 'bg-blue-50 text-blue-800',
-                        yellow: 'bg-yellow-50 text-yellow-800',
-                        orange: 'bg-orange-50 text-orange-800',
-                        indigo: 'bg-indigo-50 text-indigo-800',
-                        default: 'bg-gray-50 text-gray-700'
-                    };
-                    
+                    const colorClasses = { blue: 'bg-blue-50 text-blue-800', yellow: 'bg-yellow-50 text-yellow-800', orange: 'bg-orange-50 text-orange-800', indigo: 'bg-indigo-50 text-indigo-800', default: 'bg-gray-50 text-gray-700' };
                     const badgeColor = colorClasses[styleConfig.color] || colorClasses.default;
-
                     activeSection.querySelectorAll(`[data-time-tag*="${tag}"]`).forEach(el => {
-                        const badgeExists = Array.from(el.querySelectorAll('.time-badge')).some(b => b.textContent === text);
-                        if (badgeExists) return;
-
+                        if (Array.from(el.querySelectorAll('.time-badge')).some(b => b.textContent === text)) return;
                         let tagContainer = el.querySelector('.flex.gap-2.flex-wrap');
-                        
                         if (!tagContainer) {
                             tagContainer = document.createElement('div');
                             tagContainer.className = 'flex gap-2 flex-wrap mb-3';
                             const heading = el.querySelector('h3, h4');
                             let insertAfterElement = heading;
-                            if (heading && heading.nextElementSibling && heading.nextElementSibling.tagName === 'P') {
-                                insertAfterElement = heading.nextElementSibling;
-                            }
-                            if (insertAfterElement) {
-                                insertAfterElement.insertAdjacentElement('afterend', tagContainer);
-                            } else {
-                                 const mainContentDiv = el.querySelector('h3, h4')?.parentElement;
-                                 if(mainContentDiv) mainContentDiv.appendChild(tagContainer);
-                                 else el.prepend(tagContainer);
-                            }
+                            if (heading && heading.nextElementSibling && heading.nextElementSibling.tagName === 'P') { insertAfterElement = heading.nextElementSibling; }
+                            if (insertAfterElement) { insertAfterElement.insertAdjacentElement('afterend', tagContainer); } 
+                            else { const mainContentDiv = el.querySelector('h3, h4')?.parentElement; if(mainContentDiv) mainContentDiv.appendChild(tagContainer); else el.prepend(tagContainer); }
                         }
-                        
                         const badge = document.createElement('span');
                         badge.className = `time-badge text-xs px-3 py-1 rounded-full font-medium ${badgeColor}`;
                         badge.textContent = text;
@@ -2949,15 +3168,10 @@
                     const checkedCount = Array.from(checklistItems).filter(item => item.checked).length;
                     const total = checklistItems.length;
                     const percentage = total > 0 ? (checkedCount / total) * 100 : 0;
-                    
                     if(progressFill) progressFill.style.width = `${percentage}%`;
                     if(progressText) progressText.textContent = `${checkedCount} of ${total} completed`;
-                    
                     const state = Array.from(checklistItems).map(item => item.checked);
-                    try {
-                        localStorage.setItem(CHECKLIST_KEY, JSON.stringify(state));
-                    } catch (e) { console.warn('localStorage is not available:', e); }
-                    
+                    try { localStorage.setItem(CHECKLIST_KEY, JSON.stringify(state)); } catch (e) { console.warn('localStorage is not available:', e); }
                     if(completeMessage) completeMessage.style.display = (checkedCount === total) ? 'block' : 'none';
                 };
 
@@ -2965,36 +3179,46 @@
                     if (!checklistItems.length) return;
                     try {
                         const savedState = JSON.parse(localStorage.getItem(CHECKLIST_KEY) || '[]');
-                        checklistItems.forEach((item, index) => {
-                            item.checked = savedState[index] || false;
-                        });
+                        checklistItems.forEach((item, index) => { item.checked = savedState[index] || false; });
                     } catch (e) { console.warn("Failed to load checklist state from localStorage:", e); }
                     updateChecklistProgress();
                 };
 
                 // --- Event Listeners ---
+                if(nameForm) nameForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const guestName = nameInput.value.trim();
+                    if (guestName) {
+                        try {
+                            const guestData = JSON.parse(localStorage.getItem(GUEST_DATA_KEY) || '{}');
+                            guestData.name = guestName;
+                            // Only set the first visit time if it doesn't already exist.
+                            if (!guestData.firstVisitTime) {
+                                guestData.firstVisitTime = new Date().toISOString();
+                            }
+                            localStorage.setItem(GUEST_DATA_KEY, JSON.stringify(guestData));
+                            nameModal.classList.remove('active');
+                            triggerWelcomeAnimation();
+                            
+                            // Re-run security check and initialize the app
+                            /* patched: security handled by v4 */ { initializeApp(); }
+                        } catch (err) {
+                            console.error("Failed to save guest data:", err);
+                        }
+                    }
+                });
+
                 navLinks.forEach(link => {
                     link.addEventListener('click', (e) => {
                         e.preventDefault();
                         const targetId = e.currentTarget.dataset.target;
-                        
                         if (targetId === 'check-out') {
                             let confirmedDate = null;
-                            try {
-                                confirmedDate = sessionStorage.getItem('departureConfirmed');
-                            } catch (e) { console.warn('sessionStorage is not available:', e); }
+                            try { confirmedDate = sessionStorage.getItem('departureConfirmed'); } catch (e) { console.warn('sessionStorage is not available:', e); }
                             const today = new Date().toDateString();
-                            
-                            if (confirmedDate !== today) {
-                                showDepartureModal();
-                            } else {
-                                switchTab(targetId);
-                                try { window.history.pushState(null, '', `#${targetId}`); } catch (e) { console.warn('history.pushState is not available:', e); }
-                            }
-                        } else {
-                            switchTab(targetId);
-                            try { window.history.pushState(null, '', `#${targetId}`); } catch (e) { console.warn('history.pushState is not available:', e); }
-                        }
+                            if (confirmedDate !== today) { showDepartureModal(); } 
+                            else { switchTab(targetId); try { window.history.pushState(null, '', `#${targetId}`); } catch (e) { console.warn('history.pushState is not available:', e); } }
+                        } else { switchTab(targetId); try { window.history.pushState(null, '', `#${targetId}`); } catch (e) { console.warn('history.pushState is not available:', e); } }
                     });
                 });
                 
@@ -3007,7 +3231,6 @@
                 });
                 if(modalCancel) modalCancel.addEventListener('click', hideDepartureModal);
                 if(departureModal) departureModal.addEventListener('click', (e) => { if (e.target === departureModal) hideDepartureModal(); });
-
                 if (conciergeFab) {
                     conciergeFab.addEventListener('click', showConciergeModal);
                     conciergeFab.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') showConciergeModal(); });
@@ -3018,9 +3241,7 @@
                     e.preventDefault();
                     hideConciergeModal();
                     switchTab('info');
-                    setTimeout(() => {
-                        document.querySelector('.emergency-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 350);
+                    setTimeout(() => { document.querySelector('.emergency-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 350);
                 });
                 
                 document.querySelectorAll('[data-scroll-to="seamless-arrival"]').forEach(button => {
@@ -3039,142 +3260,241 @@
                 });
                 
                 checklistItems.forEach(item => item.addEventListener('change', updateChecklistProgress));
-                if (resetChecklistBtn) resetChecklistBtn.addEventListener('click', () => {
-                    checklistItems.forEach(item => item.checked = false);
-                    updateChecklistProgress();
-                });
-
-                if (installButton) installButton.addEventListener('click', async () => {
-                    if (deferredInstallPrompt) {
-                        deferredInstallPrompt.prompt();
-                        deferredInstallPrompt = null;
-                        if(installPromptEl) installPromptEl.style.display = 'none';
-                    }
-                });
-                
-                if (closeInstallButton) closeInstallButton.addEventListener('click', () => {
-                    if(installPromptEl) installPromptEl.style.display = 'none';
-                    try {
-                        localStorage.setItem('cascadeInstallDismissed', 'true');
-                    } catch (e) { console.warn('localStorage is not available:', e); }
-                });
-                
+                if (resetChecklistBtn) resetChecklistBtn.addEventListener('click', () => { checklistItems.forEach(item => item.checked = false); updateChecklistProgress(); });
+                if (installButton) installButton.addEventListener('click', async () => { if (deferredInstallPrompt) { deferredInstallPrompt.prompt(); deferredInstallPrompt = null; if(installPromptEl) installPromptEl.style.display = 'none'; } });
+                if (closeInstallButton) closeInstallButton.addEventListener('click', () => { if(installPromptEl) installPromptEl.style.display = 'none'; try { localStorage.setItem('cascadeInstallDismissed', 'true'); } catch (e) { console.warn('localStorage is not available:', e); } });
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Tab') document.body.classList.add('keyboard-nav');
                     if (e.key === 'Escape') {
                         if (departureModal && departureModal.classList.contains('active')) hideDepartureModal();
                         if (conciergeModal && conciergeModal.classList.contains('active')) hideConciergeModal();
+                        if (nameModal && nameModal.classList.contains('active')) { /* Do not close name modal with Escape */ }
                     }
                 });
                 document.addEventListener('mousedown', () => document.body.classList.remove('keyboard-nav'));
 
                 // --- Final Setup Calls ---
-                updateClock();
-                setInterval(updateClock, 30000); 
-                fetchWeather();
-                setInterval(fetchWeather, 1800000);
-                loadChecklistState();
+                /* patched: security handled by v4 */ { initializeApp(); }
                 
-                const hash = window.location.hash.substring(1);
-                if (hash && tabTargets.includes(hash)) {
-                    switchTab(hash);
-                } else {
-                    updateContentByTime();
-                }
-                
-                console.log('%c© Cascade Hideaway 2025 - v7.4-fix', 'font-size: 1.2rem; font-weight: bold; color: #A67C52;');
+                console.log('%c© Cascade Hideaway 2025 - v8.5-fixed', 'font-size: 1.2rem; font-weight: bold; color: #A67C52;');
             }
             
             // --- Script Entry Point ---
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', init);
-            } else {
-                init();
-            }
+            if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } 
+            else { init(); }
         })();
     </script>
-<!-- BEGIN cascade-guest-registration (insert before </body>) -->
+
+
+
 <script>
-/*
-  Cascade: client-side guest registration helper
-  - Adds minimal prompts for guest name/email when ?token=... present
-  - Computes a device fingerprint to make the device "remember" behavior
-  - Posts to the Worker endpoint at https://<WORKER_BASE>/api/guest/register
-  - Stores a small localStorage flag per token to avoid re-prompting
+/* ===== CASCADE SECURITY & PERSONALIZATION PATCH v4.2 (Admin UI removed) =====
+   - Single source of truth for first-visit + expiry (epoch ms)
+   - 90s grace on first run to prevent "instant expiry"
+   - Admin bypass via name 'cascade123' (no panel)
+   - Emits window.__CH_onUnlocked() when access is valid so your app can init
 */
+(function () {
+  'use strict';
+  if (window.__CH_SECURITY_READY__) return;
+  window.__CH_SECURITY_READY__ = true;
 
-/* Lightweight fingerprint */
-async function deviceFingerprint() {
-  try {
-    const s = navigator.userAgent + '|' + screen.width + 'x' + screen.height + '|' + (new Date().getTimezoneOffset());
-    const buf = new TextEncoder().encode(s);
-    const h = await crypto.subtle.digest('SHA-256', buf);
-    return Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2,'0')).join('');
-  } catch (e) {
-    // fallback - non-crypto
-    return 'fp-' + Math.random().toString(36).slice(2,12);
+  const DAY_MS = 86400000;
+  const ADMIN_NAME = 'cascade123';
+  const SK = {
+    FIRST: 'ch_v2_firstSeenMs',
+    NAME:  'ch_v2_guestName',
+    ADMIN: 'ch_v2_isAdmin'
+  };
+
+  // DOM helpers
+  const $ = s => document.querySelector(s);
+  const on = (el, ev, cb) => el && el.addEventListener(ev, cb);
+
+  // Storage helpers with cookie fallback
+  const cookie = {
+    get(k){ try{ const m=document.cookie.match(new RegExp('(?:^|; )'+encodeURIComponent(k)+'=([^;]*)')); return m?JSON.parse(decodeURIComponent(m[1])):null; }catch(e){ return null; } },
+    set(k,v){ try{ const exp=new Date(Date.now()+365*DAY_MS).toUTCString(); document.cookie=encodeURIComponent(k)+'='+encodeURIComponent(JSON.stringify(v))+'; path=/; SameSite=Lax; expires='+exp; }catch(e){} }
+  };
+  const store = {
+    get(k){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; }catch(e){ return cookie.get(k); } },
+    set(k,v){ try{ v===null?localStorage.removeItem(k):localStorage.setItem(k, JSON.stringify(v)); }catch(e){ cookie.set(k, v); } }
+  };
+
+  const nowMs = () => Date.now();
+  const computeExpiry = (firstSeen, days) => firstSeen + days * DAY_MS;
+  const validTs = (ms) => (typeof ms === 'number' && isFinite(ms) && ms > 1577836800000);
+
+  // Confetti (tasteful, light)
+  function ensureConfettiCSS(){
+    if (document.getElementById('ch_confetti_css')) return;
+    const st = document.createElement('style');
+    st.id = 'ch_confetti_css';
+    st.textContent = '@keyframes ch-confetti-fall{0%{transform:translate3d(var(--x,0),-20vh,0) rotate(0deg);opacity:0}10%{opacity:1}100%{transform:translate3d(var(--x,0),100vh,0) rotate(720deg);opacity:0}}';
+    document.head.appendChild(st);
   }
-}
-
-/* Register guest by calling Worker API */
-async function registerGuest(workerBase, token, email, name) {
-  const fp = await deviceFingerprint();
-  const payload = { token, email, deviceFingerprint: fp, guestName: name };
-  const res = await fetch(workerBase + '/api/guest/register', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  });
-  try {
-    const j = await res.json();
-    return j;
-  } catch (e) {
-    return { ok: false, error: 'invalid-response' };
-  }
-}
-
-/* Show a minimal prompt flow */
-(async function() {
-  // Replace this with your worker URL after deploy
-  const WORKER_BASE = 'https://<WORKER_BASE>'; // <<--- REPLACE THIS when you deploy Worker
-
-  const params = new URL(location.href).searchParams;
-  const token = params.get('token') || params.get('t'); // support both names
-  if (!token) return;
-
-  const storageKey = 'cascade_guest_' + token;
-  // If device already saw/registered this token, do nothing
-  if (localStorage.getItem(storageKey)) return;
-
-  // You can replace prompt() with a nicer modal in future
-  const name = (prompt('Welcome! Please enter your full name (as on the booking):') || '').trim();
-  const email = (prompt('Please enter your email (for a verification link):') || '').trim();
-  if (!email) {
-    // If user cancels, don't keep nagging them; mark attempted
-    localStorage.setItem(storageKey, JSON.stringify({ attempted: true, ts: new Date().toISOString() }));
-    return;
-  }
-
-  // call the worker
-  try {
-    const r = await registerGuest(WORKER_BASE, token, email, name);
-    if (r && r.ok) {
-      localStorage.setItem(storageKey, JSON.stringify({ email, name, savedAt: new Date().toISOString() }));
-      alert('Thanks — check your email for a verification link. This device will be remembered.');
-    } else {
-      const msg = (r && r.error) ? r.error : 'Registration failed';
-      alert('Registration failed: ' + msg);
-      // store a lightweight flag to avoid infinite prompt loops
-      localStorage.setItem(storageKey, JSON.stringify({ attempted: true, savedAt: new Date().toISOString() }));
+  function sparkleWelcome(){
+    ensureConfettiCSS();
+    const c = document.querySelector('#welcomeAnimation');
+    if (!c) return;
+    const colors = ['#C0A062','#A67C52','#CBBFB1','#FFFFFF'];
+    const COUNT = 18;
+    for (let i=0;i<COUNT;i++){
+      const piece = document.createElement('div');
+      const w = 6 + Math.random()*6;
+      const h = 10 + Math.random()*10;
+      const startX = (Math.random()*100 - 50).toFixed(1) + 'vw';
+      piece.style.cssText = 'position:absolute;top:-10vh;left:50%;opacity:0;will-change:transform,opacity;'
+        + 'background:'+colors[i%colors.length]+';width:'+w+'px;height:'+h+'px;'
+        + 'border-radius:'+(Math.random()>.6?'50%':'3px')+';'
+        + 'animation:ch-confetti-fall '+(2.2 + Math.random()*0.8)+'s ease-out '+(i*0.06)+'s forwards;';
+      piece.style.setProperty('--x', startX);
+      c.appendChild(piece);
+      setTimeout(()=>{ try{ c.removeChild(piece);}catch(_){} }, 3500);
     }
-  } catch (err) {
-    console.error('registerGuest error', err);
-    alert('Registration error — please try again later.');
-    localStorage.setItem(storageKey, JSON.stringify({ attempted: true, savedAt: new Date().toISOString() }));
   }
+
+  function personalize(name){
+    const span = document.querySelector('#guestName');
+    if (!span) return;
+    const pretty = (name && name.toLowerCase() !== ADMIN_NAME) ? ', '+name : (name ? ', Admin' : '');
+    span.textContent = pretty;
+  }
+  function showNameModal(){ const m=document.querySelector('#nameModal'); if (m){ m.classList.add('active'); m.style.display='flex'; } }
+  function hideNameModal(){ const m=document.querySelector('#nameModal'); if (m){ m.classList.remove('active'); m.style.display='none'; } }
+  function showExpired(){ const o=document.querySelector('#expiredOverlay'); if (o){ o.classList.remove('hidden'); o.style.display='flex'; } }
+  function hideExpired(){ const o=document.querySelector('#expiredOverlay'); if (o){ o.classList.add('hidden'); o.style.display='none'; } }
+
+  function initState(){
+    let firstSeen = store.get(SK.FIRST);
+    let name = store.get(SK.NAME);
+    let isAdmin = !!store.get(SK.ADMIN);
+
+    if (!validTs(firstSeen)) {
+      firstSeen = nowMs();
+      store.set(SK.FIRST, firstSeen);
+    }
+
+    if ((name||'').toLowerCase().trim() === ADMIN_NAME) {
+      isAdmin = true;
+      store.set(SK.ADMIN, true);
+    }
+
+    // 21 days fixed
+    const days = 21;
+    return { firstSeen, days, name, isAdmin };
+  }
+
+  function isExpired(firstSeen, days){
+    const now = nowMs();
+    // 90s grace to avoid immediate-expiry on first run/clock jitter
+    if (now - firstSeen < 90*1000) return false;
+    return now >= computeExpiry(firstSeen, days);
+  }
+
+  function updateUI(state){
+    personalize(state.name||'');
+    if (state.isAdmin){
+      hideExpired();
+      hideNameModal();
+      if (typeof window.__CH_onUnlocked === 'function') window.__CH_onUnlocked();
+      return;
+    }
+    if (isExpired(state.firstSeen, state.days)){
+      showExpired();
+      const app = document.querySelector('#app'); if (app) app.style.display='none';
+      const fab = document.querySelector('#conciergeFab'); if (fab) fab.style.display='none';
+    } else {
+      hideExpired();
+      if (!state.name) showNameModal(); else hideNameModal();
+      if (typeof window.__CH_onUnlocked === 'function') window.__CH_onUnlocked();
+    }
+  }
+
+  function wireForm(){
+    const form = document.querySelector('#nameForm');
+    const input = document.querySelector('#nameInput');
+    if (!form) return;
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      const val = (input && input.value || '').trim();
+      if (!val) return;
+      store.set(SK.NAME, val);
+      if (val.toLowerCase() === ADMIN_NAME) store.set(SK.ADMIN, true);
+      hideNameModal();
+      if (val.toLowerCase() !== ADMIN_NAME) sparkleWelcome();
+      updateUI(initState());
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    wireForm();
+    updateUI(initState());
+  });
 })();
 </script>
-<!-- END cascade-guest-registration -->
+
+
+
+
+
+<style>
+/* Hard-disable legacy admin panel if lingering in DOM */
+#adminPanel{display:none!important;visibility:hidden!important;}
+</style>
+
+
+
+<script>
+(function(){
+  if (window.__CH_HOOK_READY__) return;
+  window.__CH_HOOK_READY__ = true;
+  window.__CH_onUnlocked = function(){
+    if (window.__CH_APP_READY__) return;
+    window.__CH_APP_READY__ = true;
+    try { if (typeof initializeApp === 'function') initializeApp(); } catch(err){ console.error(err); }
+  };
+})();
+</script>
+
+
+<script id="ch_smooth_scroll_js">
+(function(){
+  const header = document.querySelector('.nav-container');
+  function setOffset(){
+    var h = header ? Math.round(header.getBoundingClientRect().height) : 88;
+    document.documentElement.style.setProperty('--header-offset', h + 'px');
+  }
+  setOffset();
+  window.addEventListener('resize', setOffset, { passive: true });
+  window.addEventListener('orientationchange', setOffset, { passive: true });
+
+  function smoothScrollToId(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    var offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-offset')) || 0;
+    var y = el.getBoundingClientRect().top + window.scrollY - offset - 8;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('#navigation a.nav-link[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var id = a.getAttribute('href').slice(1);
+      smoothScrollToId(id);
+      document.querySelectorAll('#navigation a.nav-link').forEach(function(n){ n.classList.remove('nav-active'); });
+      a.classList.add('nav-active');
+    }, { passive: false });
+  });
+
+  document.querySelectorAll('[data-scroll-to]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      smoothScrollToId(btn.getAttribute('data-scroll-to'));
+    }, { passive: false });
+  });
+})();
+</script>
 </body>
 </html>
 
