@@ -1301,12 +1301,20 @@
  
 <!-- CASCADE-SWIPE-CSS:v16 -->
 <style id="cascade-swipe-css">
-  /* Keep vertical scroll responsive while allowing horizontal swipe detection */
   html, body, #app { touch-action: pan-y; }
-  /* Improve inertia scrolling in iOS */
   * { -webkit-overflow-scrolling: touch; }
 </style>
 <!-- /CASCADE-SWIPE-CSS:v16 -->
+
+
+<!-- CASCADE-CONCIERGE-CSS:v17b -->
+<style id="cascade-concierge-css-v17b">
+  /* Bottom-right placement; override any earlier left placement */
+  .concierge-fab { right: 1rem !important; left: auto !important; bottom: 1rem !important; }
+  .concierge-fab .fab-button { opacity: 0.88; transform: scale(0.9); transition: transform .2s ease, opacity .2s ease; }
+  .concierge-fab:hover .fab-button, .concierge-fab:focus-within .fab-button { opacity: 1; transform: scale(1); }
+</style>
+<!-- /CASCADE-CONCIERGE-CSS:v17b -->
 
 </head>
  <body class="antialiased">
@@ -4709,98 +4717,57 @@ function setupLuxuryFeatures() {
 <!-- CASCADE-SWIPE-JS:v16 -->
 <script id="cascade-swipe-js">
 (function(){
-  if (window.__CASCADE_SWIPE_PATCH__) return; // guard
-  window.__CASCADE_SWIPE_PATCH__ = true;
-
-  // Helper: pick all candidate nav links (existing structure is preserved)
-  var navLinks = Array.prototype.slice.call(
-    document.querySelectorAll('#navigation .nav-link, #navigation a[href^="#"]')
-  );
-  if (!navLinks.length) return; // nothing to do
-
+  if (window.__CASCADE_SWIPE_PATCH__) return; window.__CASCADE_SWIPE_PATCH__=true;
+  var navLinks=[].slice.call(document.querySelectorAll('#navigation .nav-link, #navigation a[href^="#"]'));
+  if(!navLinks.length) return;
   function getActiveIndex(){
-    var i = navLinks.findIndex(function(a){
-      return a.classList.contains('nav-active') || a.getAttribute('aria-current') === 'page';
-    });
-    if (i !== -1) return i;
-    // Fallback: nearest section to current scroll
-    try {
-      var sections = navLinks.map(function(a){
-        var h = a.getAttribute('href') || '';
-        return h.startsWith('#') ? document.querySelector(h) : null;
-      });
-      var topOffset =  (parseInt(getComputedStyle(document.documentElement)
-                          .getPropertyValue('--header-offset')) || 88) + 16;
-      var scrollY = window.scrollY || window.pageYOffset || 0;
-      var bestIdx = 0, bestDist = Infinity;
-      sections.forEach(function(sec, idx){
-        if (!sec) return;
-        var y = (sec.getBoundingClientRect().top + scrollY) - topOffset;
-        var d = Math.abs(y - scrollY);
-        if (d < bestDist){ bestDist = d; bestIdx = idx; }
-      });
-      return bestIdx;
-    } catch(e){ return 0; }
-  }
-
-  function activateIndex(newIndex){
-    if (newIndex < 0 || newIndex >= navLinks.length) return;
-    var link = navLinks[newIndex];
-    // Try to use the page's own click logic first
-    try { link.click(); } catch(e){
-      try {
-        link.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true}));
-      } catch(e2){}
-    }
-    // Smooth-scroll fallback for pure anchors
-    var href = link.getAttribute('href');
-    if (href && href.charAt(0) === '#'){
-      var target = document.querySelector(href);
-      if (target && typeof target.scrollIntoView === 'function'){
-        try { target.scrollIntoView({behavior: 'smooth', block: 'start'}); } catch(e){}
-      }
-    }
-    // Keep nav-active in sync if the page didn't update it
-    navLinks.forEach(function(a, idx){ a.classList.toggle('nav-active', idx === newIndex); });
-  }
-
-  // Touch/Pointer swipe detection (passive for performance)
-  var startX = 0, startY = 0, startT = 0, tracking = false;
-  var THRESH_X = 48, THRESH_Y = 40, MAX_TIME = 600;
-
-  function onStart(e){
-    var t = (e.changedTouches && e.changedTouches[0]) || e;
-    startX = t.clientX; startY = t.clientY; startT = Date.now(); tracking = true;
-  }
-  function onEnd(e){
-    if (!tracking) return; tracking = false;
-    var t = (e.changedTouches && e.changedTouches[0]) || e;
-    var dx = t.clientX - startX; var dy = Math.abs(t.clientY - startY);
-    var elapsed = Date.now() - startT;
-    if (elapsed <= MAX_TIME && Math.abs(dx) >= THRESH_X && dy <= THRESH_Y){
-      var cur = getActiveIndex();
-      var next = dx < 0 ? cur + 1 : cur - 1; // left swipe -> next
-      activateIndex(next);
-    }
-  }
-
-  var surface = document.querySelector('#app') || document.body;
-  surface.addEventListener('touchstart', onStart, {passive: true});
-  surface.addEventListener('touchend',   onEnd,   {passive: true});
-  surface.addEventListener('pointerdown', function(e){ if (e.pointerType === 'touch') onStart(e); }, {passive: true});
-  surface.addEventListener('pointerup',   function(e){ if (e.pointerType === 'touch') onEnd(e);   }, {passive: true});
-
-  // Bonus: keyboard support on desktop
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
-      e.preventDefault();
-      var cur = getActiveIndex();
-      activateIndex(e.key === 'ArrowRight' ? cur + 1 : cur - 1);
-    }
-  }, {passive: false});
+    var i=navLinks.findIndex(a=>a.classList.contains('nav-active')||a.getAttribute('aria-current')==='page');
+    if(i!==-1) return i; try{
+      var sections=navLinks.map(a=>{var h=a.getAttribute('href')||'';return h.startsWith('#')?document.querySelector(h):null});
+      var topOffset=(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-offset'))||88)+16;
+      var scrollY=window.scrollY||window.pageYOffset||0, best=0,dist=1/0; sections.forEach((s,idx)=>{if(!s)return;var y=s.getBoundingClientRect().top+scrollY-topOffset;var d=Math.abs(y-scrollY);if(d<dist){dist=d;best=idx;}});return best;
+    }catch(e){return 0}}
+  function activateIndex(n){ if(n<0||n>=navLinks.length) return; var link=navLinks[n];
+    try{link.click()}catch(e){try{link.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true}))}catch(e2){}}
+    var href=link.getAttribute('href'); if(href&&href.charAt(0)==='#'){var t=document.querySelector(href); if(t&&t.scrollIntoView) try{t.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){}}
+    navLinks.forEach((a,idx)=>a.classList.toggle('nav-active',idx===n)); }
+  var startX=0,startY=0,startT=0,tracking=false; const THX=48, THY=40, T=600;
+  function onStart(e){var t=(e.changedTouches&&e.changedTouches[0])||e;startX=t.clientX;startY=t.clientY;startT=Date.now();tracking=true}
+  function onEnd(e){if(!tracking)return;tracking=false;var t=(e.changedTouches&&e.changedTouches[0])||e;var dx=t.clientX-startX, dy=Math.abs(t.clientY-startY), el=Date.now()-startT; if(el<=T&&Math.abs(dx)>=THX&&dy<=THY){var cur=getActiveIndex();activateIndex(dx<0?cur+1:cur-1)}}
+  var surface=document.querySelector('#app')||document.body; surface.addEventListener('touchstart',onStart,{passive:true}); surface.addEventListener('touchend',onEnd,{passive:true});
+  surface.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')onStart(e)},{passive:true}); surface.addEventListener('pointerup',e=>{if(e.pointerType==='touch')onEnd(e)},{passive:true});
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();var cur=getActiveIndex();activateIndex(e.key==='ArrowRight'?cur+1:cur-1)}},{passive:false});
 })();
 </script>
 <!-- /CASCADE-SWIPE-JS:v16 -->
+
+
+<!-- CASCADE-UI-JS:v17b -->
+<script id="cascade-ui-js-v17b">
+(function(){
+  if (window.__CASCADE_UI_V17B__) return; window.__CASCADE_UI_V17B__ = true;
+  function greeting(){
+    try{ var h=(new Date()).getHours(); return (h<12)?'Good morning':(h<18)?'Good afternoon':'Good evening'; }catch(e){return 'Hello'}
+  }
+  function applyConciergePosition(){
+    var fab = document.getElementById('conciergeFab') || document.querySelector('.concierge-fab');
+    if (fab){ fab.style.left='auto'; fab.style.right='1rem'; fab.style.bottom='1rem'; }
+  }
+  function enhanceNameModal(){
+    var modal = document.getElementById('nameModal'); if(!modal) return;
+    var p = modal.querySelector('p');
+    if (p && /may\s+we\s+know\s+your\s+name\?/i.test(p.textContent||'')){
+      var base = p.textContent.replace(/^\s*/,'').replace(/^(Good\s+(morning|afternoon|evening)!?\s*)/i,'');
+      p.textContent = greeting() + '! ' + base; // Prefix friendly greeting
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    applyConciergePosition();
+    enhanceNameModal();
+  });
+})();
+</script>
+<!-- /CASCADE-UI-JS:v17b -->
 
 </body>
 </html>
