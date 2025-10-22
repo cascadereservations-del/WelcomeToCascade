@@ -13,22 +13,29 @@
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta name="referrer" content="no-referrer">
     <meta name="format-detection" content="telephone=yes">
+    
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Cascade Guide">
+    <link rel="apple-touch-icon" href="icon-192.png"> <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#A67C52">
+    
     <title>Cascade Hideaway | Your Luxury Sanctuary in GenSan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bronze: #9D7C4F;
-            --dark-bronze: #6B5437;
-            --warm-cream: #F5F1E8;
-            --soft-taupe: #C4B5A0;
-            --charcoal: #2C2825;
-            --warm-white: #FFFEF9;
-            --accent-gold: #D4AF37;
+            /* --- New Luxury Modern Color Palette --- */
+            --bronze: #A67C52;      /* Richer, sophisticated bronze */
+            --dark-bronze: #4A3F35;  /* Deep, warm brown-charcoal */
+            --warm-cream: #F9F6F0;   /* Softer, warmer off-white for backgrounds */
+            --soft-taupe: #CBBFB1;   /* Muted accent for dividers and borders */
+            --charcoal: #222222;     /* A softer, modern black for text */
+            --warm-white: #FFFFFF;
+            --accent-gold: #C0A062;   /* A desaturated, elegant gold */
         }
         
         .protected {
@@ -39,18 +46,39 @@
             -webkit-touch-callout: none;
         }
         
-        * {
-            -webkit-tap-highlight-color: rgba(157, 124, 79, 0.2);
+        .copyable {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+            cursor: text;
         }
         
+        * {
+            -webkit-tap-highlight-color: rgba(166, 124, 82, 0.2);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            /* IMPROVEMENT: Adds padding to the top when scrolling to an anchor, preventing the sticky nav from covering the title. */
+            scroll-padding-top: 5rem; 
+        }
+
         body {
             font-family: 'Raleway', sans-serif;
-            background: linear-gradient(135deg, #F5F1E8 0%, #E8DCC8 100%);
+            background: var(--warm-cream);
             color: var(--charcoal);
             position: relative;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            letter-spacing: 0.01em;
+            letter-spacing: 0.02em; /* Slightly wider for luxury feel */
+            padding-bottom: 80px; /* Space for FAB on mobile */
+        }
+        
+        @media (min-width: 768px) {
+            body { padding-bottom: 0; }
         }
         
         body::before {
@@ -61,8 +89,8 @@
             right: 0;
             bottom: 0;
             background-image: 
-                radial-gradient(circle at 20% 80%, rgba(157, 124, 79, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.02) 0%, transparent 50%);
+                radial-gradient(circle at 10% 90%, rgba(166, 124, 82, 0.04) 0%, transparent 40%),
+                radial-gradient(circle at 90% 10%, rgba(192, 160, 98, 0.03) 0%, transparent 40%);
             pointer-events: none;
             z-index: 0;
         }
@@ -74,12 +102,13 @@
             left: 50%;
             transform: translate(-50%, -50%) rotate(-45deg);
             font-size: 1.5rem;
-            font-weight: bold;
-            color: rgba(157, 124, 79, 0.03);
+            font-weight: 700;
+            color: rgba(166, 124, 82, 0.03);
             pointer-events: none;
             z-index: 1;
             white-space: nowrap;
             letter-spacing: 0.3rem;
+            opacity: 0.8;
         }
         
         @media (min-width: 768px) {
@@ -92,6 +121,7 @@
         
         .serif-font {
             font-family: 'Cormorant Garamond', serif;
+            font-weight: 400; /* Adjusted for better readability */
         }
         
         #app {
@@ -100,9 +130,9 @@
         }
         
         .nav-container {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 241, 232, 0.95) 100%);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(44, 40, 37, 0.08);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(249, 246, 240, 0.9) 100%);
+            backdrop-filter: blur(25px);
+            box-shadow: 0 8px 32px rgba(74, 63, 53, 0.08);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -136,13 +166,13 @@
         .nav-active {
             background: linear-gradient(135deg, var(--bronze) 0%, var(--dark-bronze) 100%);
             color: var(--warm-white);
-            box-shadow: 0 4px 12px rgba(157, 124, 79, 0.3);
+            box-shadow: 0 4px 12px rgba(166, 124, 82, 0.3);
         }
         
         .nav-inactive {
             color: var(--charcoal);
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(10px);
         }
         
@@ -152,9 +182,9 @@
             }
             
             .nav-inactive:hover {
-                background: rgba(157, 124, 79, 0.15);
+                background: rgba(166, 124, 82, 0.15);
                 transform: translateX(4px);
-                box-shadow: 0 2px 8px rgba(157, 124, 79, 0.2);
+                box-shadow: 0 2px 8px rgba(166, 124, 82, 0.2);
             }
         }
         
@@ -168,12 +198,13 @@
             backdrop-filter: blur(20px);
             border-radius: 1.5rem;
             box-shadow: 
-                0 20px 60px rgba(44, 40, 37, 0.08),
-                0 8px 24px rgba(157, 124, 79, 0.06),
+                0 20px 60px rgba(74, 63, 53, 0.08),
+                0 8px 24px rgba(166, 124, 82, 0.06),
                 inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(192, 160, 98, 0.1);
             position: relative;
             overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
         }
         
         .content-card::before {
@@ -188,7 +219,7 @@
         
         .content-section {
             display: none;
-            animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .content-section.active {
@@ -206,6 +237,11 @@
             }
         }
         
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         .luxury-divider {
             height: 1px;
             background: linear-gradient(90deg, transparent 0%, var(--soft-taupe) 50%, transparent 100%);
@@ -219,7 +255,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: var(--warm-cream);
+            background: var(--warm-cream); /* Match body bg */
             padding: 0 1rem;
             color: var(--bronze);
             font-size: 0.75rem;
@@ -228,13 +264,13 @@
         .step-number {
             background: linear-gradient(135deg, var(--accent-gold) 0%, var(--bronze) 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(157, 124, 79, 0.3);
+            box-shadow: 0 4px 12px rgba(166, 124, 82, 0.3);
         }
         
         .feature-card {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(192, 160, 98, 0.15);
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
@@ -242,7 +278,7 @@
             .feature-card:hover {
                 background: rgba(255, 255, 255, 0.85);
                 transform: translateY(-4px);
-                box-shadow: 0 12px 32px rgba(157, 124, 79, 0.18);
+                box-shadow: 0 12px 32px rgba(166, 124, 82, 0.18);
             }
         }
         
@@ -254,12 +290,12 @@
         }
         
         .accent-box {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(157, 124, 79, 0.08) 100%);
-            border: 2px solid rgba(212, 175, 55, 0.2);
+            background: linear-gradient(135deg, rgba(192, 160, 98, 0.08) 0%, rgba(166, 124, 82, 0.08) 100%);
+            border: 2px solid rgba(192, 160, 98, 0.2);
         }
         
         code {
-            background: rgba(157, 124, 79, 0.12);
+            background: rgba(166, 124, 82, 0.12);
             color: var(--dark-bronze);
             padding: 0.25rem 0.6rem;
             border-radius: 0.375rem;
@@ -284,7 +320,7 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--bronze) 0%, var(--dark-bronze) 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(157, 124, 79, 0.3);
+            box-shadow: 0 4px 12px rgba(166, 124, 82, 0.3);
             transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
@@ -298,8 +334,8 @@
         
         @media (min-width: 768px) {
             .btn-primary:hover {
-                box-shadow: 0 8px 24px rgba(157, 124, 79, 0.45);
-                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(166, 124, 82, 0.45);
+                transform: translateY(-2px) scale(1.03);
             }
         }
         
@@ -324,7 +360,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(44, 40, 37, 0.7);
+            background: rgba(74, 63, 53, 0.7);
             backdrop-filter: blur(8px);
             z-index: 9999;
             animation: fadeIn 0.2s ease;
@@ -341,13 +377,15 @@
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 254, 249, 0.95) 100%);
             backdrop-filter: blur(20px);
             border-radius: 1.5rem;
-            box-shadow: 0 24px 60px rgba(44, 40, 37, 0.25);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 24px 60px rgba(74, 63, 53, 0.25);
+            border: 1px solid rgba(192, 160, 98, 0.2);
             max-width: 480px;
             width: 100%;
             padding: 2rem;
             position: relative;
             animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
         @keyframes slideUp {
@@ -389,50 +427,52 @@
         .modal-btn-primary {
             background: linear-gradient(135deg, var(--bronze) 0%, var(--dark-bronze) 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(157, 124, 79, 0.3);
+            box-shadow: 0 4px 12px rgba(166, 124, 82, 0.3);
         }
         
         .modal-btn-primary:hover {
-            box-shadow: 0 6px 20px rgba(157, 124, 79, 0.4);
+            box-shadow: 0 6px 20px rgba(166, 124, 82, 0.4);
             transform: translateY(-2px);
         }
         
         .modal-btn-secondary {
-            background: rgba(157, 124, 79, 0.1);
+            background: rgba(166, 124, 82, 0.1);
             color: var(--dark-bronze);
-            border: 2px solid rgba(157, 124, 79, 0.3);
+            border: 2px solid rgba(166, 124, 82, 0.3);
         }
         
         .modal-btn-secondary:hover {
-            background: rgba(157, 124, 79, 0.2);
+            background: rgba(166, 124, 82, 0.2);
             border-color: var(--bronze);
         }
 
         .premium-highlight {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(157, 124, 79, 0.12) 100%);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 8px 24px rgba(157, 124, 79, 0.12);
+            background: linear-gradient(135deg, rgba(192, 160, 98, 0.12) 0%, rgba(166, 124, 82, 0.12) 100%);
+            border: 2px solid rgba(192, 160, 98, 0.3);
+            box-shadow: 0 8px 24px rgba(166, 124, 82, 0.12);
         }
 
         .experience-card {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(157, 124, 79, 0.15) 100%);
+            background: linear-gradient(135deg, rgba(192, 160, 98, 0.15) 0%, rgba(166, 124, 82, 0.15) 100%);
             border: 3px solid var(--accent-gold);
-            box-shadow: 0 16px 48px rgba(157, 124, 79, 0.2);
+            box-shadow: 0 16px 48px rgba(166, 124, 82, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @media (min-width: 768px) {
+            .experience-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 24px 72px rgba(74, 63, 53, 0.12);
+            }
         }
         
         .copyright-footer {
             font-size: 0.7rem;
-            color: rgba(107, 84, 55, 0.5);
+            color: rgba(74, 63, 53, 0.5);
             text-align: center;
             padding: 1rem;
-            border-top: 1px solid rgba(157, 124, 79, 0.1);
+            border-top: 1px solid rgba(166, 124, 82, 0.1);
             margin-top: 2rem;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-            text-size-adjust: 100%;
         }
         
         * {
@@ -547,9 +587,9 @@
         
         .loading-shimmer {
             background: linear-gradient(90deg, 
-                rgba(157, 124, 79, 0.1) 0%, 
-                rgba(212, 175, 55, 0.2) 50%, 
-                rgba(157, 124, 79, 0.1) 100%);
+                rgba(166, 124, 82, 0.1) 0%, 
+                rgba(192, 160, 98, 0.2) 50%, 
+                rgba(166, 124, 82, 0.1) 100%);
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite;
         }
@@ -567,44 +607,508 @@
             font-weight: 600;
             font-size: 0.875rem;
             padding: 0.5rem 1rem;
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(192, 160, 98, 0.1);
             border-radius: 0.5rem;
-            border: 1.5px solid rgba(212, 175, 55, 0.3);
+            border: 1.5px solid rgba(192, 160, 98, 0.3);
             transition: all 0.2s ease;
             text-decoration: none;
             cursor: pointer;
         }
 
         .transport-link:hover {
-            background: rgba(212, 175, 55, 0.2);
+            background: rgba(192, 160, 98, 0.2);
             border-color: var(--bronze);
             transform: translateX(2px);
         }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .floating-icon { 
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        #localClockWrapper {
+            color: var(--bronze);
+            font-weight: 500;
+            font-size: 0.8rem;
+            letter-spacing: 0.025em;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            min-height: 24px;
+        }
+
+        .weather-widget {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 254, 249, 0.7) 100%);
+            backdrop-filter: blur(15px);
+            border-radius: 1rem;
+            box-shadow: 0 8px 30px rgba(74, 63, 53, 0.06);
+            border: 1px solid rgba(192, 160, 98, 0.15);
+            padding: 0.75rem 1rem;
+            margin: 0.75rem auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            animation: fadeInUp 0.5s ease-out;
+            max-width: 90%;
+        }
+        .weather-icon {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+        .weather-temp {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--dark-bronze);
+            line-height: 1;
+        }
+        .weather-desc {
+            font-size: 0.8rem;
+            color: var(--bronze);
+            font-weight: 500;
+        }
+        @media (min-width: 768px) {
+            .weather-widget {
+                max-width: 240px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .weather-temp { font-size: 1.5rem; }
+            .weather-desc { font-size: 0.875rem; }
+        }
+
+        .departure-checklist {
+            background: rgba(166, 124, 82, 0.05);
+            border-radius: 1rem;
+            padding: 1rem;
+            border: 1px solid rgba(166, 124, 82, 0.1);
+        }
+        .checklist-header {
+            margin-bottom: 1.25rem;
+            text-align: center;
+        }
+        .checklist-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--dark-bronze);
+            margin-bottom: 0.75rem;
+        }
+        .progress-bar {
+            height: 8px;
+            background: rgba(74, 63, 53, 0.15);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-gold), var(--bronze));
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 4px;
+        }
+        .progress-text {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--bronze);
+        }
+        .checklist-items {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+        @media(min-width: 640px) {
+            .checklist-items {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 0.75rem;
+            border: 1px solid rgba(166, 124, 82, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 52px;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(166, 124, 82, 0.3);
+        }
+        .checklist-item input[type="checkbox"] {
+            display: none;
+        }
+        .checkmark {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--soft-taupe);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: transparent;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+        .label-text {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            transition: all 0.2s ease;
+            line-height: 1.4;
+        }
+        .checklist-item input:checked + .checkmark {
+            background: var(--bronze);
+            border-color: var(--bronze);
+            color: white;
+            transform: scale(1.05);
+        }
+        .checklist-item input:checked ~ .label-text {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+        .checklist-complete {
+            display: none; /* Hidden by default */
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(192, 160, 98, 0.1) 0%, rgba(166, 124, 82, 0.1) 100%);
+            border-radius: 0.75rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(192, 160, 98, 0.3);
+        }
+        .checklist-complete p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--dark-bronze);
+        }
+        .checklist-complete .text-sm {
+            font-size: 0.875rem;
+            color: var(--bronze);
+            margin-top: 0.25rem;
+        }
+        .reset-checklist {
+            font-size: 0.75rem;
+            color: var(--bronze);
+            background: none;
+            border: none;
+            text-decoration: underline;
+            margin-top: 1rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            cursor: pointer;
+            padding: 0.5rem;
+            min-height: 30px;
+            min-width: 100px;
+        }
+
+        .concierge-fab {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 999;
+            cursor: pointer;
+        }
+        .fab-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--bronze) 0%, var(--dark-bronze) 100%);
+            box-shadow: 0 6px 20px rgba(74, 63, 53, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            animation: pulse 2.5s infinite;
+            padding: 0;
+            min-width: 60px;
+            min-height: 60px;
+        }
+        .fab-icon {
+            font-size: 1.75rem;
+            color: white;
+            line-height: 1;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(74, 63, 53, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 8px 28px rgba(74, 63, 53, 0.5); }
+        }
+        @media (max-width: 767px) {
+            .concierge-fab {
+                right: 50%;
+                transform: translateX(50%);
+                bottom: 1rem;
+            }
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            min-height: 36px;
+            border: none;
+            background: rgba(166, 124, 82, 0.1);
+            color: var(--dark-bronze);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            line-height: 1;
+        }
+        .modal-close-btn:hover {
+            background: rgba(166, 124, 82, 0.2);
+        }
+        .contact-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(166, 124, 82, 0.05);
+            border-radius: 0.75rem;
+            margin-bottom: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(166, 124, 82, 0.1);
+            min-height: 72px;
+        }
+        .contact-option:hover {
+            background: rgba(166, 124, 82, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(166, 124, 82, 0.08);
+            border-color: rgba(166, 124, 82, 0.3);
+        }
+        .option-icon {
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, rgba(192, 160, 98, 0.15) 0%, rgba(166, 124, 82, 0.15) 100%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .contact-option strong {
+            font-weight: 600;
+            color: var(--dark-bronze);
+        }
+        .contact-option p {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            margin: 0;
+            line-height: 1.4;
+        }
+        .emergency-quick-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+        .emergency-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 0.5rem;
+            background: rgba(220, 38, 38, 0.05);
+            border: 1px solid rgba(220, 38, 38, 0.1);
+            border-radius: 0.75rem;
+            color: #b91c1c;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-align: center;
+            min-height: 60px;
+        }
+        .emergency-link span {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+        .emergency-link:hover {
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .map-container {
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(166, 124, 82, 0.2);
+            box-shadow: 0 8px 24px rgba(166, 124, 82, 0.1);
+            margin-top: 1rem;
+        }
+        .static-map {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 10;
+            display: block;
+        }
+
+        .time-badge {
+            /* Most styles are now applied via Tailwind in JS */
+            vertical-align: middle;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .quiet-hours-reminder {
+            background: linear-gradient(135deg, #2C2825, #3a3532);
+            color: var(--warm-cream);
+            padding: 1.25rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.5s;
+        }
+        .quiet-hours-reminder span {
+            font-size: 1.75rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .quiet-hours-reminder p {
+            font-weight: 600;
+            margin: 0;
+            color: white;
+        }
+        .quiet-hours-reminder .text-sm {
+            font-size: 0.875rem;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-top: 0.25rem;
+            color: var(--warm-cream);
+        }
+
+        .install-prompt {
+            display: none; /* Hidden by default */
+            position: fixed;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            background: linear-gradient(135deg, rgba(74, 63, 53, 0.95) 0%, rgba(51, 51, 51, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            color: var(--warm-white);
+            border-radius: 1rem;
+            padding: 1rem;
+            z-index: 9998;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            align-items: center;
+            gap: 0.75rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .install-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+        .install-icon {
+            font-size: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            width: 44px;
+            height: 44px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .install-content strong {
+            font-weight: 600;
+        }
+        .install-content p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin: 0;
+            line-height: 1.4;
+        }
+        .install-button {
+            background: var(--bronze);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.6rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            min-height: 40px;
+            min-width: 80px;
+        }
+        .close-install {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            min-width: 24px;
+            min-height: 24px;
+            line-height: 1;
+        }
+        .close-install:hover {
+            color: white;
+        }
+        @media (max-width: 767px) {
+            .install-prompt {
+                bottom: 6rem;
+            }
+        }
+
+        .keyboard-nav *:focus:not(.modal-content):not(.modal-content *) {
+            outline: 3px solid var(--bronze);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+        .keyboard-nav .modal-content *:focus {
+            outline: 3px solid var(--accent-gold);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+        body:not(.keyboard-nav) *:focus {
+            outline: none;
+        }
+        
+        .info-note-greyscale {
+            background: rgba(235, 235, 235, 0.6); /* A light grey, slightly transparent */
+            border: 1px solid rgba(180, 180, 180, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
     </style>
 </head>
 <body class="antialiased">
 
+    <!-- Preload fonts to improve performance -->
     <div style="display: none;">
-        <!-- 
-        ═══════════════════════════════════════════════════════════════
-        PROPRIETARY AND CONFIDENTIAL
-        © 2025 Cascade Hideaway. All Rights Reserved.
-        
-        Document ID: CH-GUEST-GUIDE-2025-v17.2
-        Updates in v17.2:
-        - Reordered amenities: Premium Bedding + Entertainment first, WiFi second
-        - Fixed transport link to scroll to Seamless Arrival section
-        - Changed Tiongson Arcade icon to BBQ flame emoji
-        - Added 3 new restaurants: Caffe Summit, Tambilawan, Mint Cafe
-        ═══════════════════════════════════════════════════════════════
-        -->
+        <span style="font-family: 'Cormorant Garamond', serif;"></span>
+        <span style="font-family: 'Raleway', sans-serif;"></span>
     </div>
 
-    <div id="departureModal" class="modal-overlay">
+    <div id="departureModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="departureTitle">
         <div class="modal-content">
             <div class="text-center mb-6">
-                <div class="text-5xl mb-4">🌅</div>
-                <h3 class="text-2xl serif-font font-light mb-3" style="color: var(--dark-bronze);">Departure Confirmation</h3>
+                <div class="text-5xl mb-4 floating-icon">🌅</div>
+                <h3 id="departureTitle" class="text-2xl serif-font font-light mb-3" style="color: var(--dark-bronze);">Departure Confirmation</h3>
                 <div class="h-px w-20 mx-auto bg-gradient-to-r from-transparent via-bronze to-transparent"></div>
             </div>
             
@@ -624,69 +1128,151 @@
             <p class="text-xs text-gray-500 text-center mt-4 italic">You can access this information anytime during your stay</p>
         </div>
     </div>
+    
+    <div id="conciergeModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="conciergeTitle" style="z-index: 10000;">
+        <div class="modal-content" style="max-width: 440px;">
+            <button class="modal-close-btn" id="conciergeModalClose" aria-label="Close concierge menu">×</button>
+            <div class="text-center mb-6">
+                <div class="text-5xl mb-4 floating-icon">💬</div>
+                <h3 id="conciergeTitle" class="text-2xl serif-font font-light mb-3" style="color: var(--dark-bronze);">Concierge Support</h3>
+                <p class="text-sm text-gray-600">We're here to help, 24/7.</p>
+            </div>
+            
+            <div class="space-y-3 mb-6">
+                <a href="tel:09451103994" class="contact-option">
+                    <span class="option-icon">📱</span>
+                    <div>
+                        <strong>Call or Text Ms. Hazel Ann</strong>
+                        <p class="copyable">09451103994</p>
+                    </div>
+                </a>
+                <a href="mailto:cascadereservations@gmail.com" class="contact-option">
+                    <span class="option-icon">📧</span>
+                    <div>
+                        <strong>Email Reservations</strong>
+                        <p class="copyable">cascadereservations@gmail.com</p>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="luxury-divider"></div>
+            
+            <div class="mb-3">
+                 <h4 class="font-semibold text-center text-sm mb-3" style="color: var(--dark-bronze);">Emergency Quick Access</h4>
+                 <div class="emergency-quick-links">
+                     <a href="tel:911" class="emergency-link">
+                         <span>🚑</span> National<br>911
+                     </a>
+                     <a href="tel:09985987207" class="emergency-link">
+                         <span>🚓</span> Police<br>Hotline
+                     </a>
+                     <a href="tel:160" class="emergency-link">
+                         <span>🔥</span> Fire (BFP)<br>160
+                     </a>
+                     <a href="#info" class="emergency-link" id="conciergeToInfo">
+                         <span>📖</span> All Info &<br>Address
+                     </a>
+                 </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="install-prompt" id="installPrompt" role="dialog" aria-labelledby="installTitle">
+        <button class="close-install" id="closeInstall" aria-label="Dismiss install prompt">×</button>
+        <div class="install-content">
+            <span class="install-icon">🏡</span>
+            <div>
+                <strong id="installTitle">Add Cascade Guide</strong>
+                <p>Add to your Home Screen for quick, offline access.</p>
+            </div>
+        </div>
+        <button class="install-button" id="installButton">Install</button>
+    </div>
 
     <div id="app" class="flex flex-col md:flex-row min-h-screen">
 
-        <nav id="navigation" class="nav-container w-full md:w-72 md:border-r border-b md:border-b-0 border-bronze/10 flex-shrink-0">
+        <nav id="navigation" class="nav-container w-full md:w-72 md:border-r md:border-b-0 border-bronze/10 flex-shrink-0" aria-label="Main navigation">
             <div class="p-4 md:p-8 text-center border-b border-bronze/10">
-                <h1 class="text-2xl md:text-3xl font-light serif-font tracking-wide" style="color: var(--dark-bronze);">Cascade Hideaway</h1>
+                <h1 class="text-2xl md:text-3xl font-semibold serif-font tracking-wide" style="color: var(--dark-bronze);">Cascade Hideaway</h1>
                 <div class="mt-2 flex items-center justify-center space-x-2">
                     <div class="h-px w-6 md:w-8 bg-gradient-to-r from-transparent to-bronze"></div>
                     <p class="text-xs tracking-widest uppercase" style="color: var(--bronze);">Your Sanctuary</p>
                     <div class="h-px w-6 md:w-8 bg-gradient-to-l from-transparent to-bronze"></div>
                 </div>
+                
+                <div id="localClockWrapper">
+                    <span>🕐</span>
+                    <span class="mr-1">GenSan Time:</span>
+                    <span id="localClock" class="font-semibold">...</span>
+                </div>
+
+                <!-- Weather Widget (Moved from main content) -->
+                <div class="weather-widget" id="weatherWidget">
+                    <span class="weather-icon" id="weatherIcon">☀️</span>
+                    <span class="weather-temp" id="weatherTemp">...</span>
+                    <span class="weather-desc" id="weatherDesc">Loading...</span>
+                </div>
+                <div class="weather-widget loading-shimmer" id="weatherLoader">
+                    <span class="weather-icon"></span>
+                    <div class="w-12 h-6 rounded loading-shimmer"></div>
+                    <div class="w-16 h-5 rounded loading-shimmer"></div>
+                </div>
+                
             </div>
-            <ul class="flex flex-row md:flex-col p-2 md:p-6 space-x-2 md:space-x-0 md:space-y-3 overflow-x-auto">
-                <li><a href="#welcome" data-target="welcome" class="nav-link flex items-center px-4 py-3 rounded-xl nav-active"><span class="mr-2 md:mr-3 text-lg md:text-xl">✨</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Welcome</span></a></li>
-                <li><a href="#pre-arrival" data-target="pre-arrival" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">📋</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Preparation</span></a></li>
-                <li><a href="#check-in" data-target="check-in" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">🔑</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Arrival</span></a></li>
-                <li><a href="#hideaway" data-target="hideaway" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">🏡</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Amenities</span></a></li>
-                <li><a href="#explore" data-target="explore" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">🌆</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Explore</span></a></li>
-                <li><a href="#dining" data-target="dining" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">🍽️</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Dining</span></a></li>
-                <li><a href="#info" data-target="info" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">📖</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Guidelines & Info</span></a></li>
-                <li><a href="#check-out" data-target="check-out" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">🌅</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Departure</span></a></li>
+            
+            <ul class="flex flex-row md:flex-col p-2 md:p-6 space-x-2 md:space-x-0 md:space-y-3" role="tablist">
+                <li role="presentation"><a href="#welcome" data-target="welcome" role="tab" aria-selected="true" class="nav-link flex items-center px-4 py-3 rounded-xl nav-active"><span class="mr-2 md:mr-3 text-lg md:text-xl floating-icon">✨</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Welcome</span></a></li>
+                <li role="presentation"><a href="#pre-arrival" data-target="pre-arrival" role="tab" aria-selected="false" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">📋</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Preparation</span></a></li>
+                <li role="presentation"><a href="#check-in" data-target="check-in" role="tab" aria-selected="false" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">🔑</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Arrival</span></a></li>
+                <li role="presentation"><a href="#hideaway" data-target="hideaway" role="tab" aria-selected="false" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">🏡</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Amenities</span></a></li>
+                <li role="presentation"><a href="#explore" data-target="explore" role="tab" aria-selected="false" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">🌆</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Explore</span></a></li>
+                <li role="presentation"><a href="#dining" data-target="dining" role="tab" aria-selected="false" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">🍽️</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Dining</span></a></li>
+                <li role="presentation"><a href="#info" data-target="info" role="tab" aria-selected="false" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">📖</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Guidelines & Info</span></a></li>
+                <li role="presentation"><a href="#check-out" data-target="check-out" role="tab" aria-selected="false" class="nav-link flex items-center px-4 py-3 rounded-xl nav-inactive"><span class="mr-2 md:mr-3 text-lg md:text-xl">🌅</span> <span class="text-sm font-medium tracking-wide whitespace-nowrap">Departure</span></a></li>
             </ul>
             
-            <div class="hidden md:block px-6 py-4 text-xs text-center" style="color: rgba(107, 84, 55, 0.5);">
+            <div class="hidden md:block px-6 py-4 text-xs text-center" style="color: rgba(74, 63, 53, 0.5);">
                 <p class="mb-1">© 2025 Cascade Hideaway</p>
                 <p>For Authorized Guest Use Only</p>
             </div>
         </nav>
 
         <main id="content" class="flex-1 p-4 sm:p-6 md:p-10 lg:p-12">
-            
-            <section id="welcome" class="content-section active">
+
+            <section id="welcome" class="content-section active" role="tabpanel">
                 <div class="content-card p-6 sm:p-8 md:p-12">
                     <div class="text-center mb-8">
-                        <p class="text-4xl md:text-5xl mb-5">🌿</p>
-                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-light serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Welcome to Cascade Hideaway</h2>
+                        <p class="text-4xl md:text-5xl mb-5 floating-icon">🌿</p>
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Welcome to Cascade Hideaway</h2>
                         <p class="text-base md:text-lg italic tracking-wider" style="color: var(--bronze);">Hotel Comfort, Home Warmth</p>
                     </div>
                     
                     <div class="luxury-divider"></div>
                     
                     <div class="space-y-6 text-gray-700 leading-relaxed text-center max-w-3xl mx-auto">
-                        <p class="text-2xl sm:text-3xl serif-font font-light" style="color: var(--dark-bronze);">Welcome home. ✨</p>
+                        <p class="text-2xl sm:text-3xl serif-font" style="color: var(--dark-bronze);">Welcome home. ✨</p>
                         
                         <p class="text-base md:text-lg leading-loose">At Cascade Hideaway, we believe true comfort lies in the balance of hotel-level ease and the heart of a Filipino home. Here, every detail is thoughtfully prepared — soft light, calm spaces, and touches of warmth that invite you to slow down and breathe.</p>
                         
                         <p class="text-base md:text-lg leading-loose">May your time here bring the stillness you need — whether for work, rest, or a well-deserved pause. This home is yours to enjoy.</p>
+                        
                     </div>
                     
                     <div class="mt-12 pt-8 border-t border-bronze/20">
                         <div class="text-center">
                             <p class="text-xs md:text-sm tracking-widest uppercase mb-4" style="color: var(--bronze);">With Warm Regards</p>
-                            <p class="text-2xl md:text-3xl serif-font font-light tracking-tight" style="color: var(--dark-bronze);">Marifel & The Cascade Team</p>
-                            <p class="text-4xl mt-5 mb-4">🌿</p>
+                            <p class="text-2xl md:text-3xl serif-font tracking-tight" style="color: var(--dark-bronze);">Marifel & The Cascade Team</p>
+                            <p class="text-4xl mt-5 mb-4 floating-icon">🌿</p>
                             <p class="text-xs md:text-sm italic tracking-wide" style="color: var(--bronze);">Hotel Comfort, Home Warmth — in every stay.</p>
                         </div>
                     </div>
                 </div>
             </section>
             
-            <section id="pre-arrival" class="content-section">
+            <section id="pre-arrival" class="content-section" role="tabpanel">
                 <div class="content-card p-6 sm:p-8 md:p-12">
-                    <h2 class="text-3xl md:text-4xl font-light serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Preparing for Your Arrival</h2>
+                    <h2 class="text-3xl md:text-4xl serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Preparing for Your Arrival</h2>
                     <p class="text-gray-600 mb-8 text-base md:text-lg leading-relaxed">To ensure a seamless check-in experience, we kindly request your assistance with the following preparations. Your access code will be provided on the morning of your arrival.</p>
                     
                     <div class="space-y-4">
@@ -738,7 +1324,7 @@
                                                             </div>
                                                             <div>
                                                                 <p class="text-xs text-gray-600">Number</p>
-                                                                <code class="text-sm">09918538269</code>
+                                                                <code class="text-sm copyable">09451103994</code>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -751,7 +1337,7 @@
                                                             </div>
                                                             <div>
                                                                 <p class="text-xs text-gray-600">UnionBank</p>
-                                                                <code class="text-sm">1094 2361 1134</code>
+                                                                <code class="text-sm copyable">1094 2361 1134</code>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -809,19 +1395,19 @@
                 </div>
             </section>
 
-            <section id="check-in" class="content-section">
+            <section id="check-in" class="content-section" role="tabpanel">
                 <div class="content-card p-6 sm:p-8 md:p-12">
-                    <h2 class="text-3xl md:text-4xl font-light serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Your Arrival Experience</h2>
+                    <h2 class="text-3xl md:text-4xl serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Your Arrival Experience</h2>
                     <p class="text-gray-600 mb-8 text-base md:text-lg leading-relaxed">Located at Bria Homes, Conel Road, Brgy. San Isidro, your sanctuary awaits. Please follow these simple steps for seamless access.</p>
                     
                     <div class="space-y-6">
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
-                                <div class="text-4xl md:text-5xl serif-font font-light" style="color: var(--bronze);">1</div>
+                                <div class="text-4xl md:text-5xl serif-font" style="color: var(--bronze);">1</div>
                             </div>
                             <div class="ml-6 md:ml-8 flex-1">
                                 <h3 class="text-xl md:text-2xl font-semibold mb-3" style="color: var(--dark-bronze);">Security Gate</h3>
-                                <p class="text-sm md:text-base text-gray-700 leading-relaxed">Upon arrival at the subdivision entrance, kindly inform the security personnel that you are a guest at <strong>Cascade Hideaway, Block 47, Lot 39</strong>. You will be promptly granted access.</p>
+                                <p class="text-sm md:text-base text-gray-700 leading-relaxed">Upon arrival at the subdivision entrance, kindly inform the security personnel that you are a guest at <strong class="copyable">Cascade Hideaway, Block 47, Lot 39</strong>. You will be promptly granted access.</p>
                             </div>
                         </div>
                         
@@ -829,7 +1415,7 @@
                         
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
-                                <div class="text-4xl md:text-5xl serif-font font-light" style="color: var(--bronze);">2</div>
+                                <div class="text-4xl md:text-5xl serif-font" style="color: var(--bronze);">2</div>
                             </div>
                             <div class="ml-6 md:ml-8 flex-1">
                                 <h3 class="text-xl md:text-2xl font-semibold mb-3" style="color: var(--dark-bronze);">Navigation</h3>
@@ -844,7 +1430,7 @@
                         
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
-                                <div class="text-4xl md:text-5xl serif-font font-light" style="color: var(--bronze);">3</div>
+                                <div class="text-4xl md:text-5xl serif-font" style="color: var(--bronze);">3</div>
                             </div>
                             <div class="ml-6 md:ml-8 flex-1">
                                 <h3 class="text-xl md:text-2xl font-semibold mb-4" style="color: var(--dark-bronze);">Smart Lock Access</h3>
@@ -872,13 +1458,19 @@
                                         </ol>
                                     </div>
                                     
+                                    <!-- Added Key Card Info -->
+                                    <div class="border-t border-bronze/20 pt-5">
+                                        <h4 class="font-semibold text-base md:text-lg mb-3 flex items-center gap-2" style="color: var(--dark-bronze);">💡 Key Card For Your Convenience</h4>
+                                        <p class="text-sm text-gray-700 leading-relaxed">Inside, placed with the TV and A/C remotes, you will find an access key card on a Cascade Hideaway keychain. You can simply tap this card on the keypad to unlock the door during your stay. Please keep it safe, as a replacement fee of ₱1,000 will be charged if it is lost.</p>
+                                    </div>
+
                                     <div class="border-t border-bronze/20 pt-5">
                                         <h4 class="font-semibold text-base md:text-lg mb-3" style="color: var(--dark-bronze);">Securing the Property</h4>
                                         <p class="text-sm md:text-base text-gray-700">Upon departure, simply close the door firmly. The smart lock will engage automatically and confirm secure closure.</p>
                                     </div>
                                     
                                     <div class="bg-white/50 p-4 rounded-lg">
-                                        <p class="text-sm text-gray-600"><strong class="text-gray-800">Support:</strong> Should you experience any difficulty with the keypad, please wait a moment and retry. If access remains unavailable, contact us immediately for assistance with the backup entry system.</p>
+                                        <p class="text-sm text-gray-600"><strong class="text-gray-800">Support:</strong> Should you experience any difficulty with the keypad, please wait a moment and retry. If access remains unavailable, <a href="tel:09451103994" class="font-semibold hover:underline" style="color: var(--bronze);">contact Ms. Hazel Ann immediately</a> for assistance.</p>
                                     </div>
                                 </div>
                             </div>
@@ -888,7 +1480,7 @@
                         
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
-                                <div class="text-4xl md:text-5xl serif-font font-light" style="color: var(--bronze);">4</div>
+                                <div class="text-4xl md:text-5xl serif-font" style="color: var(--bronze);">4</div>
                             </div>
                             <div class="ml-6 md:ml-8 flex-1">
                                 <h3 class="text-xl md:text-2xl font-semibold mb-3" style="color: var(--dark-bronze);">Welcome Home</h3>
@@ -899,16 +1491,15 @@
                 </div>
             </section>
             
-            <section id="hideaway" class="content-section">
+            <section id="hideaway" class="content-section" role="tabpanel">
                 <div class="content-card p-6 sm:p-8 md:p-12">
-                    <h2 class="text-3xl md:text-4xl font-light serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Curated for Your Comfort</h2>
+                    <h2 class="text-3xl md:text-4xl serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">Curated for Your Comfort</h2>
                     <p class="text-gray-600 mb-8 text-base md:text-lg leading-relaxed">Every amenity has been thoughtfully selected to ensure your complete relaxation and convenience.</p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
-                        <!-- First Row: Premium Bedding + Entertainment -->
                         <div class="feature-card premium-highlight p-6 md:p-7 rounded-xl">
                             <div class="flex items-start">
-                                <span class="text-3xl md:text-4xl mr-4">🛏️</span>
+                                <span class="text-3xl md:text-4xl mr-4 floating-icon">🛏️</span>
                                 <div>
                                     <h3 class="font-bold text-lg md:text-xl mb-2" style="color: var(--dark-bronze);">Premium Bedding</h3>
                                     <p class="text-sm md:text-base text-gray-700 leading-relaxed">Queen-sized bed with hotel-grade linens and plush pillows for restorative sleep.</p>
@@ -925,19 +1516,18 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Second Row: High-Speed Connectivity (Full Width) -->
+                        
                         <div class="feature-card p-5 md:p-6 rounded-xl md:col-span-2 protected">
-                            <div class="flex items-start">
+                            <div class="flex flex-col md:flex-row items-start">
                                 <span class="text-2xl md:text-3xl mr-3 md:mr-4">📶</span>
-                                <div class="flex-1">
+                                <div class="flex-1 w-full">
                                     <h3 class="font-semibold text-base md:text-lg mb-3" style="color: var(--dark-bronze);">High-Speed Connectivity</h3>
                                     <div class="accent-box p-4 rounded-lg grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                        <div>
+                                        <div class="copyable">
                                             <p class="text-xs md:text-sm text-gray-600 mb-1">Network Name</p>
                                             <code class="text-sm md:text-base">WelcomeToCascade-5G</code>
                                         </div>
-                                        <div>
+                                        <div class="copyable">
                                             <p class="text-xs md:text-sm text-gray-600 mb-1">Password</p>
                                             <code class="text-sm md:text-base">EnjoyYourStay@CH</code>
                                         </div>
@@ -946,7 +1536,6 @@
                             </div>
                         </div>
                         
-                        <!-- Remaining Amenities -->
                         <div class="feature-card p-5 md:p-6 rounded-xl">
                             <div class="flex items-start">
                                 <span class="text-2xl md:text-3xl mr-3 md:mr-4">❄️</span>
@@ -1009,26 +1598,25 @@
                     </div>
                     
                     <div class="accent-box p-6 md:p-8 rounded-xl text-center">
-                        <div class="text-4xl md:text-5xl mb-4">☕</div>
+                        <div class="text-4xl md:text-5xl mb-4 floating-icon">☕</div>
                         <h3 class="text-xl md:text-2xl serif-font mb-3" style="color: var(--dark-bronze);">Welcome Amenities</h3>
                         <p class="text-sm md:text-base text-gray-700 leading-relaxed max-w-2xl mx-auto">Upon arrival, you'll find complimentary coffee selections, purified drinking water, and essential toiletries thoughtfully arranged for your immediate comfort.</p>
                     </div>
                 </div>
             </section>
 
-            <section id="explore" class="content-section">
+            <section id="explore" class="content-section" role="tabpanel">
                 <div class="content-card p-6 sm:p-8 md:p-12">
                     <div class="text-center mb-8">
-                        <h2 class="text-3xl md:text-4xl font-light serif-font mb-3" style="color: var(--dark-bronze);">Discover General Santos</h2>
+                        <h2 class="text-3xl md:text-4xl serif-font mb-3" style="color: var(--dark-bronze);">Discover General Santos</h2>
                         <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">Your curated guide to the city's finest experiences and hidden gems</p>
                     </div>
                     
-                    <!-- Hero Section: Getting Here -->
                     <div id="seamless-arrival" class="feature-card p-6 md:p-8 rounded-2xl mb-8 bg-gradient-to-br from-white to-warm-cream">
                         <div class="flex items-center mb-6">
-                            <span class="text-5xl mr-4">✈️</span>
+                            <span class="text-5xl mr-4 floating-icon">✈️</span>
                             <div>
-                                <h3 class="text-2xl md:text-3xl font-light serif-font" style="color: var(--dark-bronze);">Seamless Arrival</h3>
+                                <h3 class="text-2xl md:text-3xl serif-font" style="color: var(--dark-bronze);">Seamless Arrival</h3>
                                 <p class="text-sm text-gray-600">General Santos International Airport to Your Sanctuary</p>
                             </div>
                         </div>
@@ -1039,9 +1627,9 @@
                             <div class="accent-box p-5 rounded-xl">
                                 <p class="text-xs uppercase tracking-wide mb-3 font-semibold" style="color: var(--bronze);">🚗 Need Transport Assistance?</p>
                                 <p class="text-sm text-gray-700 leading-relaxed mb-4">If you need airport transportation or car rental arrangements, please let us know in advance. We're happy to help coordinate reliable options for your arrival.</p>
-                                <a href="tel:09918538269" class="text-sm font-semibold hover:underline inline-flex items-center gap-2" style="color: var(--bronze);">
+                                <a href="tel:09451103994" class="text-sm font-semibold hover:underline inline-flex items-center gap-2" style="color: var(--bronze);">
                                     <span>📱</span>
-                                    <span>Contact us: 0991 853 8269</span>
+                                    <span>Contact Ms. Hazel Ann: 09451103994</span>
                                 </a>
                             </div>
                             
@@ -1058,7 +1646,7 @@
                                     <h4 class="font-semibold mb-2 text-base" style="color: var(--dark-bronze);">Grab</h4>
                                     <p class="text-xs text-gray-600 mb-3">Most reliable for airport transfers and city navigation</p>
                                     <div class="flex items-center gap-2">
-                                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                                             <rect width="24" height="24" rx="4" fill="#00B14F"/>
                                             <path d="M18 8.5C18 6.6 16.4 5 14.5 5H9.5C7.6 5 6 6.6 6 8.5V15.5C6 17.4 7.6 19 9.5 19H14.5C16.4 19 18 17.4 18 15.5V8.5Z" fill="white"/>
                                             <circle cx="12" cy="12" r="2.5" fill="#00B14F"/>
@@ -1078,17 +1666,16 @@
                         </div>
                     </div>
 
-                    <!-- Essential Apps Section -->
                     <div class="mb-8">
                         <div class="flex items-center mb-5">
                             <span class="text-3xl mr-3">📱</span>
-                            <h3 class="text-xl md:text-2xl font-light serif-font" style="color: var(--dark-bronze);">Your Digital Concierge</h3>
+                            <h3 class="text-xl md:text-2xl serif-font" style="color: var(--dark-bronze);">Your Digital Concierge</h3>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div class="feature-card p-6 rounded-2xl hover:shadow-xl transition-all">
                                 <div class="flex items-start justify-between mb-4">
                                     <div class="flex items-center">
-                                        <svg class="h-12 w-12 mr-3" viewBox="0 0 48 48" fill="none">
+                                        <svg class="h-12 w-12 mr-3" viewBox="0 0 48 48" fill="none" aria-hidden="true">
                                             <rect width="48" height="48" rx="8" fill="#00B14F"/>
                                             <path d="M36 17C36 13.2 32.8 10 29 10H19C15.2 10 12 13.2 12 17V31C12 34.8 15.2 38 19 38H29C32.8 38 36 34.8 36 31V17Z" fill="white"/>
                                             <circle cx="24" cy="24" r="5" fill="#00B14F"/>
@@ -1101,12 +1688,12 @@
                                 </div>
                                 <p class="text-sm text-gray-700 mb-4 leading-relaxed">The city's most trusted platform for transportation and dining. From airport transfers to late-night cravings, Grab delivers comfort and convenience to your doorstep.</p>
                                 <div class="flex gap-3 text-xs flex-wrap">
-                                    <a href="https://play.google.com/store/apps/details?id=com.grabtaxi.passenger" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
-                                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                                    <a href="https://play.google.com/store/apps/details?id=com.grabtaxi.passenger" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors" aria-label="Get Grab on Google Play">
+                                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
                                         Google Play
                                     </a>
-                                    <a href="https://apps.apple.com/ph/app/grab-superapp/id641809260" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
-                                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/></svg>
+                                    <a href="https://apps.apple.com/ph/app/grab-superapp/id641809260" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors" aria-label="Get Grab on the App Store">
+                                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/></svg>
                                         App Store
                                     </a>
                                 </div>
@@ -1115,7 +1702,7 @@
                             <div class="feature-card p-6 rounded-2xl hover:shadow-xl transition-all">
                                 <div class="flex items-start justify-between mb-4">
                                     <div class="flex items-center">
-                                        <svg class="h-12 w-12 mr-3" viewBox="0 0 48 48" fill="none">
+                                        <svg class="h-12 w-12 mr-3" viewBox="0 0 48 48" fill="none" aria-hidden="true">
                                             <rect width="48" height="48" rx="8" fill="#D70F64"/>
                                             <circle cx="18" cy="20" r="3" fill="white"/>
                                             <circle cx="30" cy="20" r="3" fill="white"/>
@@ -1130,12 +1717,12 @@
                                 </div>
                                 <p class="text-sm text-gray-700 mb-4 leading-relaxed">Extensive restaurant selection delivering the city's culinary diversity to your hideaway. From local favorites to international cuisine, explore GenSan's dining scene from the comfort of your sanctuary.</p>
                                 <div class="flex gap-3 text-xs flex-wrap">
-                                    <a href="https://play.google.com/store/apps/details?id=com.global.foodpanda.android" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
-                                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                                    <a href="https://play.google.com/store/apps/details?id=com.global.foodpanda.android" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors" aria-label="Get foodpanda on Google Play">
+                                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
                                         Google Play
                                     </a>
-                                    <a href="https://apps.apple.com/ph/app/foodpanda-food-delivery/id758103884" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
-                                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/></svg>
+                                    <a href="https://apps.apple.com/ph/app/foodpanda-food-delivery/id758103884" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors" aria-label="Get foodpanda on the App Store">
+                                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/></svg>
                                         App Store
                                     </a>
                                 </div>
@@ -1145,15 +1732,14 @@
 
                     <div class="luxury-divider"></div>
 
-                    <!-- Must-See Sights -->
                     <div class="mb-8">
                         <div class="flex items-center mb-5">
                             <span class="text-3xl mr-3">🏛️</span>
-                            <h3 class="text-xl md:text-2xl font-light serif-font" style="color: var(--dark-bronze);">Unmissable City Experiences</h3>
+                            <h3 class="text-xl md:text-2xl serif-font" style="color: var(--dark-bronze);">Unmissable City Experiences</h3>
                         </div>
                         
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                            <div class="feature-card p-6 md:p-7 rounded-2xl bg-gradient-to-br from-blue-50/40 to-cyan-50/30">
+                            <div class="feature-card p-6 md:p-7 rounded-2xl bg-gradient-to-br from-blue-50/40 to-cyan-50/30" data-time-tag="morning-activity">
                                 <div class="flex items-start mb-4">
                                     <span class="text-4xl mr-3">🐟</span>
                                     <div>
@@ -1172,7 +1758,7 @@
                                 </a>
                             </div>
 
-                            <div class="feature-card p-5 md:p-6 rounded-xl">
+                            <div class="feature-card p-5 md:p-6 rounded-xl" data-time-tag="afternoon-activity evening-activity">
                                 <div class="flex items-start mb-4">
                                     <span class="text-3xl mr-3">🌅</span>
                                     <div>
@@ -1211,7 +1797,7 @@
                             </div>
                         </div>
 
-                        <div class="feature-card p-6 md:p-7 rounded-2xl bg-gradient-to-br from-green-50/40 to-emerald-50/30">
+                        <div class="feature-card p-6 md:p-7 rounded-2xl bg-gradient-to-br from-green-50/40 to-emerald-50/30" data-time-tag="morning-activity evening-activity">
                             <div class="flex items-start mb-4">
                                 <span class="text-4xl mr-3">⛰️</span>
                                 <div>
@@ -1232,15 +1818,14 @@
 
                     <div class="luxury-divider"></div>
 
-                    <!-- Nature & Hidden Gems -->
                     <div class="mb-8">
                         <div class="flex items-center mb-5">
                             <span class="text-3xl mr-3">🌿</span>
-                            <h3 class="text-xl md:text-2xl font-light serif-font" style="color: var(--dark-bronze);">Natural Escapes & Hidden Gems</h3>
+                            <h3 class="text-xl md:text-2xl serif-font" style="color: var(--dark-bronze);">Natural Escapes & Hidden Gems</h3>
                         </div>
 
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            <div class="lg:col-span-2 feature-card p-6 md:p-7 rounded-2xl bg-gradient-to-br from-amber-50/50 to-yellow-50/30">
+                            <div class="lg:col-span-2 feature-card p-6 md:p-7 rounded-2xl bg-gradient-to-br from-amber-50/50 to-yellow-50/30" data-time-tag="morning-activity evening-activity">
                                 <div class="flex items-start mb-4">
                                     <span class="text-5xl mr-4">🏞️</span>
                                     <div>
@@ -1320,14 +1905,12 @@
 
                     <div class="luxury-divider"></div>
 
-                    <!-- Shopping & Day Trips Section -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                        <!-- Featured: Shopping -->
                         <div class="md:col-span-2">
-                            <div class="feature-card p-6 md:p-8 rounded-2xl h-full bg-gradient-to-br from-white to-warm-cream">
+                            <div class="feature-card p-6 md:p-8 rounded-2xl h-full bg-gradient-to-br from-white to-warm-cream" data-time-tag="evening-activity">
                                 <div class="flex items-center mb-4">
                                     <span class="text-4xl mr-3">🛍️</span>
-                                    <h3 class="text-xl md:text-2xl font-light serif-font" style="color: var(--dark-bronze);">Retail & Dining Destinations</h3>
+                                    <h3 class="text-xl md:text-2xl serif-font" style="color: var(--dark-bronze);">Retail & Dining Destinations</h3>
                                 </div>
                                 <p class="text-sm text-gray-600 mb-5 italic">From upscale shopping to diverse culinary experiences</p>
                                 <div class="space-y-4">
@@ -1393,11 +1976,10 @@
                             </div>
                         </div>
 
-                        <!-- Essential Day Trips -->
-                        <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-teal-50/30 to-blue-50/20">
+                        <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-teal-50/30 to-blue-50/20" data-time-tag="morning-activity">
                             <div class="flex items-center mb-4">
                                 <span class="text-3xl mr-3">🚗</span>
-                                <h3 class="text-xl md:text-2xl font-light serif-font" style="color: var(--dark-bronze);">Essential Day Trips</h3>
+                                <h3 class="text-xl md:text-2xl serif-font" style="color: var(--dark-bronze);">Essential Day Trips</h3>
                             </div>
                             <div class="space-y-4">
                                 <div class="border-l-4 border-teal-500 pl-4">
@@ -1423,13 +2005,12 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="luxury-divider"></div>
 
-                    <!-- Bottom Banner -->
-                    <div class="accent-box p-6 md:p-8 rounded-2xl">
+                    <div class="accent-box p-6 md:p-8 rounded-2xl mt-8">
                         <div class="max-w-3xl mx-auto">
-                            <div class="text-4xl mb-4 text-center">🗺️</div>
+                            <div class="text-4xl mb-4 text-center floating-icon">🗺️</div>
                             <h3 class="text-xl md:text-2xl serif-font mb-4 text-center" style="color: var(--dark-bronze);">Planning Your GenSan Experience</h3>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                                 <div class="bg-white/60 p-4 rounded-xl">
@@ -1447,29 +2028,28 @@
                             </div>
                             <div class="mt-6 pt-6 border-t border-bronze/20 text-center">
                                 <p class="text-sm text-gray-700 mb-3">Need personalized itineraries or special arrangements?</p>
-                                <p class="text-sm" style="color: var(--bronze);">📱 We're here to help: <a href="tel:09918538269" class="font-semibold hover:underline">0991 853 8269</a></p>
+                                <p class="text-sm" style="color: var(--bronze);">📱 We're here to help: <a href="tel:09451103994" class="font-semibold hover:underline copyable">0945 110 3994</a></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
             
-            <section id="dining" class="content-section">
+            <section id="dining" class="content-section" role="tabpanel">
                 <div class="content-card p-6 sm:p-8 md:p-12">
                     <div class="text-center mb-8">
-                        <h2 class="text-3xl md:text-4xl font-light serif-font mb-3" style="color: var(--dark-bronze);">Culinary Journey</h2>
+                        <h2 class="text-3xl md:text-4xl serif-font mb-3" style="color: var(--dark-bronze);">Culinary Journey</h2>
                         <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">From specialty coffee to celebration-worthy dining, discover GenSan's vibrant food scene</p>
                     </div>
 
-                    <!-- Cafés & Coffee Shops Section -->
                     <div class="mb-10">
                         <div class="flex items-center mb-6">
-                            <span class="text-4xl mr-3">☕</span>
-                            <h3 class="text-2xl md:text-3xl font-light serif-font" style="color: var(--dark-bronze);">Hottest Cafés & Coffee Shops</h3>
+                            <span class="text-4xl mr-3 floating-icon">☕</span>
+                            <h3 class="text-2xl md:text-3xl serif-font" style="color: var(--dark-bronze);">Hottest Cafés & Coffee Shops</h3>
                         </div>
 
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                            <div class="feature-card p-6 rounded-2xl hover:shadow-xl transition-all bg-gradient-to-br from-purple-50/30 to-indigo-50/20">
+                            <div class="feature-card p-6 rounded-2xl hover:shadow-xl transition-all bg-gradient-to-br from-purple-50/30 to-indigo-50/20" data-time-tag="evening-activity night-activity">
                                 <div class="flex items-start mb-4">
                                     <span class="text-4xl mr-3">🌙</span>
                                     <div>
@@ -1486,7 +2066,7 @@
                                 </a>
                             </div>
 
-                            <div class="feature-card p-6 rounded-2xl hover:shadow-xl transition-all bg-gradient-to-br from-pink-50/30 to-rose-50/20">
+                            <div class="feature-card p-6 rounded-2xl hover:shadow-xl transition-all bg-gradient-to-br from-pink-50/30 to-rose-50/20" data-time-tag="morning-activity afternoon-activity">
                                 <div class="flex items-start mb-4">
                                     <span class="text-4xl mr-3">🌸</span>
                                     <div>
@@ -1505,7 +2085,7 @@
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <div class="feature-card p-4 rounded-xl">
+                            <div class="feature-card p-4 rounded-xl" data-time-tag="morning-activity afternoon-activity">
                                 <div class="flex items-start mb-2">
                                     <span class="text-2xl mr-2">☕</span>
                                     <div>
@@ -1517,7 +2097,7 @@
                                 <a href="https://www.google.com/maps?q=Blackthorn+Coffee+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 Locate →</a>
                             </div>
 
-                            <div class="feature-card p-4 rounded-xl">
+                            <div class="feature-card p-4 rounded-xl" data-time-tag="afternoon-activity">
                                 <div class="flex items-start mb-2">
                                     <span class="text-2xl mr-2">🧈</span>
                                     <div>
@@ -1541,7 +2121,7 @@
                                 <a href="https://www.google.com/maps?q=8th+Block+Cafe+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 Directions →</a>
                             </div>
 
-                            <div class="feature-card p-4 rounded-xl">
+                            <div class="feature-card p-4 rounded-xl" data-time-tag="afternoon-activity evening-activity">
                                 <div class="flex items-start mb-2">
                                     <span class="text-2xl mr-2">🍔</span>
                                     <div>
@@ -1581,15 +2161,14 @@
 
                     <div class="luxury-divider"></div>
 
-                    <!-- Special Occasion & Fine Dining -->
                     <div class="mb-10">
                         <div class="flex items-center mb-6">
-                            <span class="text-4xl mr-3">🥂</span>
-                            <h3 class="text-2xl md:text-3xl font-light serif-font" style="color: var(--dark-bronze);">Special Occasion & Fine Dining</h3>
+                            <span class="text-4xl mr-3 floating-icon">🥂</span>
+                            <h3 class="text-2xl md:text-3xl serif-font" style="color: var(--dark-bronze);">Special Occasion & Fine Dining</h3>
                         </div>
 
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                            <div class="lg:col-span-2 feature-card p-7 md:p-8 rounded-2xl bg-gradient-to-br from-purple-50/40 to-pink-50/30">
+                            <div class="lg:col-span-2 feature-card p-7 md:p-8 rounded-2xl bg-gradient-to-br from-purple-50/40 to-pink-50/30" data-time-tag="evening-activity">
                                 <div class="flex items-start mb-5">
                                     <span class="text-5xl mr-4">🌅</span>
                                     <div>
@@ -1608,7 +2187,7 @@
                             </div>
 
                             <div class="space-y-5">
-                                <div class="feature-card p-5 rounded-xl bg-gradient-to-br from-amber-50/40 to-orange-50/30">
+                                <div class="feature-card p-5 rounded-xl bg-gradient-to-br from-amber-50/40 to-orange-50/30" data-time-tag="evening-activity">
                                     <div class="flex items-start mb-3">
                                         <span class="text-3xl mr-3">🍷</span>
                                         <div>
@@ -1620,7 +2199,7 @@
                                     <a href="https://www.google.com/maps?q=Alfonsos+General+Santos" target="_blank" rel="noopener noreferrer" class="text-xs hover:underline" style="color: var(--bronze);">📍 View Location →</a>
                                 </div>
 
-                                <div class="feature-card p-5 rounded-xl">
+                                <div class="feature-card p-5 rounded-xl" data-time-tag="evening-activity">
                                     <div class="flex items-start mb-3">
                                         <span class="text-3xl mr-3">🥩</span>
                                         <div>
@@ -1635,7 +2214,7 @@
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                            <div class="feature-card p-5 rounded-xl">
+                            <div class="feature-card p-5 rounded-xl" data-time-tag="afternoon-activity evening-activity">
                                 <div class="flex items-start mb-3">
                                     <span class="text-3xl mr-3">🦀</span>
                                     <div>
@@ -1647,7 +2226,7 @@
                                 <a href="https://www.google.com/maps?q=Grab+A+Crab+Restaurant+General+Santos" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline" style="color: var(--bronze);">📍 Navigate →</a>
                             </div>
 
-                            <div class="feature-card p-5 rounded-xl">
+                            <div class="feature-card p-5 rounded-xl" data-time-tag="afternoon-activity evening-activity">
                                 <div class="flex items-start mb-3">
                                     <span class="text-3xl mr-3">🥖</span>
                                     <div>
@@ -1659,7 +2238,7 @@
                                 <a href="https://www.google.com/maps?q=Big+Bens+Steaks+and+Grill+General+Santos" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline" style="color: var(--bronze);">📍 Directions →</a>
                             </div>
 
-                            <div class="feature-card p-5 rounded-xl">
+                            <div class="feature-card p-5 rounded-xl" data-time-tag="afternoon-activity evening-activity">
                                 <div class="flex items-start mb-3">
                                     <span class="text-3xl mr-3">🏡</span>
                                     <div>
@@ -1671,7 +2250,7 @@
                                 <a href="https://www.google.com/maps?q=Ranchero+Nuevo+General+Santos" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline" style="color: var(--bronze);">📍 View →</a>
                             </div>
 
-                            <div class="feature-card p-5 rounded-xl bg-gradient-to-br from-rose-50/40 to-pink-50/30">
+                            <div class="feature-card p-5 rounded-xl bg-gradient-to-br from-rose-50/40 to-pink-50/30" data-time-tag="evening-activity">
                                 <div class="flex items-start mb-3">
                                     <span class="text-3xl mr-3">🍷</span>
                                     <div>
@@ -1695,7 +2274,7 @@
                                 <a href="https://maps.google.com/?cid=12189300974736002791" target="_blank" rel="noopener noreferrer" class="text-sm hover:underline" style="color: var(--bronze);">📍 Navigate →</a>
                             </div>
 
-                            <div class="feature-card p-5 rounded-xl bg-gradient-to-br from-green-50/40 to-emerald-50/30">
+                            <div class="feature-card p-5 rounded-xl bg-gradient-to-br from-green-50/40 to-emerald-50/30" data-time-tag="morning-activity">
                                 <div class="flex items-start mb-3">
                                     <span class="text-3xl mr-3">🍳</span>
                                     <div>
@@ -1711,15 +2290,14 @@
 
                     <div class="luxury-divider"></div>
 
-                    <!-- Casual Eateries -->
                     <div class="mb-8">
                         <div class="flex items-center mb-6">
-                            <span class="text-4xl mr-3">🍖</span>
-                            <h3 class="text-2xl md:text-3xl font-light serif-font" style="color: var(--dark-bronze);">Casual Eateries & Local Legends</h3>
+                            <span class="text-4xl mr-3 floating-icon">🍖</span>
+                            <h3 class="text-2xl md:text-3xl serif-font" style="color: var(--dark-bronze);">Casual Eateries & Local Legends</h3>
                         </div>
 
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            <div class="lg:col-span-2 feature-card p-7 md:p-8 rounded-2xl bg-gradient-to-br from-amber-50/50 to-yellow-50/40">
+                            <div class="lg:col-span-2 feature-card p-7 md:p-8 rounded-2xl bg-gradient-to-br from-amber-50/50 to-yellow-50/40" data-time-tag="evening-activity">
                                 <div class="flex items-start mb-5">
                                     <span class="text-5xl mr-4">🔥</span>
                                     <div>
@@ -1748,7 +2326,7 @@
                             </div>
 
                             <div class="space-y-5">
-                                <div class="feature-card p-6 rounded-xl bg-gradient-to-br from-orange-50/30 to-red-50/20">
+                                <div class="feature-card p-6 rounded-xl bg-gradient-to-br from-orange-50/30 to-red-50/20" data-time-tag="afternoon-activity evening-activity">
                                     <div class="flex items-start mb-4">
                                         <span class="text-4xl mr-3">🍗</span>
                                         <div>
@@ -1777,11 +2355,10 @@
                         </div>
                     </div>
 
-                    <!-- Bottom CTA -->
-                    <div class="accent-box p-6 md:p-8 rounded-2xl">
+                    <div class="accent-box p-6 md:p-8 rounded-2xl mt-8">
                         <div class="max-w-3xl mx-auto">
                             <div class="text-center mb-6">
-                                <div class="text-4xl mb-3">🌿</div>
+                                <div class="text-4xl mb-3 floating-icon">🌿</div>
                                 <h3 class="text-xl md:text-2xl serif-font mb-3" style="color: var(--dark-bronze);">Local Tip: For Your Quick Cravings</h3>
                                 <p class="text-sm text-gray-600 italic mb-6">Discover neighborhood favorites just steps from your door</p>
                             </div>
@@ -1799,7 +2376,7 @@
                                     <p class="text-xs text-gray-600 italic">⏱️ Perfect for quick runs • Open most hours</p>
                                 </div>
                                 
-                                <div class="bg-white/70 p-5 rounded-xl border-l-4 border-orange-500">
+                                <div class="bg-white/70 p-5 rounded-xl border-l-4 border-orange-500" data-time-tag="evening-activity">
                                     <div class="flex items-start mb-3">
                                         <span class="text-3xl mr-3">🔥</span>
                                         <div>
@@ -1814,16 +2391,16 @@
                             
                             <div class="mt-6 pt-6 border-t border-bronze/20 text-center">
                                 <p class="text-sm text-gray-700 mb-2">Need more dining recommendations?</p>
-                                <p class="text-sm" style="color: var(--bronze);">📱 Message us: <a href="tel:09918538269" class="font-semibold hover:underline">0991 853 8269</a></p>
+                                <p class="text-sm" style="color: var(--bronze);">📱 Message us: <a href="tel:09451103994" class="font-semibold hover:underline copyable">0945 110 3994</a></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="info" class="content-section">
+            <section id="info" class="content-section" role="tabpanel">
                 <div class="content-card p-6 sm:p-8 md:p-12">
-                    <h2 class="text-3xl md:text-4xl font-light serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">House Guidelines & Information</h2>
+                    <h2 class="text-3xl md:text-4xl serif-font mb-4 tracking-tight" style="color: var(--dark-bronze);">House Guidelines & Information</h2>
                     <p class="text-gray-600 mb-8 text-base md:text-lg leading-relaxed">To preserve the tranquility of your sanctuary and respect our community, we kindly request your observance of these essential courtesies.</p>
                     
                     <div>
@@ -1860,7 +2437,7 @@
                                 </div>
                             </div>
                             
-                            <div class="feature-card p-4 md:p-5 rounded-xl">
+                            <div class="feature-card p-4 md:p-5 rounded-xl" data-time-tag="night-activity">
                                 <div class="flex items-start">
                                     <span class="text-xl md:text-2xl mr-3" style="color: var(--bronze);">🌙</span>
                                     <div>
@@ -1894,6 +2471,17 @@
                     
                     <div class="luxury-divider"></div>
                     
+                    <!-- REVISION: Plumbing note moved and highlighted here -->
+                    <div class="feature-card info-note-greyscale p-6 md:p-7 rounded-xl mb-8">
+                        <div class="flex items-start">
+                            <span class="text-3xl md:text-4xl mr-4">💧</span>
+                            <div>
+                                <h3 class="font-bold text-lg md:text-xl mb-2" style="color: var(--bronze);">A Note on Our Plumbing</h3>
+                                <p class="text-sm md:text-base text-gray-700 leading-relaxed">To ensure our eco-friendly system runs smoothly, we kindly ask that you use the provided bin for toilet paper and sanitary products. Thank you for your understanding.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="emergency-card p-5 md:p-6 rounded-xl protected">
                         <h3 class="text-lg md:text-xl font-semibold mb-4 text-red-800 flex items-center">
                             <span class="text-xl md:text-2xl mr-2">🚨</span> Emergency Contacts
@@ -1901,65 +2489,88 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-4">
                             <div class="text-center p-4 bg-white/50 rounded-lg">
                                 <p class="text-xs text-gray-600 mb-1">National Emergency Hotline</p>
-                                <p class="text-2xl md:text-3xl font-bold text-red-700 mb-2">911</p>
+                                <a href="tel:911" class="text-2xl md:text-3xl font-bold text-red-700 hover:underline block mb-2 copyable">911</a>
                                 <p class="text-xs text-gray-600 italic">For all emergency situations</p>
                             </div>
                             <div class="text-center p-4 bg-white/50 rounded-lg">
                                 <p class="text-xs text-gray-600 mb-1">Police Emergency</p>
-                                <a href="tel:09985987207" class="text-lg md:text-xl font-semibold text-red-700 hover:underline block mb-2">0998-598-7207</a>
+                                <a href="tel:09985987207" class="text-lg md:text-xl font-semibold text-red-700 hover:underline block mb-2 copyable">0998-598-7207</a>
                                 <p class="text-xs text-gray-600 italic">GenSan Police Hotline</p>
                             </div>
                             <div class="text-center p-4 bg-white/50 rounded-lg">
                                 <p class="text-xs text-gray-600 mb-1">Fire Emergency (BFP)</p>
-                                <a href="tel:160" class="text-lg md:text-xl font-semibold text-red-700 hover:underline block mb-2">160</a>
+                                <a href="tel:160" class="text-lg md:text-xl font-semibold text-red-700 hover:underline block mb-2 copyable">160</a>
                                 <p class="text-xs text-gray-600 italic">Bureau of Fire Protection</p>
                             </div>
                             <div class="text-center p-4 bg-white/50 rounded-lg">
                                 <p class="text-xs text-gray-600 mb-1">Host Support 24/7</p>
-                                <a href="tel:09918538269" class="text-lg md:text-xl font-semibold hover:underline block mb-2" style="color: var(--bronze);">0991-853-8269</a>
-                                <p class="text-xs text-gray-600 italic">For property assistance</p>
+                                <a href="tel:09451103994" class="text-lg md:text-xl font-semibold hover:underline block mb-2 copyable" style="color: var(--bronze);">0945-110-3994</a>
+                                <p class="text-xs text-gray-600 italic">Ms. Hazel Ann</p>
                             </div>
                         </div>
-                        <div class="bg-white/60 p-3 rounded-lg text-center">
+                        
+                        <div class="bg-white/60 p-3 rounded-lg text-center mt-4">
                             <p class="text-xs text-gray-700"><strong>Important:</strong> In case of immediate life-threatening emergency, always dial <strong>911</strong> first, then notify your host.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="check-out" class="content-section">
+            <section id="check-out" class="content-section" role="tabpanel">
                 <div class="content-card p-6 sm:p-8 md:p-12">
                     <div class="text-center mb-8">
-                        <div class="text-5xl mb-4">🌅</div>
-                        <h2 class="text-3xl md:text-4xl font-light serif-font mb-3 tracking-tight" style="color: var(--dark-bronze);">Departure Day</h2>
+                        <div class="text-5xl mb-4 floating-icon">🌅</div>
+                        <h2 class="text-3xl md:text-4xl serif-font mb-3 tracking-tight" style="color: var(--dark-bronze);">Departure Day</h2>
                         <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">As your retreat draws to a close, we kindly request your assistance with these final details.</p>
                     </div>
                     
                     <div class="luxury-divider"></div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
-                        <div class="feature-card p-5 rounded-xl">
-                            <h3 class="font-semibold text-lg mb-3 flex items-center" style="color: var(--dark-bronze);">
-                                <span class="text-2xl mr-2">📋</span> Before You Leave
-                            </h3>
-                            <ul class="space-y-2 text-sm text-gray-700">
-                                <li class="flex items-start">
-                                    <span class="mr-2 mt-0.5" style="color: var(--bronze);">•</span>
-                                    <span>Please dispose of all refuse in the designated containers</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="mr-2 mt-0.5" style="color: var(--bronze);">•</span>
-                                    <span>Kindly check all areas for personal belongings</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="mr-2 mt-0.5" style="color: var(--bronze);">•</span>
-                                    <span>Ensure all appliances, lights, and air-conditioning are switched off</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="mr-2 mt-0.5" style="color: var(--bronze);">•</span>
-                                    <span>Simply close the door firmly—the smart lock will secure automatically</span>
-                                </li>
-                            </ul>
+                        
+                        <!-- REVISION: Compressed checklist -->
+                        <div class="departure-checklist">
+                            <div class="checklist-header">
+                                <h3>📋 Pre-Departure Checklist</h3>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="checklistProgressFill"></div>
+                                </div>
+                                <p class="progress-text" id="checklistProgressText">0 of 4 completed</p>
+                            </div>
+                            
+                            <div class="checklist-items" id="checklistItems">
+                                <label class="checklist-item" for="check-1">
+                                    <input type="checkbox" id="check-1" data-index="0">
+                                    <span class="checkmark">✓</span>
+                                    <span class="label-text">Dispose of all refuse in designated containers</span>
+                                </label>
+                                
+                                <label class="checklist-item" for="check-2">
+                                    <input type="checkbox" id="check-2" data-index="1">
+                                    <span class="checkmark">✓</span>
+                                    <span class="label-text">Check all areas for personal belongings</span>
+                                </label>
+                                
+                                <label class="checklist-item" for="check-3">
+                                    <input type="checkbox" id="check-3" data-index="2">
+                                    <span class="checkmark">✓</span>
+                                    <span class="label-text">Switch off all lights, A/C, and appliances</span>
+                                </label>
+                                
+                                <label class="checklist-item" for="check-4">
+                                    <input type="checkbox" id="check-4" data-index="3">
+                                    <span class="checkmark">✓</span>
+                                    <span class="label-text">Close the door firmly to auto-lock</span>
+                                </label>
+                            </div>
+                            
+                            <div class="checklist-complete" id="checklistComplete">
+                                <span class="text-4xl floating-icon">✨</span>
+                                <p>You're all set!</p>
+                                <p class="text-sm">Thank you for being a wonderful guest.</p>
+                            </div>
+                            
+                            <button class="reset-checklist" id="resetChecklist">Reset List</button>
                         </div>
                         
                         <div class="accent-box p-5 rounded-xl">
@@ -1980,8 +2591,8 @@
                     
                     <div class="text-center space-y-8">
                         <div class="max-w-3xl mx-auto">
-                            <div class="text-5xl mb-5">🙏</div>
-                            <h3 class="text-3xl md:text-4xl serif-font mb-4 font-light" style="color: var(--dark-bronze);">Our Sincere Gratitude</h3>
+                            <div class="text-5xl mb-5 floating-icon">🙏</div>
+                            <h3 class="text-3xl md:text-4xl serif-font mb-4" style="color: var(--dark-bronze);">Our Sincere Gratitude</h3>
                             <p class="text-base md:text-lg text-gray-700 leading-relaxed">
                                 It has been our genuine pleasure to serve as your hosts at Cascade Hideaway. We hope your time with us provided the rest, comfort, and peace you sought.
                             </p>
@@ -1991,8 +2602,8 @@
                         
                         <div class="experience-card p-7 md:p-9 rounded-2xl max-w-3xl mx-auto">
                             <div class="mb-6">
-                                <div class="text-5xl mb-4">⭐</div>
-                                <p class="text-2xl md:text-3xl serif-font mb-4 font-light" style="color: var(--dark-bronze);">Share Your Experience</p>
+                                <div class="text-5xl mb-4 floating-icon">⭐</div>
+                                <p class="text-2xl md:text-3xl serif-font mb-4" style="color: var(--dark-bronze);">Share Your Experience</p>
                                 <p class="text-sm md:text-base text-gray-700 mb-6 leading-relaxed">If you found value in your experience, we would be deeply grateful if you would consider sharing your reflections. Your feedback helps us continually refine our service.</p>
                                 <a href="https://www.airbnb.com/users/reviews" target="_blank" rel="noopener noreferrer" class="btn-primary px-7 md:px-9 py-3 md:py-4 rounded-lg font-semibold inline-flex items-center text-sm md:text-base shadow-lg">
                                     <span class="mr-2 text-lg">⭐</span> 
@@ -2004,14 +2615,14 @@
                                 <p class="text-lg md:text-xl serif-font mb-3 font-medium" style="color: var(--dark-bronze);">We Value Your Feedback</p>
                                 <p class="text-sm md:text-base text-gray-700 mb-5 leading-relaxed">Have suggestions or additional comments? We'd love to hear from you directly.</p>
                                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center text-sm md:text-base">
-                                    <a href="mailto:cascadereservations@gmail.com" class="flex items-center gap-2 hover:opacity-80 transition-opacity font-medium">
+                                    <a href="mailto:cascadereservations@gmail.com" class="flex items-center gap-2 hover:opacity-80 transition-opacity font-medium copyable">
                                         <span class="text-xl">📧</span>
                                         <span style="color: var(--bronze);">cascadereservations@gmail.com</span>
                                     </a>
                                     <span class="hidden sm:inline text-gray-400">•</span>
-                                    <a href="tel:09918538269" class="flex items-center gap-2 hover:opacity-80 transition-opacity font-medium">
+                                    <a href="tel:09451103994" class="flex items-center gap-2 hover:opacity-80 transition-opacity font-medium copyable">
                                         <span class="text-xl">📱</span>
-                                        <span style="color: var(--bronze);">0991 853 8269</span>
+                                        <span style="color: var(--bronze);">Ms. Hazel Ann: 09451103994</span>
                                     </a>
                                 </div>
                             </div>
@@ -2020,15 +2631,21 @@
                         <div class="luxury-divider"></div>
                         
                         <div class="max-w-3xl mx-auto">
-                            <p class="text-2xl md:text-3xl serif-font mb-4 font-light" style="color: var(--dark-bronze);">Until We Meet Again</p>
+                            <p class="text-2xl md:text-3xl serif-font mb-4" style="color: var(--dark-bronze);">Until We Meet Again</p>
                             <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-5">We wish you safe travels and hope to have the honor of welcoming you back to your sanctuary in the future.</p>
-                            <p class="text-5xl">🌿</p>
+                            <p class="text-5xl floating-icon">🌿</p>
                         </div>
                     </div>
                 </div>
             </section>
 
         </main>
+    </div>
+    
+    <div class="concierge-fab" id="conciergeFab" role="button" aria-label="Open concierge and emergency contacts" tabindex="0">
+        <div class="fab-button">
+            <span class="fab-icon">💬</span>
+        </div>
     </div>
     
     <footer class="copyright-footer protected">
@@ -2038,106 +2655,444 @@
     </footer>
 
     <script>
-        // Navigation and interaction script
         (function() {
             'use strict';
             
-            const navLinks = document.querySelectorAll('.nav-link');
-            const contentSections = document.querySelectorAll('.content-section');
-            const departureModal = document.getElementById('departureModal');
-            const modalConfirm = document.getElementById('modalConfirm');
-            const modalCancel = document.getElementById('modalCancel');
+            // --- Non-DOM dependent variables ---
+            let deferredInstallPrompt;
+            const CHECKLIST_KEY = 'cascadeChecklistState';
 
-            const switchTab = (targetId) => {
-                contentSections.forEach(section => {
-                    section.classList.toggle('active', section.id === targetId);
-                });
-
-                navLinks.forEach(link => {
-                    const isActive = link.dataset.target === targetId;
-                    link.classList.toggle('nav-active', isActive);
-                    link.classList.toggle('nav-inactive', !isActive);
-                    
-                    if (isActive && window.innerWidth < 768) {
-                        link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                    }
-                });
-
-                if (window.innerWidth < 768) {
-                    window.scrollTo({ top: 0, behavior: 'instant' });
-                }
-            };
-
-            const showModal = () => {
-                departureModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            };
-
-            const hideModal = () => {
-                departureModal.classList.remove('active');
-                document.body.style.overflow = '';
-            };
-
-            modalConfirm.addEventListener('click', () => {
-                const today = new Date().toDateString();
-                sessionStorage.setItem('departureConfirmed', today);
-                hideModal();
-                switchTab('check-out');
-            });
-
-            modalCancel.addEventListener('click', hideModal);
-            departureModal.addEventListener('click', (e) => {
-                if (e.target === departureModal) hideModal();
-            });
-
-            document.addEventListener('keydown', (e) => {
-                if (departureModal.classList.contains('active')) {
-                    if (e.key === 'Escape') hideModal();
-                    else if (e.key === 'Enter') modalConfirm.click();
-                }
-            });
+            // --- Function Definitions ---
             
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = e.currentTarget.dataset.target;
-                    
-                    if (targetId === 'check-out') {
-                        const today = new Date().toDateString();
-                        const confirmedDate = sessionStorage.getItem('departureConfirmed');
+            // This function will be populated with all DOM-related functions inside init()
+            // to ensure they have access to the element variables.
+            let switchTab, updateContentByTime, showDepartureModal, hideDepartureModal, showConciergeModal, hideConciergeModal, fetchWeather, updateChecklistProgress, loadChecklistState;
+            
+            function updateClock() {
+                const clockElement = document.getElementById('localClock');
+                if (!clockElement) return;
+                try {
+                    const now = new Date();
+                    const timeStr = now.toLocaleTimeString('en-US', {
+                        timeZone: 'Asia/Manila',
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true
+                    });
+                    clockElement.textContent = timeStr;
+                } catch (e) {
+                    console.error("Error updating clock:", e);
+                    clockElement.textContent = "N/A";
+                }
+            }
+
+            function getWeatherIconAndDesc(code) {
+                const map = {
+                    0: { icon: '☀️', description: 'Clear sky' },
+                    1: { icon: '🌤️', description: 'Mainly clear' },
+                    2: { icon: '⛅', description: 'Partly cloudy' },
+                    3: { icon: '☁️', description: 'Overcast' },
+                    45: { icon: '🌫️', description: 'Fog' },
+                    48: { icon: '🌫️', description: 'Rime fog' },
+                    51: { icon: '🌦️', description: 'Light drizzle' },
+                    53: { icon: '🌦️', description: 'Drizzle' },
+                    55: { icon: '🌦️', description: 'Dense drizzle' },
+                    61: { icon: '🌧️', description: 'Slight rain' },
+                    63: { icon: '🌧️', description: 'Rain' },
+                    65: { icon: '🌧️', description: 'Heavy rain' },
+                    80: { icon: '🌧️', description: 'Rain showers' },
+                    81: { icon: '🌧️', description: 'Rain showers' },
+                    82: { icon: '🌧️', description: 'Violent showers' },
+                    95: { icon: '⛈️', description: 'Thunderstorm' },
+                    96: { icon: '⛈️', description: 'Thunderstorm' },
+                    99: { icon: '⛈️', description: 'Thunderstorm' },
+                };
+                return map[code] || { icon: '☀️', description: 'Sunny' };
+            }
+
+            // --- PWA Install Prompt ---
+             window.addEventListener('beforeinstallprompt', (e) => {
+                const installPromptEl = document.getElementById('installPrompt');
+                if (!installPromptEl) return;
+                
+                e.preventDefault();
+                deferredInstallPrompt = e;
+                let isDismissed = false;
+                try {
+                    isDismissed = localStorage.getItem('cascadeInstallDismissed');
+                } catch(e) {
+                    console.warn('localStorage is not available:', e);
+                    isDismissed = true;
+                }
+                if (!isDismissed) {
+                    installPromptEl.style.display = 'flex';
+                }
+            });
+
+            // --- Initial Load Function ---
+            function init() {
+                // --- Element Selectors ---
+                const navLinks = document.querySelectorAll('.nav-link');
+                const contentSections = document.querySelectorAll('.content-section');
+                const mainContent = document.getElementById('content');
+                const departureModal = document.getElementById('departureModal');
+                const modalConfirm = document.getElementById('modalConfirm');
+                const modalCancel = document.getElementById('modalCancel');
+                const conciergeFab = document.getElementById('conciergeFab');
+                const conciergeModal = document.getElementById('conciergeModal');
+                const conciergeModalClose = document.getElementById('conciergeModalClose');
+                const conciergeToInfoLink = document.getElementById('conciergeToInfo');
+                const weatherWidget = document.getElementById('weatherWidget');
+                const weatherLoader = document.getElementById('weatherLoader');
+                const weatherIcon = document.getElementById('weatherIcon');
+                const weatherTemp = document.getElementById('weatherTemp');
+                const weatherDesc = document.getElementById('weatherDesc');
+                const checklistItems = document.querySelectorAll('#checklistItems input[type="checkbox"]');
+                const progressFill = document.getElementById('checklistProgressFill');
+                const progressText = document.getElementById('checklistProgressText');
+                const completeMessage = document.getElementById('checklistComplete');
+                const resetChecklistBtn = document.getElementById('resetChecklist');
+                const installPromptEl = document.getElementById('installPrompt');
+                const installButton = document.getElementById('installButton');
+                const closeInstallButton = document.getElementById('closeInstall');
+                
+                let currentTabIndex = 0;
+                const tabTargets = Array.from(navLinks).map(link => link.dataset.target);
+
+                // --- Function Definitions that need DOM elements ---
+                
+                switchTab = (targetId, isSwipe = false) => {
+                    let found = false;
+                    contentSections.forEach(section => {
+                        const isActive = section.id === targetId;
+                        section.classList.toggle('active', isActive);
+                        if (isActive) {
+                            updateContentByTime(); 
+                        }
+                    });
+
+                    navLinks.forEach((link, index) => {
+                        const isActive = link.dataset.target === targetId;
+                        link.classList.toggle('nav-active', isActive);
+                        link.classList.toggle('nav-inactive', !isActive);
+                        link.setAttribute('aria-selected', isActive);
                         
-                        if (confirmedDate !== today) {
-                            showModal();
+                        if (isActive) {
+                            found = true;
+                            currentTabIndex = index;
+                            if (window.innerWidth < 768) {
+                                link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                            }
+                        }
+                    });
+                    
+                    if (found && !isSwipe) {
+                         if (window.innerWidth < 768) {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    }
+                };
+                
+                showDepartureModal = () => {
+                    if (departureModal) {
+                        departureModal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                };
+
+                hideDepartureModal = () => {
+                    if (departureModal) {
+                        departureModal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                };
+                
+                showConciergeModal = () => {
+                    if(conciergeModal) {
+                        conciergeModal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                };
+                
+                hideConciergeModal = () => {
+                    if (conciergeModal) {
+                        conciergeModal.classList.remove('active');
+                        if (!departureModal || !departureModal.classList.contains('active')) {
+                            document.body.style.overflow = '';
+                        }
+                    }
+                };
+
+                fetchWeather = async () => {
+                    if (!weatherWidget) return;
+                    
+                    try {
+                        const cached = sessionStorage.getItem('weather');
+                        const cacheTime = sessionStorage.getItem('weatherTime');
+                        if (cached && cacheTime && (Date.now() - cacheTime) < 1800000) {
+                            displayWeather(JSON.parse(cached));
+                            return;
+                        }
+                    } catch (e) { console.warn("Could not read weather cache.", e); }
+
+                    const URL = `https://api.open-meteo.com/v1/forecast?latitude=6.1167&longitude=125.1717&current_weather=true`;
+
+                    try {
+                        const response = await fetch(URL);
+                        if (!response.ok) throw new Error(`Weather API Error: ${response.status}`);
+                        const data = await response.json();
+                        const weatherData = {
+                            temp: Math.round(data.current_weather.temperature),
+                            code: data.current_weather.weathercode
+                        };
+                        try {
+                            sessionStorage.setItem('weather', JSON.stringify(weatherData));
+                            sessionStorage.setItem('weatherTime', Date.now());
+                        } catch (e) { console.warn('sessionStorage is not available:', e); }
+                        displayWeather(weatherData);
+                    } catch (error) {
+                        console.error("Error fetching weather:", error);
+                        displayWeather(null);
+                    }
+                };
+                
+                function displayWeather(data) {
+                    if(weatherLoader) weatherLoader.style.display = 'none';
+                    if(weatherWidget) weatherWidget.style.display = 'flex';
+
+                    if (!data) {
+                        if(weatherIcon) weatherIcon.textContent = '☀️';
+                        if(weatherTemp) weatherTemp.textContent = '30°C';
+                        if(weatherDesc) weatherDesc.textContent = 'Sunny & Warm';
+                        return;
+                    }
+                    
+                    const { icon, description } = getWeatherIconAndDesc(data.code);
+                    if(weatherTemp) weatherTemp.textContent = `${data.temp}°C`;
+                    if(weatherDesc) weatherDesc.textContent = description;
+                    if(weatherIcon) weatherIcon.textContent = icon;
+                }
+
+                updateContentByTime = () => {
+                    const hour = new Date(new Date().toLocaleString("en-US", {timeZone: "Asia/Manila"})).getHours();
+                    
+                    document.querySelectorAll('.time-badge').forEach(badge => badge.remove());
+                    document.querySelectorAll('.quiet-hours-reminder').forEach(el => el.remove());
+
+                    let activeSection = document.querySelector('.content-section.active');
+                    if (!activeSection) return;
+
+                    if (hour >= 5 && hour < 12) addBadges('morning-activity', '☀️ Perfect for Morning', { color: 'blue' });
+                    else if (hour >= 12 && hour < 17) addBadges('afternoon-activity', '🌤️ Afternoon Idea', { color: 'yellow' });
+                    else if (hour >= 17 && hour < 22) addBadges('evening-activity', '🌅 Perfect for Evening', { color: 'orange' });
+                    else {
+                        addBadges('night-activity', '🌙 Open Late', { color: 'indigo' });
+                        if (activeSection.id === 'info' || (hour >= 22 || hour < 6)) {
+                            showQuietHoursReminder(activeSection);
+                        }
+                    }
+                };
+                
+                function addBadges(tag, text, styleConfig = {}) {
+                    const activeSection = document.querySelector('.content-section.active');
+                    if (!activeSection) return;
+
+                    const colorClasses = {
+                        blue: 'bg-blue-50 text-blue-800',
+                        yellow: 'bg-yellow-50 text-yellow-800',
+                        orange: 'bg-orange-50 text-orange-800',
+                        indigo: 'bg-indigo-50 text-indigo-800',
+                        default: 'bg-gray-50 text-gray-700'
+                    };
+                    
+                    const badgeColor = colorClasses[styleConfig.color] || colorClasses.default;
+
+                    activeSection.querySelectorAll(`[data-time-tag*="${tag}"]`).forEach(el => {
+                        const badgeExists = Array.from(el.querySelectorAll('.time-badge')).some(b => b.textContent === text);
+                        if (badgeExists) return;
+
+                        let tagContainer = el.querySelector('.flex.gap-2.flex-wrap');
+                        
+                        if (!tagContainer) {
+                            tagContainer = document.createElement('div');
+                            tagContainer.className = 'flex gap-2 flex-wrap mb-3';
+                            const heading = el.querySelector('h3, h4');
+                            let insertAfterElement = heading;
+                            if (heading && heading.nextElementSibling && heading.nextElementSibling.tagName === 'P') {
+                                insertAfterElement = heading.nextElementSibling;
+                            }
+                            if (insertAfterElement) {
+                                insertAfterElement.insertAdjacentElement('afterend', tagContainer);
+                            } else {
+                                 const mainContentDiv = el.querySelector('h3, h4')?.parentElement;
+                                 if(mainContentDiv) mainContentDiv.appendChild(tagContainer);
+                                 else el.prepend(tagContainer);
+                            }
+                        }
+                        
+                        const badge = document.createElement('span');
+                        badge.className = `time-badge text-xs px-3 py-1 rounded-full font-medium ${badgeColor}`;
+                        badge.textContent = text;
+                        tagContainer.appendChild(badge);
+                    });
+                }
+
+                function showQuietHoursReminder(section) {
+                    const reminder = document.createElement('div');
+                    reminder.className = 'quiet-hours-reminder';
+                    reminder.innerHTML = `<span>🌙</span><p>Quiet Hours Active (10:00 PM - 6:00 AM)</p><p class="text-sm">Please be mindful of our neighbors.</p>`;
+                    section.prepend(reminder);
+                }
+                
+                updateChecklistProgress = () => {
+                    if (!checklistItems.length) return;
+                    const checkedCount = Array.from(checklistItems).filter(item => item.checked).length;
+                    const total = checklistItems.length;
+                    const percentage = total > 0 ? (checkedCount / total) * 100 : 0;
+                    
+                    if(progressFill) progressFill.style.width = `${percentage}%`;
+                    if(progressText) progressText.textContent = `${checkedCount} of ${total} completed`;
+                    
+                    const state = Array.from(checklistItems).map(item => item.checked);
+                    try {
+                        localStorage.setItem(CHECKLIST_KEY, JSON.stringify(state));
+                    } catch (e) { console.warn('localStorage is not available:', e); }
+                    
+                    if(completeMessage) completeMessage.style.display = (checkedCount === total) ? 'block' : 'none';
+                };
+
+                loadChecklistState = () => {
+                    if (!checklistItems.length) return;
+                    try {
+                        const savedState = JSON.parse(localStorage.getItem(CHECKLIST_KEY) || '[]');
+                        checklistItems.forEach((item, index) => {
+                            item.checked = savedState[index] || false;
+                        });
+                    } catch (e) { console.warn("Failed to load checklist state from localStorage:", e); }
+                    updateChecklistProgress();
+                };
+
+                // --- Event Listeners ---
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = e.currentTarget.dataset.target;
+                        
+                        if (targetId === 'check-out') {
+                            let confirmedDate = null;
+                            try {
+                                confirmedDate = sessionStorage.getItem('departureConfirmed');
+                            } catch (e) { console.warn('sessionStorage is not available:', e); }
+                            const today = new Date().toDateString();
+                            
+                            if (confirmedDate !== today) {
+                                showDepartureModal();
+                            } else {
+                                switchTab(targetId);
+                                try { window.history.pushState(null, '', `#${targetId}`); } catch (e) { console.warn('history.pushState is not available:', e); }
+                            }
                         } else {
                             switchTab(targetId);
+                            try { window.history.pushState(null, '', `#${targetId}`); } catch (e) { console.warn('history.pushState is not available:', e); }
                         }
-                    } else {
-                        switchTab(targetId);
-                    }
+                    });
                 });
-            });
-            
-            // Transport link scroll to seamless arrival
-            document.querySelectorAll('[data-scroll-to="seamless-arrival"]').forEach(button => {
-                button.addEventListener('click', (e) => {
+                
+                if(modalConfirm) modalConfirm.addEventListener('click', () => {
+                    const today = new Date().toDateString();
+                    try { sessionStorage.setItem('departureConfirmed', today); } catch (e) { console.warn('sessionStorage is not available:', e); }
+                    hideDepartureModal();
+                    switchTab('check-out');
+                    try { window.history.pushState(null, '', '#check-out'); } catch (e) { console.warn('history.pushState is not available:', e); }
+                });
+                if(modalCancel) modalCancel.addEventListener('click', hideDepartureModal);
+                if(departureModal) departureModal.addEventListener('click', (e) => { if (e.target === departureModal) hideDepartureModal(); });
+
+                if (conciergeFab) {
+                    conciergeFab.addEventListener('click', showConciergeModal);
+                    conciergeFab.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') showConciergeModal(); });
+                }
+                if (conciergeModalClose) conciergeModalClose.addEventListener('click', hideConciergeModal);
+                if (conciergeModal) conciergeModal.addEventListener('click', (e) => { if (e.target === conciergeModal) hideConciergeModal(); });
+                if (conciergeToInfoLink) conciergeToInfoLink.addEventListener('click', (e) => {
                     e.preventDefault();
-                    switchTab('explore');
-                    
+                    hideConciergeModal();
+                    switchTab('info');
                     setTimeout(() => {
-                        const seamlessArrivalSection = document.getElementById('seamless-arrival');
-                        if (seamlessArrivalSection) {
-                            seamlessArrivalSection.scrollIntoView({ 
-                                behavior: 'smooth', 
-                                block: 'start' 
-                            });
-                        }
+                        document.querySelector('.emergency-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }, 350);
                 });
-            });
+                
+                document.querySelectorAll('[data-scroll-to="seamless-arrival"]').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        switchTab('explore');
+                        setTimeout(() => {
+                            const seamlessArrivalSection = document.getElementById('seamless-arrival');
+                            if (seamlessArrivalSection) {
+                                seamlessArrivalSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                seamlessArrivalSection.setAttribute('tabindex', -1);
+                                seamlessArrivalSection.focus({ preventScroll: true });
+                            }
+                        }, 350);
+                    });
+                });
+                
+                checklistItems.forEach(item => item.addEventListener('change', updateChecklistProgress));
+                if (resetChecklistBtn) resetChecklistBtn.addEventListener('click', () => {
+                    checklistItems.forEach(item => item.checked = false);
+                    updateChecklistProgress();
+                });
+
+                if (installButton) installButton.addEventListener('click', async () => {
+                    if (deferredInstallPrompt) {
+                        deferredInstallPrompt.prompt();
+                        deferredInstallPrompt = null;
+                        if(installPromptEl) installPromptEl.style.display = 'none';
+                    }
+                });
+                
+                if (closeInstallButton) closeInstallButton.addEventListener('click', () => {
+                    if(installPromptEl) installPromptEl.style.display = 'none';
+                    try {
+                        localStorage.setItem('cascadeInstallDismissed', 'true');
+                    } catch (e) { console.warn('localStorage is not available:', e); }
+                });
+                
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Tab') document.body.classList.add('keyboard-nav');
+                    if (e.key === 'Escape') {
+                        if (departureModal && departureModal.classList.contains('active')) hideDepartureModal();
+                        if (conciergeModal && conciergeModal.classList.contains('active')) hideConciergeModal();
+                    }
+                });
+                document.addEventListener('mousedown', () => document.body.classList.remove('keyboard-nav'));
+
+                // --- Final Setup Calls ---
+                updateClock();
+                setInterval(updateClock, 30000); 
+                fetchWeather();
+                setInterval(fetchWeather, 1800000);
+                loadChecklistState();
+                
+                const hash = window.location.hash.substring(1);
+                if (hash && tabTargets.includes(hash)) {
+                    switchTab(hash);
+                } else {
+                    updateContentByTime();
+                }
+                
+                console.log('%c© Cascade Hideaway 2025 - v7.4-fix', 'font-size: 1.2rem; font-weight: bold; color: #A67C52;');
+            }
             
-            console.log('%c© Cascade Hideaway 2025 - v17.2', 'font-size: 20px; font-weight: bold; color: #9D7C4F;');
-            
+            // --- Script Entry Point ---
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
         })();
     </script>
 </body>
 </html>
+
