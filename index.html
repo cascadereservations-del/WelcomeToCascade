@@ -26,6 +26,8 @@
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&amp;family=Raleway:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- CASCADE-FONT-IMPORT:v23 --><link href="https://fonts.googleapis.com/css2?family=Style+Script&display=swap" rel="stylesheet"><!-- /CASCADE-FONT-IMPORT:v23 -->
+
   <style>
    :root {
     /* --- Injected: Richer & More Vibrant Luxury Palette --- */
@@ -1316,6 +1318,122 @@
 </style>
 <!-- /CASCADE-CONCIERGE-CSS:v17b -->
 
+
+
+
+
+<!-- CASCADE-LAYOUT-FIXES-CSS:v24 -->
+<style id="cascade-layout-fixes-css-v24">
+  /* Base styles (v18) */
+  html, body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+  .text-xs { font-size: 0.875rem !important; line-height: 1.55 !important; }
+  .text-sm { font-size: 0.975rem !important; line-height: 1.6  !important; }
+  .nowrap { white-space: nowrap; }
+
+  /* Icon Fixes (v21) */
+  .floating-icon { animation: float 3s ease-in-out infinite; display: inline-block; vertical-align: middle; }
+  .centered-block-icon { display: block !important; margin-left: auto !important; margin-right: auto !important; text-align: center !important; animation: float 3s ease-in-out infinite; }
+  .flex .floating-icon { flex-shrink: 0; }
+  #explore .text-center .floating-icon, #dining .text-center .floating-icon,
+  #welcome .text-center .floating-icon:not(.centered-block-icon),
+  #check-out .text-center .floating-icon, .modal-content .text-center .floating-icon:not(.centered-block-icon) {
+      display: inline-block !important; margin-left: 0 !important; margin-right: 0 !important;
+  }
+  #explore .accent-box .centered-block-icon { margin: 0 auto 1rem auto !important; }
+
+  /* Weather Modal Styles (v19) */
+  #weatherForecastModal .modal-content { max-width: 420px; }
+  .rain-alert-card { background: linear-gradient(135deg, rgba(66, 135, 245, 0.06) 0%, rgba(66, 135, 245, 0.12) 100%); border: 1px solid rgba(66, 135, 245, 0.2); padding: 1rem; border-radius: 0.75rem; text-align: center; margin-bottom: 1.25rem; }
+  .rain-alert-card .text-xl { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .rain-alert-card strong { color: var(--dark-bronze); font-weight: 600; }
+  .rain-alert-card p { font-size: 0.9rem; color: #1e3a8a; margin: 0; }
+  .forecast-day-card { background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(166, 124, 82, 0.1); border-radius: 0.75rem; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.9rem; }
+  .forecast-icon { font-size: 1.5rem; line-height: 1; }
+  .forecast-day { font-weight: 600; color: var(--dark-bronze); flex-basis: 70px; }
+  .forecast-temps { font-weight: 600; color: var(--dark-bronze); flex-basis: 70px; text-align: right; }
+  .forecast-temps .low { opacity: 0.7; margin-left: 0.25rem; }
+  .forecast-desc { flex: 1; text-align: left; margin-left: 1rem; font-size: 0.85rem; color: var(--charcoal); }
+  .weather-loader-grid { display: flex; flex-direction: column; gap: 0.5rem; }
+  .weather-loader-grid .loading-shimmer { height: 48px; border-radius: 0.5rem; }
+
+  /* --- V23 Welcome Letter Styling --- */
+  #welcome .content-card {
+      /* "Paper" effect */
+      background: #fbfbf8 !important; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06) !important;
+      border: 1px solid rgba(0,0,0,0.03);
+      padding: clamp(2rem, 1rem + 5vw, 4rem) !important; /* More padding */
+  }
+  .welcome-letter-content {
+      /* "Elegant Font" */
+      font-family: 'Style Script', 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.75rem); /* Elegant script font */
+      line-height: 1.9;
+      color: #2a2a2a; /* "Classic Ink" color */
+      text-align: left; /* Classic letter format */
+      max-width: 65ch;
+      margin-left: auto;
+      margin-right: auto;
+  }
+  .welcome-letter-content p {
+      text-indent: 2.5em; /* "Refined Typography" */
+      margin-bottom: 1.5em;
+  }
+  .welcome-letter-content p:first-of-type {
+      text-indent: 0; /* No indent for "Welcome home" */
+      font-size: 1.25em;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 1.75em;
+      /* Use serif for the main welcome, not script */
+      font-family: 'Cormorant Garamond', serif; 
+      color: var(--dark-bronze);
+  }
+  /* Style the signature area */
+  #welcome .border-t { /* The divider before signature */
+      margin-top: 3.5rem;
+  }
+   #welcome .border-t + .text-center { /* Container for signature */
+       margin-top: 2.5rem;
+   }
+   #welcome .border-t + .text-center p:first-of-type { /* "With Warm Regards" */
+        font-family: 'Style Script', 'Cormorant Garamond', serif;
+        font-size: 1.3em;
+        color: #2a2a2a;
+        margin-bottom: 1rem; /* More space */
+   }
+   #welcome .border-t + .text-center p.serif-font { /* "Marifel & Team" */
+        font-family: 'Style Script', 'Cormorant Garamond', serif;
+        font-size: 2em; /* Make signature larger */
+        color: #2a2a2a;
+   }
+   #welcome .border-t + .text-center .floating-icon { /* Bottom icon */
+        margin-top: 2rem;
+   }
+
+  /* --- V22 Day Trip Badge Repositioning (Logic unchanged) --- */
+  #explore .feature-card[data-daytrip-card] .flex.items-start.mb-3,
+  #explore .feature-card[data-daytrip-card] .flex.items-start.mb-4
+  {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+  #explore .feature-card[data-daytrip-card] .flex.gap-2.flex-wrap {
+      margin-top: 0.5rem;
+      margin-bottom: 0.75rem;
+      width: 100%;
+  }
+
+  /* --- V23 Plumbing Note Styling (font size increased) --- */
+  #info .feature-card.info-note-greyscale h3 {
+      font-size: 1.15rem !important; /* "a little bigger" than 1.125rem */
+      color: var(--bronze);
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5); /* "subtle highlight" */
+  }
+
+</style>
+<!-- /CASCADE-LAYOUT-FIXES-CSS:v24 -->
+
 </head>
  <body class="antialiased">
   <!-- Preload fonts to improve performance -->
@@ -1328,7 +1446,7 @@
   <!-- New: Expiration Overlay -->
   <div class="hidden" id="expiredOverlay">
    <div>
-    <div class="text-5xl mb-4 floating-icon">
+    <div class="text-5xl mb-4 centered-block-icon">
      📖
     </div>
     <h2 class="text-3xl serif-font mb-4">
@@ -1343,7 +1461,7 @@
   <div aria-labelledby="nameModalTitle" aria-modal="true" class="modal-overlay" id="nameModal" role="dialog">
    <div class="modal-content">
     <div class="text-center mb-6">
-     <div class="text-5xl mb-4 floating-icon">
+     <div class="text-5xl mb-4 centered-block-icon">
       ✨
      </div>
      <h3 class="text-2xl serif-font font-light mb-2" id="nameModalTitle" style="color: var(--dark-bronze);">Make Your Guide Special</h3>
@@ -1363,7 +1481,7 @@
   <div aria-labelledby="departureTitle" aria-modal="true" class="modal-overlay" id="departureModal" role="dialog">
    <div class="modal-content">
     <div class="text-center mb-6">
-     <div class="text-5xl mb-4 floating-icon">
+     <div class="text-5xl mb-4 centered-block-icon">
       🌅
      </div>
      <h3 class="text-2xl serif-font font-light mb-3" id="departureTitle" style="color: var(--dark-bronze);">
@@ -1397,7 +1515,7 @@
      ×
     </button>
     <div class="text-center mb-6">
-     <div class="text-5xl mb-4 floating-icon">
+     <div class="text-5xl mb-4 centered-block-icon">
       💬
      </div>
      <h3 class="text-2xl serif-font font-light mb-3" id="conciergeTitle" style="color: var(--dark-bronze);">
@@ -1407,35 +1525,45 @@
       We're here to help, 24/7.
      </p>
     </div>
-    <div class="space-y-3 mb-6">
-     <a class="contact-option" href="tel:09451103994">
-      <span class="option-icon">
-       📱
-      </span>
-      <div>
-       <strong>
-        Call or Text Ms. Hazel Ann
-       </strong>
-       <p class="copyable">
-        09451103994
-       </p>
-      </div>
-     </a>
-     <a class="contact-option" href="mailto:cascadereservations@gmail.com">
-      <span class="option-icon">
-       📧
-      </span>
-      <div>
-       <strong>
-        Email Reservations
-       </strong>
-       <p class="copyable">
-        cascadereservations@gmail.com
-       </p>
-      </div>
-     </a>
-    </div>
-    <div class="luxury-divider">
+    
+<div class="space-y-3 mb-6">
+ <!-- CASCADE-CONCIERGE-REORDER:v24 -->
+ 
+ <!-- 1. Weather Button (from v19) -->
+ <a class="contact-option" href="#" id="openWeatherModalBtn" role="button" aria-label="Open weather forecast" style="cursor: pointer;"> <span class="option-icon">🌦️</span> <div> <strong>Weather Forecast</strong> <p>View 5-day forecast & rain alerts</p> </div> </a>
+ 
+ <!-- 2. New 'Contact Us' Button (v24) -->
+ <a class="contact-option" href="#" id="openContactUsModalBtn" role="button" aria-label="Open contact options">
+   <span class="option-icon">💬</span>
+   <div>
+     <strong>Contact Us</strong>
+     <p>Host & Reservations Support</p>
+   </div>
+ </a>
+ 
+ <!-- 3. Report Issue Button (from v20) -->
+ <!-- CASCADE-REPORT-ISSUE:v20 -->
+ <a class="contact-option" href="mailto:cascadereservations@gmail.com?subject=Guest%20Maintenance%20Report&body=Hello%20Cascade%20Team,%0D%0A%0D%0AI'd%20like%20to%20report%20an%20issue:%0D%0A%0D%0A(Please%20describe%20the%20issue%20here)%0D%0A%0D%0AThank%20you!" id="reportIssueBtn">
+  <span class="option-icon">🛠️</span>
+  <div>
+    <strong>Report an Issue</strong>
+    <p>For non-urgent maintenance (Wi-Fi, A/C, etc.)</p>
+  </div>
+ </a>
+ <!-- /CASCADE-REPORT-ISSUE:v20 -->
+ 
+ <!-- 4. Feedback Button (from v21) -->
+ <!-- CASCADE-FEEDBACK-BTN:v21 -->
+ <a class="contact-option" href="mailto:cascadereservations@gmail.com?subject=Guest%20Feedback%20/%20Suggestion&body=Hello%20Cascade%20Team,%0D%0A%0D%0AI'd%20like%20to%20share%20some%20feedback%20about%20my%20stay:%0D%0A%0D%0A(Please%20write%20your%20thoughts%20here)%0D%0A%0D%0AThank%20you%20for%20your%20hospitality!" id="feedbackBtn">
+  <span class="option-icon">💡</span>
+  <div>
+    <strong>Share Feedback & Suggestions</strong>
+    <p>Help us improve your future stays!</p>
+  </div>
+ </a>
+ <!-- /CASCADE-FEEDBACK-BTN:v21 -->
+</div>
+<div class="luxury-divider">
     </div>
     <div class="mb-3">
      <h4 class="font-semibold text-center text-sm mb-3" style="color: var(--dark-bronze);">
@@ -2841,7 +2969,7 @@
          </div>
         </div>
        </div>
-       <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-teal-50/30 to-blue-50/20" data-time-tag="morning-activity">
+       <div data-daytrip-card="lake-sebu" class="feature-card p-6 rounded-2xl bg-gradient-to-br from-teal-50/30 to-blue-50/20" data-time-tag="morning-activity">
         <div class="flex items-center mb-4">
          <span class="text-3xl mr-3">
           🚗
@@ -2902,7 +3030,7 @@
       </div>
       <div class="accent-box p-6 md:p-8 rounded-2xl mt-8">
        <div class="max-w-3xl mx-auto">
-        <div class="text-4xl mb-4 text-center floating-icon">
+        <div class="text-4xl mb-4 text-center centered-block-icon">
          🗺️
         </div>
         <h3 class="text-xl md:text-2xl serif-font mb-4 text-center" style="color: var(--dark-bronze);">
@@ -3761,7 +3889,7 @@
     <section class="content-section" id="check-out" role="tabpanel">
      <div class="content-card">
       <div class="text-center mb-8">
-       <div class="text-5xl mb-4 floating-icon">
+       <div class="text-5xl mb-4 centered-block-icon">
         🌅
        </div>
        <h2 class="text-3xl md:text-4xl serif-font mb-3 tracking-tight" style="color: var(--dark-bronze);">
@@ -3813,7 +3941,7 @@
            ✓
           </span>
           <span class="label-text">
-           Switch off all lights, A/C, and appliances
+           Switch off all lights, <span class="nowrap">A/C</span>, and appliances
           </span>
          </label>
          <label class="checklist-item" for="check-4">
@@ -3857,7 +3985,7 @@
          </p>
         </div>
         <div class="bg-white/50 p-3 rounded-lg">
-         <p class="text-xs text-gray-600">
+         <p class="text-xs text-gray-600 text-center">
           Please contact us in advance for flexible arrangements. Subject to availability and additional charges may apply.
          </p>
         </div>
@@ -3881,7 +4009,7 @@
        </div>
        <div class="experience-card p-7 md:p-9 rounded-2xl max-w-3xl mx-auto">
         <div class="mb-6">
-         <div class="text-5xl mb-4 floating-icon">
+         <div class="text-5xl mb-4 centered-block-icon">
           ⭐
          </div>
          <p class="text-2xl md:text-3xl serif-font mb-4" style="color: var(--dark-bronze);">
@@ -4769,5 +4897,107 @@ function setupLuxuryFeatures() {
 </script>
 <!-- /CASCADE-UI-JS:v17b -->
 
+<!-- CASCADE-WEATHER-MODAL:v19 --><div aria-labelledby="weatherModalTitle" aria-modal="true" class="modal-overlay" id="weatherForecastModal" role="dialog" style="z-index: 10001;"><div class="modal-content"><button aria-label="Close weather forecast" class="modal-close-btn" id="weatherModalCloseBtn">×</button><div class="text-center mb-6"><div class="text-5xl mb-4 centered-block-icon">🌦️</div><h3 class="text-2xl serif-font font-light mb-3" id="weatherModalTitle" style="color: var(--dark-bronze);">Weather Forecast</h3><p class="text-sm text-gray-600">General Santos Area</p></div><div id="weatherModalBody" class="space-y-3"><div id="weatherModalLoader"><div class="rain-alert-card loading-shimmer" style="height: 80px;"></div><div class="weather-loader-grid"> <div class="loading-shimmer"></div> <div class="loading-shimmer"></div> <div class="loading-shimmer"></div> <div class="loading-shimmer"></div> <div class="loading-shimmer"></div> </div></div></div></div></div><!-- /CASCADE-WEATHER-MODAL:v19 -->
+<!-- CASCADE-WEATHER-JS:v19 --><script id="cascade-weather-js-v19">(function(){ if(window.__CASCADE_WEATHER_JS_V19__)return;window.__CASCADE_WEATHER_JS_V19__=true; const FORECAST_CACHE_KEY='cascadeWeatherForecast',FORECAST_CACHE_TIME=1800000; function getWeatherIconAndDesc(code){const map={0:{icon:'☀️',description:'Clear sky'},1:{icon:'🌤️',description:'Mainly clear'},2:{icon:'⛅',description:'Partly cloudy'},3:{icon:'☁️',description:'Overcast'},45:{icon:'🌫️',description:'Fog'},48:{icon:'🌫️',description:'Rime fog'},51:{icon:'🌦️',description:'Light drizzle'},53:{icon:'🌦️',description:'Drizzle'},55:{icon:'🌦️',description:'Dense drizzle'},61:{icon:'🌧️',description:'Slight rain'},63:{icon:'🌧️',description:'Rain'},65:{icon:'🌧️',description:'Heavy rain'},80:{icon:'🌧️',description:'Rain showers'},81:{icon:'🌧️',description:'Rain showers'},82:{icon:'🌧️',description:'Violent showers'},95:{icon:'⛈️',description:'Thunderstorm'},96:{icon:'⛈️',description:'Thunderstorm'},99:{icon:'⛈️',description:'Thunderstorm'}};return map[code]||{icon:'☀️',description:'Sunny'};} async function fetchDetailedWeather(){const modalBody=document.getElementById('weatherModalBody'),loader=document.getElementById('weatherModalLoader');if(!modalBody||!loader)return;loader.style.display='block';modalBody.innerHTML='';modalBody.appendChild(loader);try{const cached=sessionStorage.getItem(FORECAST_CACHE_KEY),cacheTime=sessionStorage.getItem(FORECAST_CACHE_KEY+'_time');if(cached&&cacheTime&&(Date.now()-cacheTime<FORECAST_CACHE_TIME)){renderWeather(JSON.parse(cached));return;}}catch(e){console.warn("Could not read weather cache.",e);} const URL='https://api.open-meteo.com/v1/forecast?latitude=6.1167&longitude=125.1717&hourly=precipitation_probability&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia/Manila&forecast_days=6';try{const response=await fetch(URL);if(!response.ok)throw new Error('Weather API request failed');const data=await response.json();sessionStorage.setItem(FORECAST_CACHE_KEY,JSON.stringify(data));sessionStorage.setItem(FORECAST_CACHE_KEY+'_time',Date.now());renderWeather(data);}catch(error){console.error("Error fetching detailed weather:",error);modalBody.innerHTML='<p class="text-center text-red-700">Could not load forecast. Please check your connection and try again.</p>';}} function renderWeather(data){const modalBody=document.getElementById('weatherModalBody'),loader=document.getElementById('weatherModalLoader');if(!modalBody||!loader)return;let html='';try{const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Manila"})),currentHourISO=now.toISOString().substring(0,13)+':00';const hourlyTime=data.hourly.time,hourlyPrecip=data.hourly.precipitation_probability;let startIndex=hourlyTime.findIndex(t=>t>=currentHourISO);if(startIndex===-1)startIndex=0;const next6Hours=hourlyPrecip.slice(startIndex,startIndex+6),maxPrecip=Math.max(...next6Hours);let rainIcon='✅',rainText='<strong>No significant rain</strong> expected in the next 6 hours.',rainSubtext='Enjoy your plans!';if(maxPrecip>=50){rainIcon='🌧️';rainText=`<strong>High ( ${maxPrecip}% ) chance of rain</strong> within 6 hours.`;rainSubtext='You may want to pack an umbrella!';}else if(maxPrecip>=20){rainIcon='🌦️';rainText=`<strong>Slight ( ${maxPrecip}% ) chance of rain</strong> within 6 hours.`;rainSubtext='Passing showers are possible.';} html+=`<div class="rain-alert-card"><div class="text-xl">${rainIcon}</div><p>${rainText}</p><p class="text-sm opacity-80 mt-1">${rainSubtext}</p></div>`;}catch(e){console.error("Error processing hourly rain data:",e);html+='<div class="rain-alert-card"><p>Could not load rain forecast.</p></div>';} try{const dailyTime=data.daily.time.slice(1,6),dailyCode=data.daily.weathercode.slice(1,6),dailyMax=data.daily.temperature_2m_max.slice(1,6),dailyMin=data.daily.temperature_2m_min.slice(1,6);const forecastCardsHTML=dailyTime.map((dateStr,i)=>{const day=new Date(dateStr).toLocaleDateString('en-US',{weekday:'long'});const {icon,description}=getWeatherIconAndDesc(dailyCode[i]);const tempMax=Math.round(dailyMax[i]),tempMin=Math.round(dailyMin[i]);return `<div class="forecast-day-card"><strong class="forecast-day">${day}</strong><span class="forecast-icon">${icon}</span><span class="forecast-desc">${description}</span><span class="forecast-temps">${tempMax}°<span class="low">${tempMin}°</span></span></div>`;}).join('');html+=`<div class="space-y-2">${forecastCardsHTML}</div>`;}catch(e){console.error("Error processing daily forecast data:",e);html+='<p class="text-center">Could not load 5-day forecast.</p>';} loader.style.display='none';modalBody.innerHTML=html;} function initWeatherModal(){const openBtn=document.getElementById('openWeatherModalBtn'),closeBtn=document.getElementById('weatherModalCloseBtn'),modal=document.getElementById('weatherForecastModal');if(!openBtn||!closeBtn||!modal){console.warn('Cascade Weather: Modal elements not found.');return;} openBtn.addEventListener('click',(e)=>{e.preventDefault();modal.classList.add('active');document.body.style.overflow='hidden';fetchDetailedWeather();}); const closeModal=()=>{modal.classList.remove('active');if(!document.querySelector('#conciergeModal.active')){document.body.style.overflow='';}}; closeBtn.addEventListener('click',closeModal);modal.addEventListener('click',(e)=>{if(e.target===modal)closeModal();});} if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initWeatherModal);}else{initWeatherModal();}})();</script><!-- /CASCADE-WEATHER-JS:v19 -->
+
+<!-- CASCADE-CONTACT-MODAL:v24 -->
+<div aria-labelledby="contactUsTitle" aria-modal="true" class="modal-overlay" id="contactUsModal" role="dialog" style="z-index: 10002;">
+  <div class="modal-content" style="max-width: 440px;">
+    <button aria-label="Close contact menu" class="modal-close-btn" id="contactUsModalClose">×</button>
+    <div class="text-center mb-6">
+      <div class="text-5xl mb-4 centered-block-icon">📞</div>
+      <h3 class="text-2xl serif-font font-light mb-3" id="contactUsTitle" style="color: var(--dark-bronze);">Contact Us</h3>
+      <p class="text-sm text-gray-600">We're here to help.</p>
+    </div>
+    <div class="space-y-3">
+      <a class="contact-option" href="tel:09451103994">
+        <span class="option-icon">📱</span>
+        <div>
+          <strong>Call or Text Ms. Hazel Ann</strong>
+          <p class="copyable">09451103994</p>
+        </div>
+      </a>
+      <a class="contact-option" href="mailto:cascadereservations@gmail.com">
+        <span class="option-icon">📧</span>
+        <div>
+          <strong>Email Reservations</strong>
+          <p class="copyable">cascadereservations@gmail.com</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+<!-- /CASCADE-CONTACT-MODAL:v24 -->
+
+
+<!-- CASCADE-CONTACT-JS:v24 -->
+<script id="cascade-contact-js-v24">
+(function() {
+  if (window.__CASCADE_CONTACT_JS_V24__) return;
+  window.__CASCADE_CONTACT_JS_V24__ = true;
+  
+  function initContactModal() {
+    // Note: openBtn is inside the main concierge modal,
+    // so we must wait for it to be added by the script.
+    // We use a small delay on DOMContentLoaded.
+    
+    const closeBtn = document.getElementById('contactUsModalClose');
+    const modal = document.getElementById('contactUsModal');
+    const conciergeModal = document.getElementById('conciergeModal');
+
+    if (!closeBtn || !modal) {
+      console.warn('Cascade Contact: Modal elements not found.');
+      return;
+    }
+    
+    const openModal = () => {
+      // First, close the main concierge modal
+      if (conciergeModal) conciergeModal.classList.remove('active');
+      // Then, open the contact modal
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+      modal.classList.remove('active');
+      // Don't reset body overflow if another modal is active
+      if (!document.querySelector('.modal-overlay.active')) {
+        document.body.style.overflow = '';
+      }
+    };
+
+    // Safely find and wire the open button
+    const wireOpenButton = () => {
+        const openBtn = document.getElementById('openContactUsModalBtn');
+        if (openBtn) {
+            openBtn.addEventListener('click', (e) => {
+              e.preventDefault();
+              openModal();
+            });
+        } else {
+            console.warn('Cascade Contact: openContactUsModalBtn not found. Retrying...');
+            setTimeout(wireOpenButton, 500); // Retry if not found
+        }
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    
+    // Start wiring process
+    wireOpenButton();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContactModal);
+  } else {
+    initContactModal();
+  }
+})();
+</script>
+<!-- /CASCADE-CONTACT-JS:v24 -->
+
 </body>
 </html>
+<!-- DEPARTURE-CENTER-FIX:v24 -->
