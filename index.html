@@ -1440,16 +1440,29 @@
   </style>
 <!-- /CASCADE-LAYOUT-FIXES-CSS:v24 -->
 
-<style id="CC_FB_REFINEMENTS_CSS_V3">
-/* Keep 'Feels like' to one line and smaller */
+<style id="CC_FB_REFINEMENTS_CSS_V5">
+/* Weather 'Feels like' */
 .cc-feels-like-nowrap{white-space:nowrap;font-size:.9em;line-height:1.2}
-/* New row in departure for messenger link */
+
+/* Departure placement */
 .cc-departure-row{margin-top:.5rem}
 #departureMessengerLink.transport-link{display:inline-flex;align-items:center}
-</style>
 
-<!-- CC_FB_REFINEMENTS_CSS_V3 marker -->
-<meta data-cc="fb-refine-v3"/></head>
+/* Center weather block on mobile */
+@media (max-width: 768px){
+  .cc-weather-center{
+    text-align:center;
+    margin-left:auto;margin-right:auto;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
+  .cc-weather-center .cc-weather-icon,
+  .cc-weather-center .weather-icon,
+  .cc-weather-center [data-weather-icon]{display:block;margin:0 auto;}
+  .cc-weather-center .cc-weather-temp,
+  .cc-weather-center .feels-like{ text-align:center; }
+}
+</style>
+</head>
 <body class="antialiased">
 <!-- Preload fonts to improve performance -->
 <div style="display: none;">
@@ -5842,88 +5855,105 @@ function setupLuxuryFeatures() {
 })();
 </script>
 
-<!-- CC_FB_REFINEMENTS_JS_V3 marker -->
-
 <script>
-// CC_FB_REFINEMENTS_JS_V3
+// CC_FB_REFINEMENTS_JS_V5
 (function() {
   "use strict";
   const MESSENGER_WEB = 'https://m.me/61578158229299';
   const MESSENGER_APP = 'fb-messenger://user-thread/61578158229299';
 
-  function toast(msg) {
-    try {
-      let t = document.createElement('div');
-      t.textContent = msg;
-      t.style.cssText = 'position:fixed;left:50%;top:18px;transform:translateX(-50%);background:rgba(0,0,0,.75);color:#fff;padding:8px 12px;border-radius:10px;font-size:12px;z-index:99999;opacity:0;transition:opacity .15s ease;';
-      document.body.appendChild(t);
-      requestAnimationFrame(()=>{t.style.opacity='1';});
-      setTimeout(()=>{t.style.opacity='0'; setTimeout(()=>t.remove(),180);}, 1100);
-    } catch(_e) {}
+  function copyText(txt) {
+    if (!txt) return Promise.resolve(false);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(txt).then(() => true).catch(() => false);
+    }
+    return Promise.resolve(false);
   }
-
-  async function copyText(txt) {
-    try { await navigator.clipboard.writeText(txt); return true; }
-    catch (_1) { return false; }
-  }
-
   function tryOpenMessenger() {
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     try {
-      // Attempt app scheme; if blocked, open web
       window.location.href = MESSENGER_APP;
       setTimeout(() => { window.open(MESSENGER_WEB, '_blank', 'noopener'); }, isMobile ? 600 : 300);
-    } catch(_e) {
-      window.open(MESSENGER_WEB, '_blank', 'noopener');
+    } catch { window.open(MESSENGER_WEB, '_blank', 'noopener'); }
+  }
+  function bindClick(el, template) {
+    if (!el || el.dataset.ccBound) return;
+    el.addEventListener('click', function(e) { e.preventDefault(); copyText(template).finally(tryOpenMessenger); });
+    el.dataset.ccBound = "1";
+  }
+
+  function findByText(root, patterns) {
+    const nodes = Array.from((root||document).querySelectorAll('a,button'));
+    const re = new RegExp(patterns.join('|'), 'i');
+    return nodes.find(n => re.test((n.textContent||'').trim()));
+  }
+
+  function ensureContactMessenger() {
+    const modal = (function() {
+      const ids = ['contactUsModal', 'contactModal', 'contactOptionsModal'];
+      for (let i=0; i<ids.length; i++) { const m = document.getElementById(ids[i]); if (m) return m; }
+      const list = Array.from(document.querySelectorAll('.modal-overlay,.modal,.drawer'));
+      return list.find(m => /contact/i.test(m.textContent||'')) || null;
+    })();
+    if (!modal) return;
+
+    // If our anchor isn't present, create it under first tel option
+    let msg = modal.querySelector("a.contact-option[data-cc-messenger='1']");
+    if (!msg) {
+      const tel = modal.querySelector("a.contact-option[href^='tel:'], a[href^='tel:']");
+      msg = document.createElement('a');
+      msg.href = 'https://m.me/61578158229299'; msg.target = "_blank"; msg.rel = "noopener";
+      msg.className = "contact-option"; msg.setAttribute("data-cc-messenger","1"); msg.id="contactMessengerBtn";
+      msg.innerHTML = '<span class="option-icon">💬</span><div><strong>Message us on Messenger</strong><p>Opens chat; template copied for you</p></div>';
+      if (tel && tel.parentNode) tel.parentNode.insertBefore(msg, tel.nextSibling);
+      else modal.appendChild(msg);
     }
+    bindClick(msg, 'Hello Cascade Team! I’d like to get in touch.');
   }
 
-  function handleMessengerClick(e, template) {
-    if (e) e.preventDefault();
-    copyText(template).then(ok => { if (ok) toast('Template copied. Paste in Messenger.'); });
-    tryOpenMessenger();
+  function ensureRepairsFeedback() {
+    const repairs = document.getElementById('reportIssueBtn')
+                  || document.getElementById('repairsBtn')
+                  || findByText(document, ['repair','issue']);
+    const feedback = document.getElementById('feedbackBtn')
+                   || document.getElementById('btnFeedback')
+                   || findByText(document, ['feedback','comment']);
+    bindClick(repairs, 'Hello Cascade Team,\n\nI’d like to report an issue:\n\n(Please describe the issue here)\n\nThank you!');
+    bindClick(feedback, 'Hello Cascade Team,\n\nI’d like to share feedback about my stay:\n\n(Please write your thoughts here)\n\nThank you!');
   }
 
-  const repairsBtn = document.getElementById('reportIssueBtn');
-  const feedbackBtn = document.getElementById('feedbackBtn');
-  const contactMsg = document.getElementById('contactMessengerBtn');
-  if (repairsBtn) repairsBtn.addEventListener('click', e => handleMessengerClick(e, 'Hello Cascade Team,\n\nI’d like to report an issue:\n\n(Please describe the issue here)\n\nThank you!'));
-  if (feedbackBtn) feedbackBtn.addEventListener('click', e => handleMessengerClick(e, 'Hello Cascade Team,\n\nI’d like to share feedback about my stay:\n\n(Please write your thoughts here)\n\nThank you!'));
-  if (contactMsg) contactMsg.addEventListener('click', e => handleMessengerClick(e, 'Hello Cascade Team! I’d like to get in touch.'));
-
-  function placeDepartureMessengerBelow() {
+  function ensureDepartureMessengerBelow() {
     const ids = ['check-out', 'departure', 'checkout', 'check_out'];
     let section = null;
     for (let i=0;i<ids.length;i++) { const s = document.getElementById(ids[i]); if (s) { section = s; break; } }
     if (!section) return;
-    const link = section.querySelector('#departureMessengerLink,[data-cc-departure-msg]');
-    if (!link) return;
-    // Remove preceding BR if exists (from older static insert)
-    if (link.previousSibling && link.previousSibling.nodeName === 'BR') link.previousSibling.remove();
+    // cleanup old FB variant
+    const oldFb = section.querySelector('[data-cc-departure-fb]'); if (oldFb) oldFb.remove();
 
-    const first = section.querySelector("a[href^='mailto:']");
-    const second = section.querySelector("a[href^='tel:']");
+    // ensure our link exists
+    let link = section.querySelector('#departureMessengerLink,[data-cc-departure-msg]');
+    if (!link) {
+      link = document.createElement('a');
+      link.href = 'https://m.me/61578158229299'; link.target="_blank"; link.rel="noopener";
+      link.className = "transport-link"; link.id="departureMessengerLink"; link.setAttribute('data-cc-departure-msg','1');
+      link.innerHTML = "<span>💬</span><span>Message us on Messenger</span>";
+    }
+
+    const mail = section.querySelector("a[href^='mailto:']");
+    const tel = section.querySelector("a[href^='tel:']");
     let container = null;
-    if (first && second) {
-      // walk up to the first shared parent within 'section'
-      const path = new Set();
-      let el = first;
+    if (mail && tel) {
+      const path = new Set(); let el = mail;
       while (el) { path.add(el); el = el.parentElement; }
-      el = second;
-      while (el && !path.has(el)) { el = el.parentElement; }
-      container = (el === section) ? (first.parentElement || section) : el;
+      el = tel; while (el && !path.has(el)) { el = el.parentElement; }
+      container = (el === section) ? (mail.parentElement || section) : el;
     } else {
-      container = first ? first.parentElement : (second ? second.parentElement : section);
+      container = (mail && mail.parentElement) || (tel && tel.parentElement) || section;
     }
 
-    if (!container) container = section;
     let row = section.querySelector('.cc-departure-row');
-    if (!row) {
-      row = document.createElement('div');
-      row.className = 'cc-departure-row';
-      container.insertAdjacentElement('afterend', row);
-    }
-    row.appendChild(link);
+    if (!row) { row = document.createElement('div'); row.className = 'cc-departure-row'; container.insertAdjacentElement('afterend', row); }
+    if (!link.parentNode) row.appendChild(link); else if (link.parentNode !== row) row.appendChild(link);
   }
 
   function feelsLikeOneLine() {
@@ -5934,12 +5964,31 @@ function setupLuxuryFeatures() {
       const scope = document.getElementById('weather') || document.querySelector("[id*='weather']") || document;
       nodes = Array.from(scope.querySelectorAll('span,div,p,small,strong')).filter(n => /\bfeels like\b/i.test(n.textContent || ''));
     }
-    nodes.forEach(n => { n.classList.add('cc-feels-like-nowrap'); });
+    nodes.forEach(n => n.classList.add('cc-feels-like-nowrap'));
+  }
+
+  function centerWeatherOnMobile() {
+    const candidates = ['#weatherSidebar','.weather-sidebar','.sidebar .weather','.drawer .weather','#weather','[data-weather]','.weather-card','.weather-panel'];
+    let el = null;
+    for (let i=0;i<candidates.length;i++) { el = document.querySelector(candidates[i]); if (el) break; }
+    if (!el) {
+      const all = Array.from(document.querySelectorAll('aside *, .sidebar *'));
+      el = all.find(n => /\bfeels like\b/i.test(n.textContent||''));
+      if (el) el = el.closest('section,div,aside,article') || el.parentElement;
+    }
+    if (el) {
+      el.classList.add('cc-weather-center');
+      const icon = el.querySelector('[data-weather-icon], .weather-icon, .emoji, img, svg'); if (icon) icon.classList.add('cc-weather-icon');
+      const temp = el.querySelector('.temp, .temperature, [data-temp], .degree, .deg'); if (temp) temp.classList.add('cc-weather-temp');
+    }
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    placeDepartureMessengerBelow();
+    ensureContactMessenger();
+    ensureRepairsFeedback();
+    ensureDepartureMessengerBelow();
     feelsLikeOneLine();
+    centerWeatherOnMobile();
   });
 })();
 </script>
