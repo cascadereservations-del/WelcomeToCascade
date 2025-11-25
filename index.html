@@ -4526,7 +4526,7 @@ function setupLuxuryFeatures() {
                 const initializeApp = () => {
                     if (isAppInitialized) return;
                     updateClock();
-                    setInterval(updateClock, 30000); 
+                    setInterval(updateClock, 30000);/* idempotent */ 
                     fetchWeather();
                     setInterval(fetchWeather, 1800000);
                     loadChecklistState();
@@ -4542,7 +4542,17 @@ function setupLuxuryFeatures() {
                 // --- Function Definitions that need DOM elements ---
                 
                 handleSecurity = () => {
+                    
+                    // Device-level admin bypass
                     try {
+                        if (localStorage.getItem('cascadeBypassExpiry') === 'true') {
+                            isUserAdmin = true;
+                            if (typeof showAdminPanel === 'function') showAdminPanel();
+                            if (typeof hideExpired === 'function') hideExpired();
+                            return true;
+                        }
+                    } catch (e) { /* ignore */ }
+try {
                         const guestDataStr = localStorage.getItem(GUEST_DATA_KEY);
                         if (!guestDataStr) {
                             if(nameModal) nameModal.classList.add('active');
@@ -5023,6 +5033,8 @@ function setupLuxuryFeatures() {
     let firstSeen = store.get(SK.FIRST);
     let name = store.get(SK.NAME);
     let isAdmin = !!store.get(SK.ADMIN);
+      try { if (localStorage.getItem('cascadeBypassExpiry') === 'true') { isAdmin = true; store.set(SK.ADMIN, true); } } catch(e) {}
+
 
     if (!validTs(firstSeen)) {
       firstSeen = nowMs();
@@ -5074,6 +5086,7 @@ function setupLuxuryFeatures() {
       const val = (input && input.value || '').trim();
       if (!val) return;
       store.set(SK.NAME, val);
+      try { if (localStorage.getItem('cascadeBypassExpiry') !== 'true') { if (window.confirm('Enable admin persist on this device? You can revoke this later by clearing app data.')) {  localStorage.setItem('cascadeBypassExpiry','true'); }} } catch(e) {}
       if (val.toLowerCase() === ADMIN_NAME) store.set(SK.ADMIN, true);
       hideNameModal();
       if (val.toLowerCase() !== ADMIN_NAME) sparkleWelcome();
