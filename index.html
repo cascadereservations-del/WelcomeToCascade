@@ -22,8 +22,7 @@
 <title>
    Cascade Hideaway | Your Luxury Sanctuary in GenSan
   </title>
-<script src="https://cdn.tailwindcss.com">
-</script>
+<script src="https://cdn.tailwindcss.com" defer></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&amp;family=Raleway:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
@@ -4043,6 +4042,20 @@
 </div>
 </div>
 </div>
+<div class="feature-card p-6 md:p-7 rounded-xl mb-8">
+  <div class="flex items-start">
+    <span class="text-3xl md:text-4xl mr-4">🧼</span>
+    <div>
+      <h3 class="font-bold text-lg md:text-xl mb-2" style="color: var(--dark-bronze);">Bin &amp; Mid-Stay Cleaning</h3>
+      <p class="text-sm md:text-base text-gray-700 leading-relaxed mb-3">
+        If your indoor bins fill up, no stress—there’s a large outdoor bin provided. Please tie up your bags and place them in the outdoor bin. If you’d like us to take care of it, just send us a quick message and we’ll handle the pickup.
+      </p>
+      <p class="text-sm md:text-base text-gray-700 leading-relaxed">
+        Staying awhile? Settle in and relax. To make your stay even better, we’d love to offer a mid-stay clean. We’ll refresh the beds and bath, and restock your supplies so everything feels brand new. Just message us with your preferred time!
+      </p>
+    </div>
+  </div>
+</div>
 <div class="emergency-card p-5 md:p-6 rounded-xl protected">
 <h3 class="text-lg md:text-xl font-semibold mb-4 text-red-800 flex items-center">
 <span class="text-xl md:text-2xl mr-2">
@@ -4545,8 +4558,7 @@ function setupLuxuryFeatures() {
                     
                     // Device-level admin bypass
                     try {
-                        if (localStorage.getItem('cascadeBypassExpiry') === 'true') {
-                            isUserAdmin = true;
+                        if (localStorage.getItem('cascadeBypassExpiry') === 'true' && (isUserAdmin === true)) { isUserAdmin = true;
                             if (typeof showAdminPanel === 'function') showAdminPanel();
                             if (typeof hideExpired === 'function') hideExpired();
                             return true;
@@ -5033,7 +5045,7 @@ try {
     let firstSeen = store.get(SK.FIRST);
     let name = store.get(SK.NAME);
     let isAdmin = !!store.get(SK.ADMIN);
-      try { if (localStorage.getItem('cascadeBypassExpiry') === 'true') { isAdmin = true; store.set(SK.ADMIN, true); } } catch(e) {}
+      try { if (localStorage.getItem('cascadeBypassExpiry') === 'true' && ((name||'').toLowerCase().trim() === ADMIN_NAME || store.get(SK.ADMIN) === true)) { isAdmin = true; store.set(SK.ADMIN, true); } } catch(e) {}
 
 
     if (!validTs(firstSeen)) {
@@ -5086,8 +5098,13 @@ try {
       const val = (input && input.value || '').trim();
       if (!val) return;
       store.set(SK.NAME, val);
-      try { if (localStorage.getItem('cascadeBypassExpiry') !== 'true') { if (window.confirm('Enable admin persist on this device? You can revoke this later by clearing app data.')) {  localStorage.setItem('cascadeBypassExpiry','true'); }} } catch(e) {}
-      if (val.toLowerCase() === ADMIN_NAME) store.set(SK.ADMIN, true);
+      try { // Only allow device-level admin persist when logging in as ADMIN
+if ((val && typeof val === 'string' && val.toLowerCase() === ADMIN_NAME) && localStorage.getItem('cascadeBypassExpiry') !== 'true') {
+  if (window.confirm('Enable admin persist on this device? You can revoke this later by clearing app data.')) {
+    localStorage.setItem('cascadeBypassExpiry','true');
+  }
+}
+} catch(e) {}if (val.toLowerCase() === ADMIN_NAME) store.set(SK.ADMIN, true);
       hideNameModal();
       if (val.toLowerCase() !== ADMIN_NAME) sparkleWelcome();
       updateUI(initState());
